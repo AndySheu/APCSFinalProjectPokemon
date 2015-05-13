@@ -21,7 +21,7 @@ public class Main {
     }
 
     public void gameInit() {
-	imagePanel = new ImagePanel(VarMap.backgroundImage); // background image
+	imagePanel = new ImagePanel("Images\\logo.png"); // background image
 	Dimension d = imagePanel.getSize(); // size of image panel
 	yMax = d.getHeight();
 	xMax = d.getWidth();
@@ -29,6 +29,8 @@ public class Main {
 	frame = new JFrame("" + VarMap.title + " ver " + VarMap.version);
 	frame.setSize((int) (d.getWidth()), (int) (d.getHeight() + 25));
 	// 25 is title height
+	
+	System.out.println(d.getWidth() + " " + d.getHeight());
 
 	frame.add(imagePanel);
 	frame.setVisible(true);
