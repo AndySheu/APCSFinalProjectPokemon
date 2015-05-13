@@ -2,6 +2,7 @@
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
+import java.io.File;
 
 public class Main {
 
@@ -21,7 +22,14 @@ public class Main {
     }
 
     public void gameInit() {
-	imagePanel = new ImagePanel("Images\\logo.png"); // background image
+	
+	// OLD TESTING:
+//	imagePanel = new ImagePanel("./Images/images.JPG");
+//	File f = new File("./Images/images.jpg");
+////	    new File("./Images/a").mkdir();
+//	System.out.println(f.exists());
+	    
+	imagePanel = new ImagePanel("./Images/logo.png"); // background image
 	Dimension d = imagePanel.getSize(); // size of image panel
 	yMax = d.getHeight();
 	xMax = d.getWidth();
