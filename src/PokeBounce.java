@@ -1,45 +1,18 @@
 
-import javax.swing.*;
-import java.util.*;
-import java.awt.*;
+import java.util.ArrayList;
 
-public class Main {
-
-    private JFrame frame; // the window
-    private ImagePanel titleScreenPanel; // the image panel
-
-    private ArrayList<Pokemon> pokemonList = new ArrayList<Pokemon>(12);
-
-    private double xMax, yMax; // height and width of panel
-    // (0,0) is top left, (xMax, yMax) is bottom right
-    // number of pixels is xMax+1 by yMax+1
-
-    public static void main(String[] args) {
-	Main m = new Main();
-    }
-
-    public Main() {
-	init();
-	makePokemonBounce();
-    }
-
-    // Dimension[width=1440,height=873] is full screen
-
-    public void init() {
-	titleScreenPanel = new ImagePanel("./src/Images/logo.jpeg");
-
-	Dimension d = titleScreenPanel.getSize();
-	yMax = d.getHeight();
-	xMax = d.getWidth();
-
-	frame = new JFrame("Pokémon Diamond III " + VarMap.version);
-	frame.setSize((int) d.getWidth(), (int) d.getHeight() + 25);
-	frame.add(titleScreenPanel);
-	frame.setVisible(true);
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public void makePokemonBounce() {
+public class PokeBounce {
+    
+    private static double xMax, yMax;
+    private static ArrayList<Pokemon> pokemonList;
+    private static ImagePanel titleScreenPanel;
+    
+    public static void makePokemonBounce(double xM, double yM, ArrayList<Pokemon> alp, ImagePanel ip) {
+	xMax = xM;
+	yMax = yM;
+	pokemonList = alp;
+	titleScreenPanel = ip;
+	
 	int ducks = (int) (Math.random() * 100) + 1;
 	System.out.println(ducks);
 	for (int i = 0; i < ducks; i++) {
@@ -58,7 +31,7 @@ public class Main {
 	bouncePokemon();
     }
 
-    public void bouncePokemon() {
+    public static void bouncePokemon() {
 	long lastTime = System.currentTimeMillis();
 	//Holds the last time we gave the bouncy balls a turn
 	while (true) {
@@ -80,7 +53,7 @@ public class Main {
     }
 
     //Causes a bouncy ball to bounce off the walls, if it needs to
-    public void constrainToBoundaries(Pokemon bouncy) {
+    public static void constrainToBoundaries(Pokemon bouncy) {
 	//The size of the bouncy ball picture.  The position of a bouncy ball is the pixel 
 	//at the top left corner of its picture (it's like the cursor) and we don't want 
 	//it to go behind the right and bottom walls.
