@@ -4,7 +4,8 @@ import java.util.*;
 
 public class PokemonStats
 {
-    private static int[][] stats = new int[721][6];
+    static ArrayList<int[]> stats = new ArrayList<int[]>(25);
+
     private static int[][] moveList = new int[721][101];
     private static Type[][] types = new Type[721][2];
     
@@ -15,8 +16,17 @@ public class PokemonStats
     static int RATTATA = 19;
     static int PIKACHU = 25;
     
+    static void fill() {
+	stats.set(BULBASAUR, new int[]{45, 49, 65, 49, 65, 45});
+	stats.set(CHARMANDER, new int[]{39, 52, 60, 43, 50, 65});
+	stats.set(SQUIRTLE, new int[]{44, 48, 50, 65, 64, 43});
+	stats.set(PIDGEY, new int[]{40, 45, 35, 40, 35, 56});
+	stats.set(RATTATA, new int[]{30, 56, 25, 35, 35, 72});
+	stats.set(PIKACHU, new int[]{35, 55, 50, 40, 50, 90});
+    }
+    
     static int[] getStats(int pokemon) {
-	return stats[pokemon];
+	return stats.get(pokemon);
     }
     
     static int[] getMoveList(int pokemon) {
