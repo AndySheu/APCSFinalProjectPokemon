@@ -15,7 +15,7 @@ public class Pokemon
     
     public Pokemon(int species, Image image, double xPos, double yPos, int hp, int att, int spA, int def, int spD, int spd, Move[] moves, int level, int health) {
 	this.species = species;
-	this.image = new ImageIcon("/Images/Pokemon/" + species + ".png").getImage();
+	this.image = new ImageIcon("./Images/Pokemon/" + species + ".png").getImage();
 	this.x = xPos;
 	this.y = yPos;
 	this.hp = hp;

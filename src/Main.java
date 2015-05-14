@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
@@ -6,7 +7,7 @@ import java.awt.event.KeyListener;
 public class Main {
 
     private JFrame frame; // the window
-    private ImagePanel imagePanel; // the image panel
+    private ImagePanel titleScreenPanel; // the image panel
 
     private double xMax, yMax; // height and width of panel
     // (0,0) is top left, (xMax, yMax) is bottom right
@@ -18,35 +19,46 @@ public class Main {
 
     public Main() {
 	gameInit();
+	System.out.println("Game Initiation Complete!");
+	titleScreenInit();
+	System.out.println("Title Screen Initiation Complete!");
+	while(!titleScreenPeriodic());
+	System.out.println("Title Screen Periodic Complete!");
+	titleScreenTerm();
+	System.out.println("Title Screen Termination Complete!");
     }
 
-    public void gameInit() {
-	PokemonStats.fill();
-	
-	// Dimension[width=1440,height=873] is full screen
-	imagePanel = new ImagePanel("./Images/logo.jpeg"); // background image
-	Dimension d = imagePanel.getSize(); // size of image panel
-	yMax = d.getHeight();
-	xMax = d.getWidth();
-
-	frame = new JFrame("" + VarMap.title + " ver " + VarMap.version);
-//	frame.setSize((int) (d.getWidth()), (int) (d.getHeight() + 25));
+    public void panelUpdate() {
 	frame.setSize(1440, 873); // Full Screen
-	// 25 is title height
-
 	frame.setBackground(Color.white);
-	frame.add(imagePanel);
-
 	frame.setVisible(true);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void titleScreenInit() {
-
+    public void gameInit() {
+	PokemonStats.fill();
+	frame = new JFrame("" + VarMap.title + " ver " + VarMap.version);
     }
 
-    public void titleScreenPeriodic() {
+    public void titleScreenInit() {
+	// Dimension[width=1440,height=873] is full screen
+	titleScreenPanel = new ImagePanel("./Images/logo.jpeg"); // background image
+	Dimension d = titleScreenPanel.getSize(); // size of image panel
+	yMax = d.getHeight();
+	xMax = d.getWidth();
 
+	frame.add(titleScreenPanel);
+	panelUpdate();
+    }
+
+    public boolean titleScreenPeriodic() {
+	Timer.wait(5000);
+	return true;
+    }
+
+    public void titleScreenTerm() {
+	frame.remove(titleScreenPanel);
+	panelUpdate();
     }
 
     // @return winner
