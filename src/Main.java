@@ -2,12 +2,13 @@
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
 
 public class Main {
 
     private JFrame frame; // the window
     private ImagePanel titleScreenPanel; // the image panel
+
+    private ArrayList<Pokemon> pokeList = new ArrayList<Pokemon>(12);
 
     private double xMax, yMax; // height and width of panel
     // (0,0) is top left, (xMax, yMax) is bottom right
@@ -22,19 +23,10 @@ public class Main {
 	System.out.println("Game Initiation Complete!");
 	titleScreenInit();
 	System.out.println("Title Screen Initiation Complete!");
-	while(!titleScreenPeriodic());
+	while (!titleScreenPeriodic());
 	System.out.println("Title Screen Periodic Complete!");
 	titleScreenTerm();
 	System.out.println("Title Screen Termination Complete!");
-	pokeSpin();
-	titleScreenInit();
-	System.out.println("Title Screen Initiation Complete!");
-    }
-
-    public void panelUpdate() {
-	frame.setSize(1440, 873); // Full Screen
-	frame.setVisible(true);
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void gameInit() {
@@ -44,49 +36,26 @@ public class Main {
 
     public void titleScreenInit() {
 	// Dimension[width=1440,height=873] is full screen
-	titleScreenPanel = new ImagePanel("./Images/logo.jpeg"); // background image
+	titleScreenPanel = new ImagePanel("./src/Images/logo.jpeg"); // background image
 	Dimension d = titleScreenPanel.getSize(); // size of image panel
 	yMax = d.getHeight();
 	xMax = d.getWidth();
-
+	
+	frame.setSize(1440,873);
+	frame.setVisible(true);
 	frame.setBackground(Color.white);
 	frame.add(titleScreenPanel);
-	panelUpdate();
+	Timer.wait(100);
+	frame.repaint();
     }
 
     public boolean titleScreenPeriodic() {
-	Timer.wait(500);
+	Timer.wait(10000);
 	return true;
     }
 
     public void titleScreenTerm() {
 	frame.remove(titleScreenPanel);
-	panelUpdate();
-    }
-    
-    public void pokeSpin() {
-	for(int i = 1; i <= 649; i++) {
-	    
-	    ImagePanel poke = new ImagePanel("./Images/Full/" + i + ".png");
-	    frame.add(poke);
-	    panelUpdate();
-	    
-	    Timer.wait(250);
-	    
-	    frame.remove(poke);
-	}
-    }
-
-    // @return winner
-    public Player battle(Player user, Player opp) {
-	while (!user.checkLoss() && !opp.checkLoss()) {
-
-	}
-	if (user.checkLoss()) // Tie goes to opponent
-	{
-	    return opp;
-	} else {
-	    return user;
-	}
+	frame.repaint();
     }
 }
