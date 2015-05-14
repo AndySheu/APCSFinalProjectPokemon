@@ -33,7 +33,6 @@ public class Main {
 
     public void panelUpdate() {
 	frame.setSize(1440, 873); // Full Screen
-	frame.setBackground(Color.white);
 	frame.setVisible(true);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -50,6 +49,7 @@ public class Main {
 	yMax = d.getHeight();
 	xMax = d.getWidth();
 
+	frame.setBackground(Color.white);
 	frame.add(titleScreenPanel);
 	panelUpdate();
     }
@@ -66,18 +66,16 @@ public class Main {
     
     public void pokeSpin() {
 	for(int i = 1; i <= 151; i++) {
+	    
 	    ImagePanel poke = new ImagePanel("./Images/Pokemon/" + i + ".png");
 	    poke.setLocation(1440/2,873/2);
-	    
-	    frame.setBackground(Color.white);
 	    frame.add(poke);
 	    poke.setLocation(1440/2,873/2);
 	    panelUpdate();
 	    
-	    Timer.wait(50);
+	    Timer.wait(100);
 	    
 	    frame.remove(poke);
-	    panelUpdate();
 	}
     }
 
