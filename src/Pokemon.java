@@ -35,13 +35,13 @@ public class Pokemon
 	this.x = xPos;
 	this.y = yPos;
 	
-	int[] stats = PokemonStats.getStats(species);
-	this.hp = stats[0];
-	this.att = stats[1];
-	this.spA = stats[2];
-	this.def = stats[3];
-	this.spD = stats[4];
-	this.spd = stats[5];
+//	int[] stats = PokemonStats.getStats(species);
+//	this.hp = stats[0];
+//	this.att = stats[1];
+//	this.spA = stats[2];
+//	this.def = stats[3];
+//	this.spD = stats[4];
+//	this.spd = stats[5];
 	this.moves = moves;
 	this.level = level;
 	this.health = health;

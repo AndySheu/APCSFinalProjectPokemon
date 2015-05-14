@@ -17,6 +17,8 @@ public class PokemonStats
     static int PIKACHU = 25;
     
     static void fill() {
+	for(int i = 0; i <= 25; i++) {stats.add(new int[6]);}
+	
 	stats.set(BULBASAUR, new int[]{45, 49, 65, 49, 65, 45});
 	stats.set(CHARMANDER, new int[]{39, 52, 60, 43, 50, 65});
 	stats.set(SQUIRTLE, new int[]{44, 48, 50, 65, 64, 43});

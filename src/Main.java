@@ -19,6 +19,8 @@ public class Main {
 
     public Main() {
 	gameInit();
+	PokemonStats.fill();
+	System.out.println("Bulbasaur's Attack Stat: " + PokemonStats.getStats(PokemonStats.BULBASAUR)[1]);
     }
 
     public void gameInit() {
