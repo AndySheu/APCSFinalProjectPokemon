@@ -3,13 +3,12 @@ import javax.swing.*;
 
 public class Pokemon
 {
-	private Image image;		//The picture
-	private double x;			//X position
-	private double y;			//Y position
-	private double vx;			//X velocity (pixels/step)
-	private double vy;			//Y velocity (pixels/step)
+	private Image image;
+	private double x;
+	private double y;
+	private double vx;
+	private double vy;
 	
-	//Construct a new Moving Image with image, x position, and y position given
 	public Pokemon(Image img, double xPos, double yPos)
 	{
 		image = img;
@@ -18,14 +17,11 @@ public class Pokemon
 		vx = vy = 0;
 	}
 	
-	//Construct a new Moving Image with image (from file path), x position, and y position given
 	public Pokemon(String path, double xPos, double yPos)
 	{
 		this(new ImageIcon(path).getImage(), xPos, yPos);	
-			//easiest way to make an image from a file path in Swing
 	}
 	
-	//They are set methods.  I don't feel like commenting them.
 	public void setPosition(double xPos, double yPos)
 	{
 		x = xPos;
@@ -43,16 +39,12 @@ public class Pokemon
 		vy = newVy;
 	}
 	
-	//Move one step by adding velocity to position
 	public void incrementPosition()
 	{
 	    x += vx;
 	    y += vy;
 	}
 	
-	//Reflect off the side (if true) or the top or bottom (if false)
-	//Makes the appropriate velocity component point in the opposite direction 
-	//(conservation of energy!  yay)
 	public void reflect(boolean side)
 	{
 		if(side)
@@ -61,7 +53,6 @@ public class Pokemon
 			vy = -1 * vy;
 	}
 	
-	//Get methods which I'm also not commenting
 	public double getX()
 	{
 		return x;

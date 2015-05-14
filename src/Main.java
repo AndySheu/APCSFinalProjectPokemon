@@ -20,7 +20,8 @@ public class Main {
 
     public Main() {
 	init();
-	PokeBounce.makePokemonBounce(xMax, yMax,pokemonList, titleScreenPanel);
+//	PokeBounce.makePokemonBounce(xMax, yMax,pokemonList, titleScreenPanel);
+	
     }
 
     // Dimension[width=1440,height=873] is full screen
