@@ -26,6 +26,9 @@ public class Main {
 	System.out.println("Title Screen Periodic Complete!");
 	titleScreenTerm();
 	System.out.println("Title Screen Termination Complete!");
+	pokeSpin();
+	titleScreenInit();
+	System.out.println("Title Screen Initiation Complete!");
     }
 
     public void panelUpdate() {
@@ -52,13 +55,30 @@ public class Main {
     }
 
     public boolean titleScreenPeriodic() {
-	Timer.wait(5000);
+	Timer.wait(500);
 	return true;
     }
 
     public void titleScreenTerm() {
 	frame.remove(titleScreenPanel);
 	panelUpdate();
+    }
+    
+    public void pokeSpin() {
+	for(int i = 1; i <= 151; i++) {
+	    ImagePanel poke = new ImagePanel("./Images/Pokemon/" + i + ".png");
+	    poke.setLocation(1440/2,873/2);
+	    
+	    frame.setBackground(Color.white);
+	    frame.add(poke);
+	    poke.setLocation(1440/2,873/2);
+	    panelUpdate();
+	    
+	    Timer.wait(50);
+	    
+	    frame.remove(poke);
+	    panelUpdate();
+	}
     }
 
     // @return winner
