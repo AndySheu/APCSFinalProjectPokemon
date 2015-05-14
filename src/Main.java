@@ -65,15 +65,13 @@ public class Main {
     }
     
     public void pokeSpin() {
-	for(int i = 1; i <= 151; i++) {
+	for(int i = 1; i <= 649; i++) {
 	    
-	    ImagePanel poke = new ImagePanel("./Images/Pokemon/" + i + ".png");
-	    poke.setLocation(1440/2,873/2);
+	    ImagePanel poke = new ImagePanel("./Images/Full/" + i + ".png");
 	    frame.add(poke);
-	    poke.setLocation(1440/2,873/2);
 	    panelUpdate();
 	    
-	    Timer.wait(100);
+	    Timer.wait(250);
 	    
 	    frame.remove(poke);
 	}
