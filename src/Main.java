@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
@@ -19,11 +18,11 @@ public class Main {
 
     public Main() {
 	gameInit();
-	PokemonStats.fill();
-	System.out.println("Bulbasaur's Attack Stat: " + PokemonStats.getStats(PokemonStats.BULBASAUR)[1]);
     }
 
     public void gameInit() {
+	PokemonStats.fill();
+	
 	// Dimension[width=1440,height=873] is full screen
 	imagePanel = new ImagePanel("./Images/logo.jpeg"); // background image
 	Dimension d = imagePanel.getSize(); // size of image panel
