@@ -20,10 +20,10 @@ public class Player
     Pokemon[] getParty() {return party;}
     Item[] getItems() {return items;}
     
-    boolean checkLoss() {
-	for(Pokemon p:party)
-	    if(!p.checkFainted())
-		return false;
-	return true;
-    }
+//    boolean checkLoss() {
+//	for(Pokemon p:party)
+//	    if(!p.checkFainted())
+//		return false;
+//	return true;
+//    }
 }

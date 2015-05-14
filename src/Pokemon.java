@@ -1,119 +1,79 @@
-
 import java.awt.*;
 import javax.swing.*;
-import java.util.*;
 
-public class Pokemon {
-
-    private int species;
-    private Image image;
-    private double x, y;
-    private int level, health;
-    private int hp, att, spA, def, spD, spd;
-    private Type type1, type2;
-    private Move[] moves;
-    private ArrayList<Move> moveList;
-
-    public Pokemon(Image img, double xPos, double yPos) {
-	image = img;
-	x = xPos;
-	y = yPos;
-    }
-
-    public Pokemon(String path, double xPos, double yPos) {
-	this(new ImageIcon(path).getImage(), xPos, yPos);
-    }
-
-    public Pokemon(int species, Image image, double xPos, double yPos, int hp, int att, int spA, int def, int spD, int spd, Move[] moves, int level, int health) {
-	this.species = species;
-	this.image = new ImageIcon("./Images/Pokemon/" + species + ".png").getImage();
-	this.x = xPos;
-	this.y = yPos;
-	this.hp = hp;
-	this.att = att;
-	this.spA = spA;
-	this.def = def;
-	this.spD = spD;
-	this.spd = spd;
-	this.moves = moves;
-	this.level = level;
-	this.health = health;
-    }
-
-    public Pokemon(int species, int xPos, int yPos, Move[] moves, int level, int health) {
-	this.species = species;
-	this.image = new ImageIcon("/Images/Pokemon/" + species + ".png").getImage();
-	this.x = xPos;
-	this.y = yPos;
-
-	int[] stats = PokemonStats.getStats(species);
-	this.hp = stats[0];
-	this.att = stats[1];
-	this.spA = stats[2];
-	this.def = stats[3];
-	this.spD = stats[4];
-	this.spd = stats[5];
-	this.moves = moves;
-	this.level = level;
-	this.health = health;
-    }
-
-    int getHealth() {
-	return health;
-    }
-
-    int getHp() {
-	return hp;
-    }
-
-    int getAtt() {
-	return att;
-    }
-
-    int getSpA() {
-	return spA;
-    }
-
-    int getDef() {
-	return def;
-    }
-
-    int getSpD() {
-	return spD;
-    }
-
-    int getSpd() {
-	return spd;
-    }
-
-    Move[] getMoves() {
-	return moves;
-    }
-
-    Type getType1() {
-	return type1;
-    }
-
-    Type getType2() {
-	return type2;
-    }
-    
-    Image getImage() {
-	return image;
-    }
-
-    public void doHealing(int heal) {
-	health += heal;
-	if (health > hp) {
-	    health = hp;
+public class Pokemon
+{
+	private Image image;		//The picture
+	private double x;			//X position
+	private double y;			//Y position
+	private double vx;			//X velocity (pixels/step)
+	private double vy;			//Y velocity (pixels/step)
+	
+	//Construct a new Moving Image with image, x position, and y position given
+	public Pokemon(Image img, double xPos, double yPos)
+	{
+		image = img;
+		x = xPos;
+		y = yPos;
+		vx = vy = 0;
 	}
-    }
-
-    public void doDamage(int damage) {
-	health -= damage;
-    }
-
-    public boolean checkFainted() {
-	return health <= 0;
-    }
+	
+	//Construct a new Moving Image with image (from file path), x position, and y position given
+	public Pokemon(String path, double xPos, double yPos)
+	{
+		this(new ImageIcon(path).getImage(), xPos, yPos);	
+			//easiest way to make an image from a file path in Swing
+	}
+	
+	//They are set methods.  I don't feel like commenting them.
+	public void setPosition(double xPos, double yPos)
+	{
+		x = xPos;
+		y = yPos;
+	}
+	
+	public void setImage(Image img)
+	{
+		image = img;
+	}
+	
+	public void setVelocity(double newVx, double newVy)
+	{
+		vx = newVx;
+		vy = newVy;
+	}
+	
+	//Move one step by adding velocity to position
+	public void incrementPosition()
+	{
+	    x += vx;
+	    y += vy;
+	}
+	
+	//Reflect off the side (if true) or the top or bottom (if false)
+	//Makes the appropriate velocity component point in the opposite direction 
+	//(conservation of energy!  yay)
+	public void reflect(boolean side)
+	{
+		if(side)
+			vx = -1 * vx;
+		else
+			vy = -1 * vy;
+	}
+	
+	//Get methods which I'm also not commenting
+	public double getX()
+	{
+		return x;
+	}
+	
+	public double getY()
+	{
+		return y;
+	}
+	
+	public Image getImage()
+	{
+		return image;
+	}
 }
