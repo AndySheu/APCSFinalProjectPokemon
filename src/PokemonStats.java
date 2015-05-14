@@ -9,12 +9,12 @@ public class PokemonStats
     private static int[][] moveList = new int[721][101];
     private static Type[][] types = new Type[721][2];
     
-    static int BULBASAUR = 1;
-    static int CHARMANDER = 4;
-    static int SQUIRTLE = 7;
-    static int PIDGEY = 16;
-    static int RATTATA = 19;
-    static int PIKACHU = 25;
+    static final int BULBASAUR = 1;
+    static final int CHARMANDER = 4;
+    static final int SQUIRTLE = 7;
+    static final int PIDGEY = 16;
+    static final int RATTATA = 19;
+    static final int PIKACHU = 25;
     
     static void fill() {
 	for(int i = 0; i <= 25; i++) {stats.add(new int[6]);}
