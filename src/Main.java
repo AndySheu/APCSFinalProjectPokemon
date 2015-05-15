@@ -6,7 +6,7 @@ import java.awt.*;
 public class Main {
 
     private JFrame frame; // the window
-    private ImagePanel titleScreenPanel; // the image panel
+    private ImagePanel titleScreenPanel, arceusPanel;
 
     private ArrayList<Pokemon> pokemonList = new ArrayList<Pokemon>(12);
 
@@ -20,12 +20,13 @@ public class Main {
 
     public Main() {
 	init();
-//	PokeBounce.makePokemonBounce(xMax, yMax,pokemonList, titleScreenPanel);
-	
+	PokeMove.makePokemonRace(xMax, yMax, pokemonList, titleScreenPanel);
+//	PokeMove.makePokemonBounce(xMax, yMax,pokemonList, titleScreenPanel);
+//	KeyInput.run(frame, arceusPanel);
+
     }
 
     // Dimension[width=1440,height=873] is full screen
-
     public void init() {
 	titleScreenPanel = new ImagePanel("./src/Images/logo.jpeg");
 
@@ -34,9 +35,19 @@ public class Main {
 	xMax = d.getWidth();
 
 	frame = new JFrame("Pokémon Diamond III " + VarMap.version);
-	frame.setSize((int) d.getWidth(), (int) d.getHeight() + 25);
+//	frame.setSize((int) d.getWidth(), (int) d.getHeight() + 25);
+	frame.setSize(1440,873);
 	frame.add(titleScreenPanel);
 	frame.setVisible(true);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void clear() {
+	for(Component c:titleScreenPanel.getComponents()) {
+	    frame.remove(c);
+	    titleScreenPanel.remove(c);
+	}
+	frame.getContentPane().removeAll();
+	frame.repaint();
     }
 }
