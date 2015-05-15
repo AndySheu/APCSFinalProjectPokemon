@@ -20,8 +20,9 @@ public class Main {
 
     public Main() {
 	init();
-	PokeMove.makePokemonRace(xMax, yMax, pokemonList, titleScreenPanel);
+//	PokeMove.makePokemonRace(xMax, yMax, pokemonList, titleScreenPanel);
 //	PokeMove.makePokemonBounce(xMax, yMax,pokemonList, titleScreenPanel);
+	PokeMove.makePokemonBounceOne(xMax, yMax,pokemonList, titleScreenPanel);
 //	KeyInput.run(frame, arceusPanel);
 
     }
