@@ -26,7 +26,13 @@ public class Pokemon {
 	y = yPos;
 	vx = vy = 0;
 	
-	health = PokemonStats.getStats(species)[0];
+	this.species = species;
+	hp = PokemonStats.getStats(species)[0];
+	att = PokemonStats.getStats(species)[1];
+	def = PokemonStats.getStats(species)[3];
+	spd = PokemonStats.getStats(species)[5];
+	
+	health = hp;
     }
 
     public Pokemon(int species, double xPos, double yPos) {

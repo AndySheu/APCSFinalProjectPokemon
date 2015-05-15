@@ -18,10 +18,10 @@ public class Battle {
 		double rand = Math.random();
 		int choice = choice2();
 		System.out.println(choice);
-		if (playerSpd > oppSpd || rand <= 0.5) {
-
+		if (playerSpd > oppSpd || ((playerSpd == oppSpd) && rand <= 0.5)) {
+		    System.out.println("Species" + player.getCurr().getSpecies() + playerSpd + " " + oppSpd);
 		} else {
-
+		    System.out.println("Species" + opp.getCurr().getSpecies() + playerSpd + " " + oppSpd);
 		}
 	    }
 	}
