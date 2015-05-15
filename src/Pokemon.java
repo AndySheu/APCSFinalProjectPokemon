@@ -10,35 +10,27 @@ public class Pokemon {
     private double vx;
     private double vy;
     private int species;
-
+    private int health;
+    private int hp;
+    private int att;
+    private int def;
+    private int spd;
+    private int[] moves;
+    private Type type1;
+    private Type type2;
     public int laps = 0;
 
-    public Pokemon(Image img, double xPos, double yPos) {
+    public Pokemon(int species, Image img, double xPos, double yPos) {
 	image = img;
 	x = xPos;
 	y = yPos;
 	vx = vy = 0;
+	
+	health = PokemonStats.getStats(species)[0];
     }
 
-    public Pokemon(String path, double xPos, double yPos) {
-	this(new ImageIcon(path).getImage(), xPos, yPos);
-	try {
-	    species = Integer.parseInt(path.substring(21, 24));
-	} catch (NumberFormatException e) {
-	    try {
-		species = Integer.parseInt(path.substring(21, 23));
-	    } catch (NumberFormatException ex) {
-		try {
-		    species = Integer.parseInt(path.substring(21, 22));
-		} catch (NumberFormatException exc) {
-		    species = 0;
-		}
-	    }
-	}
-    }
-
-    public int getSpecies() {
-	return species;
+    public Pokemon(int species, double xPos, double yPos) {
+	this(species, new ImageIcon("./src/Images/Pokemon/" + species + ".png").getImage(), xPos, yPos);
     }
 
     public void setPosition(double xPos, double yPos) {
@@ -50,6 +42,11 @@ public class Pokemon {
 	image = img;
     }
 
+    public void setVelocity(double newVx, double newVy) {
+	vx = newVx;
+	vy = newVy;
+    }
+
     public void setRaceVelocity(double newVx, double newVy) {
 	vx = newVx;
 	vy = newVy;
@@ -59,11 +56,6 @@ public class Pokemon {
 	if (vy < 0) {
 	    vy = 0;
 	}
-    }
-
-    public void setVelocity(double newVx, double newVy) {
-	vx = newVx;
-	vy = newVy;
     }
 
     public void incrementPosition() {
@@ -92,6 +84,46 @@ public class Pokemon {
 	return y;
     }
 
+    public Image getImage() {
+	return image;
+    }
+
+    public int getSpecies() {
+	return species;
+    }
+
+    public int getHealth() {
+	return health;
+    }
+
+    public int getHp() {
+	return hp;
+    }
+
+    public int getAtt() {
+	return att;
+    }
+
+    public int getDef() {
+	return def;
+    }
+
+    public int getSpd() {
+	return spd;
+    }
+
+    public int[] getMoves() {
+	return moves;
+    }
+
+    public Type getType1() {
+	return type1;
+    }
+
+    public Type getType2() {
+	return type2;
+    }
+
     public double getVX() {
 	return vx;
     }
@@ -100,7 +132,7 @@ public class Pokemon {
 	return vy;
     }
 
-    public Image getImage() {
-	return image;
+    public boolean checkFainted() {
+	return getHealth() <= 0;
     }
 }

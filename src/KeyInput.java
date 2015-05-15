@@ -58,7 +58,7 @@ public class KeyInput implements KeyListener
 		ImageIcon duck = new ImageIcon("./src/Images/Pokemon/493.png");
 		panel = new ImagePanel(duck.getImage());
 		panel.removeAll();
-		pokemonList.add(new Pokemon("./src/Images/Pokemon/493.png",100,100));
+		pokemonList.add(new Pokemon(493,100,100));
 		panel.updateImages(pokemonList);
                 frame.getContentPane().add(panel);
                 frame.pack();

@@ -26,7 +26,7 @@ public class PokeMove {
 	    double vx = Math.abs(Math.random() * 2 - 1);
 	    //Make a new bouncy ball with this position and the red ball picture
 	    int duck = (int) (Math.random() * 649) + 1;
-	    Pokemon bouncy = new Pokemon("./src/Images/Pokemon/" + duck + ".png", x, y);
+	    Pokemon bouncy = new Pokemon(duck, x, y);
 	    bouncy.setRaceVelocity(vx, 0);	//Set its velocity to the random one we just made up
 
 	    pokemonList.add(bouncy);		//Add it to the array list of bouncy balls
@@ -55,7 +55,7 @@ public class PokeMove {
 //	    double vy = Math.random() * 2 - 1;
 	    double vx=0;double vy=0;
 	    //Make a new bouncy ball with this position and the red ball picture
-	    Pokemon bouncy = new Pokemon("./src/Images/Pokemon/" + i + ".png", x, y);
+	    Pokemon bouncy = new Pokemon(i, x, y);
 	    bouncy.setVelocity(vx, vy);	//Set its velocity to the random one we just made up
 
 	    pokemonList.add(bouncy);		//Add it to the array list of bouncy balls
@@ -79,7 +79,7 @@ public class PokeMove {
 	    double vy = Math.random() * 5 - 1;
 	    //Make a new bouncy ball with this position and the red ball picture
 	    int duck = (int) (Math.random() * 649) + 1;
-	    Pokemon bouncy = new Pokemon("./src/Images/Pokemon/" + duck + ".png", x, y);
+	    Pokemon bouncy = new Pokemon(duck, x, y);
 	    bouncy.setVelocity(vx, vy);	//Set its velocity to the random one we just made up
 
 	    pokemonList.add(bouncy);		//Add it to the array list of bouncy balls
