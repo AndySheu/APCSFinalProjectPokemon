@@ -1,6 +1,6 @@
 public class VarMap
 {
-	static String version = "dev 0.6.0";
+	static String version = "dev 1.0.0";
 
 	static String title = "Pokémon";
 }

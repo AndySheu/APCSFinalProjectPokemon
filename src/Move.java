@@ -12,7 +12,7 @@ public class Move {
 	    moveList.add(new String[4]);
 	}
 	
-	moveList.set(TACKLE, new Object[]{"Tackle",new Integer(45),new Integer(50),new Integer(Type.NORMAL)});
+	moveList.set(TACKLE, new Object[]{"Tackle",new Integer(50),new Integer(70),new Integer(Type.NORMAL)});
     }
     
     static int getPower(int base) {

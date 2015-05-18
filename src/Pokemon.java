@@ -10,7 +10,7 @@ public class Pokemon {
     private double vx;
     private double vy;
     private int species;
-    private int health;
+    public int health;
     private int hp;
     private int att;
     private int def;
@@ -32,6 +32,7 @@ public class Pokemon {
 	def = PokemonStats.getStats(species)[3];
 	spd = PokemonStats.getStats(species)[5];
 	
+	moves = PokemonStats.getMoves(species);
 	health = hp;
     }
 
