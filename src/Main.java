@@ -32,6 +32,8 @@ public class Main {
     // Dimension[width=1440,height=873] is full screen
     public void init() {
 	PokemonStats.fill();
+	Move.fill();
+	
 	titleScreenPanel = new ImagePanel("./src/Images/logo.jpeg");
 
 	Dimension d = titleScreenPanel.getSize();

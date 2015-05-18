@@ -3,27 +3,27 @@ import java.util.ArrayList;
 
 public class Move {
 
-    private boolean physical;
-    private int power;
-    private int accuracy;
-    Type type;
-
-    public Move(boolean physical, int power, int accuracy, Type type) {
-	this.physical = physical;
-	this.power = power;
-	this.accuracy = accuracy;
-	this.type = type;
+    static ArrayList<Object[]> moveList = new ArrayList<Object[]>();
+    
+    static final int TACKLE = 0;
+    
+    static void fill() {
+	for(int i = 0; i < 10; i++) {
+	    moveList.add(new String[4]);
+	}
+	
+	moveList.set(TACKLE, new Object[]{"Tackle",new Integer(45),new Integer(50),new Integer(Type.NORMAL)});
     }
-
-    public int getPower() {
-	return power;
+    
+    static int getPower(int base) {
+	return (Integer)(moveList.get(base)[1]);
     }
-
-    public int getAccuracy() {
-	return accuracy;
+    
+    static int getAcc(int base) {
+	return (Integer)(moveList.get(base)[2]);
     }
-
-    public Type getType() {
-	return type;
+    
+    static int getType(int base) {
+	return (Integer)(moveList.get(base)[3]);
     }
 }

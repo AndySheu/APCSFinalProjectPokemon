@@ -16,8 +16,8 @@ public class Pokemon {
     private int def;
     private int spd;
     private int[] moves;
-    private Type type1;
-    private Type type2;
+    private int type1;
+    private int type2;
     public int laps = 0;
 
     public Pokemon(int species, Image img, double xPos, double yPos) {
@@ -122,11 +122,11 @@ public class Pokemon {
 	return moves;
     }
 
-    public Type getType1() {
+    public int getType1() {
 	return type1;
     }
 
-    public Type getType2() {
+    public int getType2() {
 	return type2;
     }
 

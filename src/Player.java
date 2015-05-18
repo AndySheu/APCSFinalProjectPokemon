@@ -53,6 +53,19 @@ public class Player {
     Pokemon getCurr() {
 	return curr;
     }
+    
+    void nextPokemon() {
+	for(Pokemon p : party) {
+	    try {
+		if (!p.checkFainted()) {
+		    curr = p;
+		    return;
+		}
+	    } catch (NullPointerException e) {
+		return;
+	    }
+	}
+    }
 
     boolean checkLoss() {
 	for (Pokemon p : party) {
