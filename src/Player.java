@@ -30,8 +30,6 @@ public class Player {
 	}
 
 	curr = party[0];
-
-//	this.items = items;
     }
 
     String getName() {

@@ -2,6 +2,7 @@
 import javax.swing.*;
 import java.util.*;
 import java.awt.*;
+import javafx.stage.Stage;
 
 public class Main {
 
@@ -16,10 +17,15 @@ public class Main {
     // number of pixels is xMax+1 by yMax+1
 
     public static void main(String[] args) {
+	System.out.println("DUCK1");
+//	Music a = new Music();
+//	a.main(args);
 	Main m = new Main();
     }
 
     public Main() {
+	System.out.println("Hello world!");
+	System.out.println("DUCK!");
 	init();
 //	PokeMove.makePokemonRace(xMax, yMax, pokemonList, titleScreenPanel);
 //	PokeMove.makePokemonBounce(xMax, yMax,pokemonList, titleScreenPanel);
@@ -49,8 +55,8 @@ public class Main {
     }
     
     public void battleInitAndRun() {
-	pokemonList[0] = new Pokemon(1, 100,100);
-	pokemonList[6] = new Pokemon(4, 150,150);
+	pokemonList[0] = new Pokemon(4, 100,100);
+	pokemonList[6] = new Pokemon(7, 150,150);
 	Player p = new Player("A", 'p', pokemonList);
 	Player o = new Player("B", 'o', pokemonList);
 	new Battle(p,o).run();

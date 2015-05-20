@@ -6,46 +6,59 @@ public class Battle {
     Scanner keys = new Scanner(System.in);
     Player player, opp;
     int choice2;
+    
+    boolean crit = false, miss = false, notEff = false, superEff = false;
 
     public Battle(Player player, Player opp) {
 	this.player = player;
 	this.opp = opp;
     }
 
+    // @ returns loser
     public Player run() {
 	while (!player.checkLoss() && !opp.checkLoss()) {
-	    if (choice1() == 1) {
+	    int oppMove = (int) (Math.random() * 4);
+//	    if (choice1() == 1) {
+	    if (1==1) {
 		int playerSpd = player.getCurr().getSpd(), oppSpd = opp.getCurr().getSpd();
 		double rand = Math.random();
 		int choice = choice2();
-		System.out.println(choice);
 		this.choice2 = choice;
 		if (playerSpd > oppSpd || ((playerSpd == oppSpd) && rand <= 0.5)) {
+
+		    int ua = (int) userAttack();
+		    System.out.println("Player's pokémon used " + Move.getName(player.getCurr().getMoves()[choice2]) + "! It did " + ua + " damage!");
+		    opp.getCurr().health -= ua;
 		    
-//		    System.out.println("USER ATTACK: " + userAttack());
-		    opp.getCurr().health = -1;
-		    
-		    if(opp.getCurr().checkFainted()) {
-			System.out.println("YAY!");
+		    System.out.println("Opponent: " + opp.getCurr().health + "/" + opp.getCurr().getHP());
+
+		    if (opp.getCurr().checkFainted()) {
+			System.out.println("Opponent's pokémon is fainted!");
 			opp.nextPokemon();
 		    }
+
+		    int oa = (int) oppAttack(oppMove);
+		    System.out.println("Opponent's pokémon used " + Move.getName(opp.getCurr().getMoves()[oppMove]) + "! It did " + oa + " damage!");
+		    player.getCurr().health -= oa;
+
+		    System.out.println("Player: " + player.getCurr().health + "/" + player.getCurr().getHP());
 		    
-//		    System.out.println("OPP ATTACK: " + oppAttack());
-		    
-		    if(player.getCurr().checkFainted()) {
+		    if (player.getCurr().checkFainted()) {
+			System.out.println("Player's pokémon is fainted!");
 			player.nextPokemon();
 		    }
 		} else {
 		    System.out.println("else");
-		    if(player.getCurr().checkFainted()) {
+		    if (player.getCurr().checkFainted()) {
 			player.nextPokemon();
 		    }
-		    
-		    if(opp.getCurr().checkFainted()) {
+
+		    if (opp.getCurr().checkFainted()) {
 			opp.nextPokemon();
 		    }
 		}
 	    }
+
 	}
 	System.out.print("GAME OVER: ");
 	if (player.checkLoss()) {
@@ -66,18 +79,23 @@ public class Battle {
     private int choice2() {
 	System.out.println("Choice 2: Choose Move");
 	int choice = keys.nextInt();
-	if (choice >= 0 && choice <= 3)
+	if (choice >= 0 && choice <= 3) {
 	    return choice;
+	}
 	return choice2();
     }
-    
+
     private double userAttack() {
-	
+
 	int attack = player.getCurr().getMoves()[choice2];
+
+	if (Move.getPower(attack) == 0) {
+	    return 0;
+	}
+
 	double damage = 0;
 	if (Math.random() <= Move.getAcc(attack)) { // Checks accuracy
 	    damage = ((((2 * (5) / 5 + 2) * player.getCurr().getAtt() * Move.getPower(attack) / opp.getCurr().getDef()) / 50) + 2);
-	    System.out.println(damage);
 	    if (Move.getType(attack) == player.getCurr().getType1() || Move.getType(attack) == player.getCurr().getType2()) {
 		damage *= 2;
 	    }
@@ -96,10 +114,16 @@ public class Battle {
 	}
 	return damage;
     }
-    
-    private double oppAttack() {
-	
-	int attack = opp.getCurr().getMoves()[(int)(Math.random() * 4 + 1)];
+
+    private double oppAttack(int oppMove) {
+
+	int attack = opp.getCurr().getMoves()[oppMove];
+
+	if (Move.getPower(attack) == 0) {
+	    System.out.println("A - : " + attack);
+	    return 0;
+	}
+
 	double damage = 0;
 	if (Math.random() <= Move.getAcc(attack)) { // Checks accuracy
 	    damage = ((((2 * (5) / 5 + 2) * opp.getCurr().getAtt() * Move.getPower(attack) / player.getCurr().getDef()) / 50) + 2);
@@ -121,5 +145,20 @@ public class Battle {
 	    System.out.println("MISSED!");
 	}
 	return damage;
+    }
+    
+    private void printResults() {
+	if(miss)
+	    System.out.println("The attack MISSED!");
+	if(superEff)
+	    System.out.println("Super Effective!");
+	if(notEff)
+	    System.out.println("Not Very Effective...");
+	if(crit)
+	    System.out.println("Critical Hit!");
+	crit = false;
+	miss = false;
+	notEff = false;
+	superEff = false;
     }
 }

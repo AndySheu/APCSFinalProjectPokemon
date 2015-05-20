@@ -103,7 +103,7 @@ public class Pokemon {
 	return health;
     }
 
-    public int getHp() {
+    public int getHP() {
 	return hp;
     }
 
