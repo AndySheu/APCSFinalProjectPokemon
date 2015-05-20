@@ -28,6 +28,7 @@ public class Battle {
 	Pokemon playerCurr, oppCurr;
 
 	while (!player.checkLoss() && !opp.checkLoss()) {
+	    System.err.println();
 	    playerCurr = player.getCurr();
 	    oppCurr = opp.getCurr();
 
@@ -40,11 +41,12 @@ public class Battle {
 
 	    int oppMove = (int) (Math.random() * opp.getCurr().getNumMoves());
 
-//	    if (choice1() == 1) {
-	    if (1 == 1) {
+	    int turnType = chooseTurnType();
+	    
+	    if (turnType == 1) { // ATTACK
 		int playerSpd = player.getCurr().getSpd(), oppSpd = opp.getCurr().getSpd();
 		double rand = Math.random();
-		int choice = choice2();
+		int choice = moveChoice();
 		this.choice2 = choice;
 		if (playerSpd > oppSpd || ((playerSpd == oppSpd) && rand <= 0.5)) {
 
@@ -72,38 +74,77 @@ public class Battle {
 			player.nextPokemon();
 		    }
 		} else {
-		    System.out.println("else");
+		    int oa = (int) oppAttack(oppMove);
+		    System.out.println(opp.getName() + "'s " + opp.getCurr().getName() + " used " + Move.getName(opp.getCurr().getMoves()[oppMove]) + "! It did " + oa + " damage!");
+		    printResults(opp);
+		    player.getCurr().health -= oa;
+
+		    System.out.println(player.getCurr().getName() + ": " + player.getCurr().health + "/" + player.getCurr().getHP());
+
 		    if (player.getCurr().checkFainted()) {
+			System.out.println(player.getName() + "'s " + player.getCurr().getName() + " is fainted!");
 			player.nextPokemon();
 		    }
 
+		    int ua = (int) userAttack();
+		    System.out.println(player.getName() + "'s " + player.getCurr().getName() + " used " + Move.getName(player.getCurr().getMoves()[choice2]) + "! It did " + ua + " damage!");
+		    printResults(player);
+		    opp.getCurr().health -= ua;
+
+		    System.out.println(opp.getCurr().getName() + ": " + opp.getCurr().health + "/" + opp.getCurr().getHP());
+
 		    if (opp.getCurr().checkFainted()) {
+			System.out.println(opp.getName() + "'s " + opp.getCurr().getName() + " is fainted!");
 			opp.nextPokemon();
 		    }
 		}
+	    } else if (turnType == 2) { // BAG
+		bagChoice();
+	    } else if (turnType == 3) { // RUN
+		System.out.println("You can't run from a trainer battle!");
+		System.out.println("Don't be a coward, " + player.getName());
 	    }
-
+	    System.out.println();
 	}
 
-	System.out.print(
-		"GAME OVER: ");
+	System.out.print("GAME OVER: ");
 	if (player.checkLoss()) {
+	    System.out.println(opp.getName() + " WINS!!!");
 	    System.out.println(player.getName() + " LOSES");
 	    return player;
 	}
 
+	System.out.println(player.getName() + " WINS!!!");
 	System.out.println(opp.getName() + " LOSES");
 	return opp;
     }
 
-    private int choice1() {
-	System.out.println("Choice 1: Press 1 to Attack");
-	int choice = keys.nextInt();
-	return choice;
+    private int chooseTurnType() {
+	System.out.println("ATTACK, BAG, OR RUN");
+	String choice = keys.next();
+	try {
+	    int intChoice = Integer.parseInt(choice);
+	    if (intChoice >= 1 && intChoice <= 3) {
+		return intChoice;
+	    }
+	} catch (NumberFormatException mrBollhorstIsCool) {
+	    if (choice.equals("ATTACK")) {
+		return 1;
+	    } else if (choice.equals("BAG")) {
+		return 2;
+	    } else if (choice.equals("RUN")) {
+		return 3;
+	    }
+	}
+	return chooseTurnType();
+    }
+    
+    private int bagChoice() {
+	System.out.println("Oh. You don't have any items!");
+	return -1;
     }
 
-    // Returns value from 0 to 3
-    private int choice2() {
+    private int moveChoice() {
 	System.out.print("Please choose your move (");
 	int i;
 	for (i = 0; i < player.getCurr().getNumMoves() - 1; i++) {
@@ -116,7 +157,7 @@ public class Battle {
 //	}
 	String choice = keys.next();
 	try {
-	    int intChoice = Integer.parseInt(choice);
+	    int intChoice = Integer.parseInt(choice) - 1;
 	    if (intChoice >= 0 && intChoice <= player.getCurr().getNumMoves()) {
 		return intChoice;
 	    }
@@ -127,7 +168,7 @@ public class Battle {
 		}
 	    }
 	}
-	return choice2();
+	return moveChoice();
     }
 
     private double userAttack() {

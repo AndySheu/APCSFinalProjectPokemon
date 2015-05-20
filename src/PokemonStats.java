@@ -29,23 +29,51 @@ public class PokemonStats {
 	stats.set(SQUIRTLE, new int[]{44, 48, 50, 65, 64, 43});
 	stats.set(PIDGEY, new int[]{40, 45, 35, 40, 35, 56});
 	stats.set(RATTATA, new int[]{30, 56, 25, 35, 35, 72});
-	stats.set(PIKACHU, new int[]{35, 55, 50, 40, 50, 10});
+	stats.set(PIKACHU, new int[]{35, 55, 50, 40, 50, 90});
 
-	types[BULBASAUR][0] = Type.GRASS; types[BULBASAUR][1] = Type.POISON;
+	types[BULBASAUR][0] = Type.GRASS;
+	types[BULBASAUR][1] = Type.POISON;
 	types[CHARMANDER][0] = Type.FIRE;
-	types[SQUIRTLE][0] = Type.WATER; types[SQUIRTLE][1] = -1;
-	types[PIDGEY][0] = Type.NORMAL; types[PIDGEY][1] = Type.FLYING;
+	types[SQUIRTLE][0] = Type.WATER;
+	types[SQUIRTLE][1] = -1;
+	types[PIDGEY][0] = Type.NORMAL;
+	types[PIDGEY][1] = Type.FLYING;
 	types[RATTATA][0] = Type.NORMAL;
-	types[PIKACHU][0] = Type.ELECTRIC; types[PIKACHU][1] = -1;
+	types[PIKACHU][0] = Type.ELECTRIC;
+	types[PIKACHU][1] = -1;
 
-	moves[BULBASAUR][0] = Move.TACKLE; moves[BULBASAUR][1] = Move.GROWL;
-	moves[CHARMANDER][0] = Move.SCRATCH; moves[CHARMANDER][1] = Move.GROWL;
-	moves[SQUIRTLE][0] = Move.TACKLE; moves[SQUIRTLE][1] = Move.TAIL_WHIP;
-	moves[PIDGEY][0] = Move.TACKLE; moves[PIDGEY][1] = Move.FORESIGHT;
-	moves[RATTATA][0] = Move.TACKLE; moves[RATTATA][1] = Move.TAIL_WHIP;
-	moves[PIKACHU][0] = Move.THUNDERSHOCK; moves[PIKACHU][1] = Move.GROWL;
+	moves[BULBASAUR][0] = Move.TACKLE;
+	moves[BULBASAUR][1] = Move.GROWL;
+	moves[CHARMANDER][0] = Move.SCRATCH;
+	moves[CHARMANDER][1] = Move.GROWL;
+	moves[SQUIRTLE][0] = Move.TACKLE;
+	moves[SQUIRTLE][1] = Move.TAIL_WHIP;
+	moves[PIDGEY][0] = Move.TACKLE;
+	moves[PIDGEY][1] = Move.FORESIGHT;
+	moves[RATTATA][0] = Move.TACKLE;
+	moves[RATTATA][1] = Move.TAIL_WHIP;
+	moves[PIKACHU][0] = Move.THUNDERSHOCK;
+	moves[PIKACHU][1] = Move.GROWL;
 
 //	moves.set(BULBASAUR, new int[]{Move.TACKLE});
+    }
+
+    static String getName(int x) {
+	switch (x) {
+	    case PokemonStats.BULBASAUR:
+		return "BULBASAUR";
+	    case PokemonStats.CHARMANDER:
+		return "CHARMANDER";
+	    case PokemonStats.SQUIRTLE:
+		return "SQUIRTLE";
+	    case PokemonStats.PIDGEY:
+		return "PIDGEY";
+	    case PokemonStats.RATTATA:
+		return "RATTATA";
+	    case PokemonStats.PIKACHU:
+		return "PIKACHU";
+	}
+	return null;
     }
 
     static int[] getStats(int pokemon) {
