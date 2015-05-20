@@ -24,19 +24,19 @@ public class PokemonStats {
 	}
 //	for(int i = 0; i <= 25; i++) {moves.add(new int[6]);}
 
-	stats.set(BULBASAUR, new int[]{45, 49, 65, 49, 65, 100});
+	stats.set(BULBASAUR, new int[]{45, 49, 65, 49, 65, 45});
 	stats.set(CHARMANDER, new int[]{39, 52, 60, 43, 50, 65});
 	stats.set(SQUIRTLE, new int[]{44, 48, 50, 65, 64, 43});
 	stats.set(PIDGEY, new int[]{40, 45, 35, 40, 35, 56});
 	stats.set(RATTATA, new int[]{30, 56, 25, 35, 35, 72});
-	stats.set(PIKACHU, new int[]{35, 55, 50, 40, 50, 90});
+	stats.set(PIKACHU, new int[]{35, 55, 50, 40, 50, 10});
 
 	types[BULBASAUR][0] = Type.GRASS; types[BULBASAUR][1] = Type.POISON;
 	types[CHARMANDER][0] = Type.FIRE;
-	types[SQUIRTLE][0] = Type.WATER;
+	types[SQUIRTLE][0] = Type.WATER; types[SQUIRTLE][1] = -1;
 	types[PIDGEY][0] = Type.NORMAL; types[PIDGEY][1] = Type.FLYING;
 	types[RATTATA][0] = Type.NORMAL;
-	types[PIKACHU][0] = Type.ELECTRIC;
+	types[PIKACHU][0] = Type.ELECTRIC; types[PIKACHU][1] = -1;
 
 	moves[BULBASAUR][0] = Move.TACKLE; moves[BULBASAUR][1] = Move.GROWL;
 	moves[CHARMANDER][0] = Move.SCRATCH; moves[CHARMANDER][1] = Move.GROWL;

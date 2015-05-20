@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 public class Main {
 
     private JFrame frame; // the window
-    private ImagePanel titleScreenPanel, arceusPanel;
+    private ImagePanel titleScreenPanel;
 
     private Pokemon[] pokemonList = new Pokemon[12];
     private Player[] playerList = new Player[2];
@@ -40,7 +40,7 @@ public class Main {
 	PokemonStats.fill();
 	Move.fill();
 	
-	titleScreenPanel = new ImagePanel("./src/Images/logo.jpeg");
+	titleScreenPanel = new ImagePanel("./src/Images/white.png");
 
 	Dimension d = titleScreenPanel.getSize();
 	yMax = d.getHeight();
@@ -50,16 +50,20 @@ public class Main {
 //	frame.setSize((int) d.getWidth(), (int) d.getHeight() + 25);
 	frame.setSize(1440,873);
 	frame.add(titleScreenPanel);
+	Timer.wait(1000);
 	frame.setVisible(true);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     public void battleInitAndRun() {
-	pokemonList[0] = new Pokemon(4, 100,100);
-	pokemonList[6] = new Pokemon(7, 150,150);
-	Player p = new Player("A", 'p', pokemonList);
-	Player o = new Player("B", 'o', pokemonList);
-	new Battle(p,o).run();
+	pokemonList[0] = new Pokemon(PokemonStats.RATTATA, 1000,100);
+	pokemonList[6] = new Pokemon(PokemonStats.BULBASAUR, 100,100);
+	System.out.print("Player's Name? ");
+	Player p = new Player(new Scanner(System.in).next(), 'p', pokemonList);
+	System.out.print("Opponent's Name? ");
+	Player o = new Player(new Scanner(System.in).next(), 'o', pokemonList);
+	frame.repaint();
+	new Battle(p,o, titleScreenPanel, frame).run();
     }
 
 }

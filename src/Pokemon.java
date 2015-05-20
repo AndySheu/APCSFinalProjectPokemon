@@ -21,19 +21,22 @@ public class Pokemon {
     public int laps = 0;
 
     public Pokemon(int species, Image img, double xPos, double yPos) {
-	image = img;
+	image = img.getScaledInstance(250, 250, 1);
 	x = xPos;
 	y = yPos;
 	vx = vy = 0;
-	
+
 	this.species = species;
 	hp = PokemonStats.getStats(species)[0];
 	att = PokemonStats.getStats(species)[1];
 	def = PokemonStats.getStats(species)[3];
 	spd = PokemonStats.getStats(species)[5];
-	
+
 	moves = PokemonStats.getMoves(species);
 	health = hp;
+
+	type1 = PokemonStats.getTypes(species)[0];
+	type2 = PokemonStats.getTypes(species)[1];
     }
 
     public Pokemon(int species, double xPos, double yPos) {
@@ -95,6 +98,24 @@ public class Pokemon {
 	return image;
     }
 
+    public String getName() {
+	switch (getSpecies()) {
+	    case PokemonStats.BULBASAUR:
+		return "BULBASAUR";
+	    case PokemonStats.CHARMANDER:
+		return "CHARMANDER";
+	    case PokemonStats.SQUIRTLE:
+		return "SQUIRTLE";
+	    case PokemonStats.PIDGEY:
+		return "PIDGEY";
+	    case PokemonStats.RATTATA:
+		return "RATTATA";
+	    case PokemonStats.PIKACHU:
+		return "PIKACHU";
+	}
+	return null;
+    }
+
     public int getSpecies() {
 	return species;
     }
@@ -119,8 +140,32 @@ public class Pokemon {
 	return spd;
     }
 
+    public void lowerAtt() {
+	att -= 5;
+    }
+
+    public void lowerDef() {
+	def -= 5;
+    }
+
     public int[] getMoves() {
 	return moves;
+    }
+
+    public int getNumMoves() {
+	if (moves[3] != 0) {
+	    return 4;
+	}
+	if (moves[2] != 0) {
+	    return 3;
+	}
+	if (moves[1] != 0) {
+	    return 2;
+	}
+	if (moves[0] != 0) {
+	    return 1;
+	}
+	return 0;
     }
 
     public int getType1() {

@@ -1,6 +1,9 @@
 public class VarMap
 {
-	static String version = "dev 1.0.2";
-
-	static String title = "Pokémon";
+	static String version = "dev 2.0.0";
 }
+
+
+/*
+Threading?
+*/
