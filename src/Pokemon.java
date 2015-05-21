@@ -142,10 +142,12 @@ public class Pokemon {
 
     public void lowerAtt() {
 	att -= 5;
+	if(att<= 0) att = 1;
     }
 
     public void lowerDef() {
 	def -= 5;
+	if(def<= 0) def = 1;
     }
 
     public int[] getMoves() {
