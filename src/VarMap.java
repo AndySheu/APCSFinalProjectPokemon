@@ -1,4 +1,4 @@
 public class VarMap
 {
-	static String version = "dev 2.2";
+	static String version = "dev 2.3";
 }

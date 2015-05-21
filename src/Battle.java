@@ -28,7 +28,7 @@ public class Battle {
 	Pokemon playerCurr, oppCurr;
 
 	while (!player.checkLoss() && !opp.checkLoss()) {
-	    System.err.println();
+	    System.out.println();
 	    playerCurr = player.getCurr();
 	    oppCurr = opp.getCurr();
 
@@ -48,6 +48,7 @@ public class Battle {
 		double rand = Math.random();
 		int choice = moveChoice();
 		this.choice2 = choice;
+		
 		if (playerSpd > oppSpd || ((playerSpd == oppSpd) && rand <= 0.5)) {
 
 		    int ua = (int) userAttack();
@@ -61,18 +62,18 @@ public class Battle {
 			System.out.println(opp.getName() + "'s " + opp.getCurr().getName() + " is fainted!");
 			opp.nextPokemon();
 		    } else {
-
 			int oa = (int) oppAttack(oppMove);
 			System.out.println(opp.getName() + "'s " + opp.getCurr().getName() + " used " + Move.getName(opp.getCurr().getMoves()[oppMove]) + "! It did " + oa + " damage!");
 			printResults(opp);
 			player.getCurr().health -= oa;
 
 			System.out.println(player.getCurr().getName() + ": " + player.getCurr().health + "/" + player.getCurr().getHP());
-
+	
 			if (player.getCurr().checkFainted()) {
 			    System.out.println(player.getName() + "'s " + player.getCurr().getName() + " is fainted!");
 			    player.nextPokemon();
 			}
+			
 		    }
 		} else {
 		    int oa = (int) oppAttack(oppMove);
@@ -99,7 +100,7 @@ public class Battle {
 			    opp.nextPokemon();
 			}
 		    }
-		}
+		} 
 	    } else if (turnType == 2) { // BAG
 		bagChoice();
 	    } else if (turnType == 3) { // RUN
