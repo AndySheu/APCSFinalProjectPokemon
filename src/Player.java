@@ -1,35 +1,19 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Player {
 
     private String name;
     private Image img;
-    Pokemon[] party = new Pokemon[6];
-    Item[] items = new Item[10];
-    Pokemon curr;
-
-    public Player(String name, char c, Pokemon[] pokemonList) {
+    private boolean isPlayer;
+    private Pokemon current;
+	
+    public Player(String name, String trainerClass, boolean player) {
 	this.name = name;
-
-	//TODO : Trainer doesn't exist
-	img = new ImageIcon("./src/Images/trainer.png").getImage();
-
-	int j;
-
-	if (c == 'p') {
-	    j = 0;
-	} else {
-	    j = 6;
-	}
-
-	for (int i = j; j <= i+5; j++) {
-	    party[i%6] = pokemonList[i];
-	}
-
-	curr = party[0];
+	img = new ImageIcon("./src/Images/Trainers/" + trainerClass + ".png").getImage();
+	isPlayer = player;
+	current = V.oppPokeParty[0];
     }
 
     String getName() {
@@ -41,48 +25,57 @@ public class Player {
     }
 
     Pokemon[] getParty() {
-	return party;
+	if (isPlayer) {
+	    return V.playerPokeParty;
+	}
+	return V.oppPokeParty;
     }
 
-    Item[] getItems() {
-	return items;
-    }
-    
     int getNumPokemon() {
 	int i = 0;
-	for(Pokemon p : party) {
-	    i++;
+	for (Pokemon p : getParty()) {
+	    if (!p.equals(null)) {
+		i++;
+	    }
 	}
 	return i;
     }
 
-    Pokemon getCurr() {
-	return curr;
-    }
-    
-    void nextPokemon() {
-	for(Pokemon p : party) {
-	    try {
-		if (!p.checkFainted()) {
-		    curr = p;
-		    return;
-		}
-	    } catch (NullPointerException e) {
-		return;
-	    }
-	}
+    Pokemon getCurrent() {
+	return current;
     }
 
-    boolean checkLoss() {
-	for (Pokemon p : party) {
-	    try {
-		if (!p.checkFainted()) {
-		    return false;
-		}
-	    } catch (NullPointerException e) {
+    boolean nextPokemon() {
+	for (Pokemon p : getParty()) {
+	    if (!p.equals(null) && !p.checkFainted()) {
+		current = p;
 		return true;
 	    }
 	}
+	return false;
+    }
+
+    boolean checkLoss() {
+	for (Pokemon p : getParty()) {
+	    if (!p.equals(null) && !p.checkFainted()) {
+		return false;
+	    }
+	}
 	return true;
+    }
+    
+    boolean isFullParty() {
+	return getNumPokemon() == 6;
+    }
+    
+    boolean addPokemon(Pokemon p) {
+	if (isPlayer && !isFullParty()) {
+	    V.playerPokeParty[getNumPokemon()] = p;
+	    return true;
+	} else if (!isPlayer && !isFullParty()) {
+	    V.oppPokeParty[getNumPokemon()] = p;
+	    return true;
+	}
+	return false;
     }
 }

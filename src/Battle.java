@@ -29,8 +29,8 @@ public class Battle {
 
 	while (!player.checkLoss() && !opp.checkLoss()) {
 	    System.out.println();
-	    playerCurr = player.getCurr();
-	    oppCurr = opp.getCurr();
+	    playerCurr = player.getCurrent();
+	    oppCurr = opp.getCurrent();
 
 	    pokemonList.add(oppCurr);
 	    pokemonList.add(playerCurr);
@@ -39,12 +39,12 @@ public class Battle {
 	    frame.add(panel);
 	    frame.repaint();
 
-	    int oppMove = (int) (Math.random() * opp.getCurr().getNumMoves());
+	    int oppMove = (int) (Math.random() * opp.getCurrent().getNumMoves());
 
 	    int turnType = chooseTurnType();
 
 	    if (turnType == 1) { // ATTACK
-		int playerSpd = player.getCurr().getSpd(), oppSpd = opp.getCurr().getSpd();
+		int playerSpd = player.getCurrent().getSpd(), oppSpd = opp.getCurrent().getSpd();
 		double rand = Math.random();
 		int choice = moveChoice();
 		this.choice2 = choice;
@@ -52,51 +52,51 @@ public class Battle {
 		if (playerSpd > oppSpd || ((playerSpd == oppSpd) && rand <= 0.5)) {
 
 		    int ua = (int) userAttack();
-		    System.out.println(player.getName() + "'s " + player.getCurr().getName() + " used " + Move.getName(player.getCurr().getMoves()[choice2]) + "! It did " + ua + " damage!");
+		    System.out.println(player.getName() + "'s " + player.getCurrent().getName() + " used " + Move.getName(player.getCurrent().getMoves()[choice2]) + "! It did " + ua + " damage!");
 		    printResults(player);
-		    opp.getCurr().health -= ua;
+		    opp.getCurrent().health -= ua;
 
-		    System.out.println(opp.getCurr().getName() + ": " + opp.getCurr().health + "/" + opp.getCurr().getHP());
+		    System.out.println(opp.getCurrent().getName() + ": " + opp.getCurrent().health + "/" + opp.getCurrent().getHP());
 
-		    if (opp.getCurr().checkFainted()) {
-			System.out.println(opp.getName() + "'s " + opp.getCurr().getName() + " is fainted!");
+		    if (opp.getCurrent().checkFainted()) {
+			System.out.println(opp.getName() + "'s " + opp.getCurrent().getName() + " is fainted!");
 			opp.nextPokemon();
 		    } else {
 			int oa = (int) oppAttack(oppMove);
-			System.out.println(opp.getName() + "'s " + opp.getCurr().getName() + " used " + Move.getName(opp.getCurr().getMoves()[oppMove]) + "! It did " + oa + " damage!");
+			System.out.println(opp.getName() + "'s " + opp.getCurrent().getName() + " used " + Move.getName(opp.getCurrent().getMoves()[oppMove]) + "! It did " + oa + " damage!");
 			printResults(opp);
-			player.getCurr().health -= oa;
+			player.getCurrent().health -= oa;
 
-			System.out.println(player.getCurr().getName() + ": " + player.getCurr().health + "/" + player.getCurr().getHP());
+			System.out.println(player.getCurrent().getName() + ": " + player.getCurrent().health + "/" + player.getCurrent().getHP());
 	
-			if (player.getCurr().checkFainted()) {
-			    System.out.println(player.getName() + "'s " + player.getCurr().getName() + " is fainted!");
+			if (player.getCurrent().checkFainted()) {
+			    System.out.println(player.getName() + "'s " + player.getCurrent().getName() + " is fainted!");
 			    player.nextPokemon();
 			}
 			
 		    }
 		} else {
 		    int oa = (int) oppAttack(oppMove);
-		    System.out.println(opp.getName() + "'s " + opp.getCurr().getName() + " used " + Move.getName(opp.getCurr().getMoves()[oppMove]) + "! It did " + oa + " damage!");
+		    System.out.println(opp.getName() + "'s " + opp.getCurrent().getName() + " used " + Move.getName(opp.getCurrent().getMoves()[oppMove]) + "! It did " + oa + " damage!");
 		    printResults(opp);
-		    player.getCurr().health -= oa;
+		    player.getCurrent().health -= oa;
 
-		    System.out.println(player.getCurr().getName() + ": " + player.getCurr().health + "/" + player.getCurr().getHP());
+		    System.out.println(player.getCurrent().getName() + ": " + player.getCurrent().health + "/" + player.getCurrent().getHP());
 
-		    if (player.getCurr().checkFainted()) {
-			System.out.println(player.getName() + "'s " + player.getCurr().getName() + " is fainted!");
+		    if (player.getCurrent().checkFainted()) {
+			System.out.println(player.getName() + "'s " + player.getCurrent().getName() + " is fainted!");
 			player.nextPokemon();
 		    } else {
 
 			int ua = (int) userAttack();
-			System.out.println(player.getName() + "'s " + player.getCurr().getName() + " used " + Move.getName(player.getCurr().getMoves()[choice2]) + "! It did " + ua + " damage!");
+			System.out.println(player.getName() + "'s " + player.getCurrent().getName() + " used " + Move.getName(player.getCurrent().getMoves()[choice2]) + "! It did " + ua + " damage!");
 			printResults(player);
-			opp.getCurr().health -= ua;
+			opp.getCurrent().health -= ua;
 
-			System.out.println(opp.getCurr().getName() + ": " + opp.getCurr().health + "/" + opp.getCurr().getHP());
+			System.out.println(opp.getCurrent().getName() + ": " + opp.getCurrent().health + "/" + opp.getCurrent().getHP());
 
-			if (opp.getCurr().checkFainted()) {
-			    System.out.println(opp.getName() + "'s " + opp.getCurr().getName() + " is fainted!");
+			if (opp.getCurrent().checkFainted()) {
+			    System.out.println(opp.getName() + "'s " + opp.getCurrent().getName() + " is fainted!");
 			    opp.nextPokemon();
 			}
 		    }
@@ -150,10 +150,10 @@ public class Battle {
     private int moveChoice() {
 	System.out.print("Please choose your move (");
 	int i;
-	for (i = 0; i < player.getCurr().getNumMoves() - 1; i++) {
-	    System.out.print(Move.getNameFromIndex(player.getCurr().getMoves()[i]) + ", ");
+	for (i = 0; i < player.getCurrent().getNumMoves() - 1; i++) {
+	    System.out.print(Move.getNameFromIndex(player.getCurrent().getMoves()[i]) + ", ");
 	}
-	System.out.print(Move.getNameFromIndex(player.getCurr().getMoves()[i++]) + "): ");
+	System.out.print(Move.getNameFromIndex(player.getCurrent().getMoves()[i++]) + "): ");
 //	int choice = keys.nextInt();
 //	if (choice >= 0 && choice <= player.getCurr().getNumMoves()) {
 //	    return choice;
@@ -161,12 +161,12 @@ public class Battle {
 	String choice = keys.next();
 	try {
 	    int intChoice = Integer.parseInt(choice) - 1;
-	    if (intChoice >= 0 && intChoice <= player.getCurr().getNumMoves()) {
+	    if (intChoice >= 0 && intChoice <= player.getCurrent().getNumMoves()) {
 		return intChoice;
 	    }
 	} catch (NumberFormatException dhruvIsSometimesADuck) {
-	    for (i = 0; i < player.getCurr().getNumMoves(); i++) {
-		if (choice.equals(Move.getNameFromIndex(player.getCurr().getMoves()[i]))) {
+	    for (i = 0; i < player.getCurrent().getNumMoves(); i++) {
+		if (choice.equals(Move.getNameFromIndex(player.getCurrent().getMoves()[i]))) {
 		    return i;
 		}
 	    }
@@ -176,15 +176,15 @@ public class Battle {
 
     private double userAttack() {
 
-	int attack = player.getCurr().getMoves()[choice2];
+	int attack = player.getCurrent().getMoves()[choice2];
 
 	if (Move.getPower(attack) <= 0) {
 	    if (Move.getPower(attack) == -1) {
-		opp.getCurr().lowerAtt();
+		opp.getCurrent().lowerAtt();
 		System.out.println(opp.getName() + "'s attack fell!");
 	    }
 	    if (Move.getPower(attack) == -3) {
-		opp.getCurr().lowerDef();
+		opp.getCurrent().lowerDef();
 		System.out.println(opp.getName() + "'s defense fell!");
 	    }
 	    return 0;
@@ -192,22 +192,22 @@ public class Battle {
 
 	double damage = 0;
 	if (Math.random() <= Move.getAcc(attack)) { // Checks accuracy
-	    damage = ((((2 * (5) / 5 + 2) * player.getCurr().getAtt() * Move.getPower(attack) / opp.getCurr().getDef()) / 50) + 2);
-	    if (Move.getType(attack) == player.getCurr().getType1() || Move.getType(attack) == player.getCurr().getType2()) {
+	    damage = ((((2 * (5) / 5 + 2) * player.getCurrent().getAtt() * Move.getPower(attack) / opp.getCurrent().getDef()) / 50) + 2);
+	    if (Move.getType(attack) == player.getCurrent().getType1() || Move.getType(attack) == player.getCurrent().getType2()) {
 		damage *= 2;
 	    }
-	    if (opp.getCurr().getType2() == -1) {
-		damage *= Type.getEffectiveness(Move.getType(attack), opp.getCurr().getType1());
-		if (Type.getEffectiveness(Move.getType(attack), opp.getCurr().getType1()) > 1) {
+	    if (opp.getCurrent().getType2() == -1) {
+		damage *= Type.getEffectiveness(Move.getType(attack), opp.getCurrent().getType1());
+		if (Type.getEffectiveness(Move.getType(attack), opp.getCurrent().getType1()) > 1) {
 		    superEff = true;
-		} else if (Type.getEffectiveness(Move.getType(attack), opp.getCurr().getType1()) < 1) {
+		} else if (Type.getEffectiveness(Move.getType(attack), opp.getCurrent().getType1()) < 1) {
 		    superEff = true;
 		}
 	    } else {
-		damage *= Type.getEffectiveness(Move.getType(attack), opp.getCurr().getType1(), opp.getCurr().getType2());
-		if (Type.getEffectiveness(Move.getType(attack), opp.getCurr().getType1(), opp.getCurr().getType2()) > 1) {
+		damage *= Type.getEffectiveness(Move.getType(attack), opp.getCurrent().getType1(), opp.getCurrent().getType2());
+		if (Type.getEffectiveness(Move.getType(attack), opp.getCurrent().getType1(), opp.getCurrent().getType2()) > 1) {
 		    notEff = true;
-		} else if (Type.getEffectiveness(Move.getType(attack), opp.getCurr().getType1(), opp.getCurr().getType2()) < 1) {
+		} else if (Type.getEffectiveness(Move.getType(attack), opp.getCurrent().getType1(), opp.getCurrent().getType2()) < 1) {
 		    notEff = true;
 		}
 	    }
@@ -224,15 +224,15 @@ public class Battle {
 
     private double oppAttack(int oppMove) {
 
-	int attack = opp.getCurr().getMoves()[oppMove];
+	int attack = opp.getCurrent().getMoves()[oppMove];
 
 	if (Move.getPower(attack) <= 0) {
 	    if (Move.getPower(attack) == -1) {
-		player.getCurr().lowerAtt();
+		player.getCurrent().lowerAtt();
 		att = true;
 	    }
 	    if (Move.getPower(attack) == -3) {
-		player.getCurr().lowerDef();
+		player.getCurrent().lowerDef();
 		def = true;
 	    }
 	    return 0;
@@ -242,22 +242,22 @@ public class Battle {
 
 	if (Math.random()
 		<= Move.getAcc(attack)) { // Checks accuracy
-	    damage = ((((2 * (5) / 5 + 2) * opp.getCurr().getAtt() * Move.getPower(attack) / player.getCurr().getDef()) / 50) + 2);
-	    if (Move.getType(attack) == opp.getCurr().getType1() || Move.getType(attack) == opp.getCurr().getType2()) {
+	    damage = ((((2 * (5) / 5 + 2) * opp.getCurrent().getAtt() * Move.getPower(attack) / player.getCurrent().getDef()) / 50) + 2);
+	    if (Move.getType(attack) == opp.getCurrent().getType1() || Move.getType(attack) == opp.getCurrent().getType2()) {
 		damage *= 2;
 	    }
-	    if (player.getCurr().getType2() == -1) {
-		damage *= Type.getEffectiveness(Move.getType(attack), player.getCurr().getType1());
-		if (Type.getEffectiveness(Move.getType(attack), player.getCurr().getType1()) > 1) {
+	    if (player.getCurrent().getType2() == -1) {
+		damage *= Type.getEffectiveness(Move.getType(attack), player.getCurrent().getType1());
+		if (Type.getEffectiveness(Move.getType(attack), player.getCurrent().getType1()) > 1) {
 		    superEff = true;
-		} else if (Type.getEffectiveness(Move.getType(attack), player.getCurr().getType1()) < 1) {
+		} else if (Type.getEffectiveness(Move.getType(attack), player.getCurrent().getType1()) < 1) {
 		    superEff = true;
 		}
 	    } else {
-		damage *= Type.getEffectiveness(Move.getType(attack), player.getCurr().getType1(), player.getCurr().getType2());
-		if (Type.getEffectiveness(Move.getType(attack), player.getCurr().getType1(), player.getCurr().getType2()) > 1) {
+		damage *= Type.getEffectiveness(Move.getType(attack), player.getCurrent().getType1(), player.getCurrent().getType2());
+		if (Type.getEffectiveness(Move.getType(attack), player.getCurrent().getType1(), player.getCurrent().getType2()) > 1) {
 		    notEff = true;
-		} else if (Type.getEffectiveness(Move.getType(attack), player.getCurr().getType1(), player.getCurr().getType2()) < 1) {
+		} else if (Type.getEffectiveness(Move.getType(attack), player.getCurrent().getType1(), player.getCurrent().getType2()) < 1) {
 		    notEff = true;
 		}
 	    }
@@ -286,10 +286,10 @@ public class Battle {
 	    System.out.println("Critical Hit!");
 	}
 	if (att) {
-	    System.out.println(p.getCurr().getName() + "'s attack fell!");
+	    System.out.println(p.getCurrent().getName() + "'s attack fell!");
 	}
 	if (def) {
-	    System.out.println(p.getCurr().getName() + "'s def fell!");
+	    System.out.println(p.getCurrent().getName() + "'s def fell!");
 	}
 	crit = false;
 	miss = false;
