@@ -47,6 +47,14 @@ public class Player {
     Item[] getItems() {
 	return items;
     }
+    
+    int getNumPokemon() {
+	int i = 0;
+	for(Pokemon p : party) {
+	    i++;
+	}
+	return i;
+    }
 
     Pokemon getCurr() {
 	return curr;

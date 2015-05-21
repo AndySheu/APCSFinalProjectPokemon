@@ -54,28 +54,16 @@ public class Main {
     }
 
     public void battleInitAndRun() {
-	frame.repaint();
 
-	int pkmn = (int) (Math.random() * 25) + 1;
-	while (PokemonStats.getName(pkmn) == null) {
-	    pkmn = (int) (Math.random() * 25) + 1;
-	}
-	pkmn = 1;
-	pokemonList[0] = new Pokemon(pkmn, 1000, 100);
-
-	frame.repaint();
-
-	pkmn = (int) (Math.random() * 25) + 1;
-	while (PokemonStats.getName(pkmn) == null) {
-	    pkmn = (int) (Math.random() * 25) + 1;
-	}
-	pkmn = 7;
-	pokemonList[6] = new Pokemon(pkmn, 100, 100);
+	pokemonList[0] = new Pokemon(Pokemon.generateRandom(), 1000, 100);
+	pokemonList[6] = new Pokemon(Pokemon.generateRandom(), 100, 100);
 
 	frame.repaint();
 	System.out.print("Player's Name? ");
 	Player p = new Player(new Scanner(System.in).next(), 'p', pokemonList);
-	System.out.println(p.getName() + " has a " + pokemonList[0].getName());
+	for(int i = 0; i < p.getNumPokemon(); i++) {
+	    System.out.println(p.getName() + " has a " + pokemonList[i].getName());
+	}
 
 	System.out.print("Opponent's Name? ");
 	Player o = new Player(new Scanner(System.in).next(), 'o', pokemonList);

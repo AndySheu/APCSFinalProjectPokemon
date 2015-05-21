@@ -5,28 +5,20 @@ import javax.swing.*;
 public class Pokemon {
 
     private Image image;
-    private double x;
-    private double y;
-    private double vx;
-    private double vy;
+    private double x, y;
     private int species;
     public int health;
-    private int hp;
-    private int att;
-    private int def;
-    private int spd;
+    private int hp, att, def, spd;
     private int[] moves;
-    private int type1;
-    private int type2;
-    public int laps = 0;
+    private int type1, type2;
 
     public Pokemon(int species, Image img, double xPos, double yPos) {
 	image = img.getScaledInstance(250, 250, 1);
 	x = xPos;
 	y = yPos;
-	vx = vy = 0;
 
 	this.species = species;
+
 	hp = PokemonStats.getStats(species)[0];
 	att = PokemonStats.getStats(species)[1];
 	def = PokemonStats.getStats(species)[3];
@@ -50,40 +42,6 @@ public class Pokemon {
 
     public void setImage(Image img) {
 	image = img;
-    }
-
-    public void setVelocity(double newVx, double newVy) {
-	vx = newVx;
-	vy = newVy;
-    }
-
-    public void setRaceVelocity(double newVx, double newVy) {
-	vx = newVx;
-	vy = newVy;
-	if (vx < 0) {
-	    vx = 0;
-	}
-	if (vy < 0) {
-	    vy = 0;
-	}
-    }
-
-    public void incrementPosition() {
-	x += vx;
-	y += vy;
-    }
-
-    public void decrementPosition() {
-	x -= vx;
-	y -= vy;
-    }
-
-    public void reflect(boolean side) {
-	if (side) {
-	    vx = -1 * vx;
-	} else {
-	    vy = -1 * vy;
-	}
     }
 
     public double getX() {
@@ -142,12 +100,23 @@ public class Pokemon {
 
     public void lowerAtt() {
 	att -= 5;
-	if(att<= 0) att = 1;
+	if (att <= 0) {
+	    att = 1;
+	}
     }
 
     public void lowerDef() {
 	def -= 5;
-	if(def<= 0) def = 1;
+	if (def <= 0) {
+	    def = 1;
+	}
+    }
+
+    public void lowerSpd() {
+	spd -= 5;
+	if (spd <= 0) {
+	    spd = 1;
+	}
     }
 
     public int[] getMoves() {
@@ -178,15 +147,15 @@ public class Pokemon {
 	return type2;
     }
 
-    public double getVX() {
-	return vx;
-    }
-
-    public double getVY() {
-	return vy;
-    }
-
     public boolean checkFainted() {
 	return getHealth() <= 0;
+    }
+
+    static int generateRandom() {
+	int pkmn = (int) (Math.random() * 25) + 1;
+	while (PokemonStats.getName(pkmn) == null) {
+	    pkmn = (int) (Math.random() * 25) + 1;
+	}
+	return pkmn;
     }
 }
