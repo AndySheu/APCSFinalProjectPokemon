@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class V { // V stands for Variables
     
-    static final String VERSION = "dev 3.5";
+    static final String VERSION = "dev 3.7";
     static final int NUM_POKE = 26;
     
     static JFrame frame;

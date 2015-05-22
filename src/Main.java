@@ -35,20 +35,24 @@ public class Main {
 	V.player.fillTeam(3);
 	V.opp.fillTeam(3);
 
+	System.out.print(V.player.getName() + " has a(n): ");
 	for (Pokemon p : V.playerPokeParty) {
 	    try {
-		System.out.println(p.getName());
+		System.out.print(p.getName() + " ");
 	    } catch (NullPointerException e) {
 		
 	    }
 	}
+	System.out.println();
+	System.out.print(V.opp.getName() + " has a(n): ");
 	for (Pokemon p : V.oppPokeParty) {
 	    try {
-		System.out.println(p.getName());
+		System.out.print(p.getName() + " ");
 	    } catch (NullPointerException e) {
 		
 	    }
 	}
+	System.out.println();
 
 	V.frame.repaint();
     }

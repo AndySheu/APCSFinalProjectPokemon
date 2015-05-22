@@ -6,7 +6,6 @@ import java.util.*;
 public class PokemonStats {
 
     static ArrayList<int[]> stats = new ArrayList<int[]>(25);
-//    static ArrayList<int[]> moves = new ArrayList<int[]>(25);
 
     static int[][] moves = new int[26][4];
     private static int[][] types = new int[721][2];
@@ -22,7 +21,6 @@ public class PokemonStats {
 	for (int i = 0; i <= 25; i++) {
 	    stats.add(new int[6]);
 	}
-//	for(int i = 0; i <= 25; i++) {moves.add(new int[6]);}
 
 	stats.set(BULBASAUR, new int[]{45, 49, 65, 49, 65, 45});
 	stats.set(CHARMANDER, new int[]{39, 52, 60, 43, 50, 65});
