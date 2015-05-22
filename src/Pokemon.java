@@ -19,16 +19,16 @@ public class Pokemon {
 
 	this.species = species;
 
-	hp = PokemonStats.getStats(species)[0];
-	att = PokemonStats.getStats(species)[1];
-	def = PokemonStats.getStats(species)[3];
-	spd = PokemonStats.getStats(species)[5];
+	hp = D.getStats(species)[0];
+	att = D.getStats(species)[1];
+	def = D.getStats(species)[3];
+	spd = D.getStats(species)[5];
 
-	moves = PokemonStats.getMoves(species);
+	moves = D.getMoves(species);
 	health = hp;
 
-	type1 = PokemonStats.getTypes(species)[0];
-	type2 = PokemonStats.getTypes(species)[1];
+	type1 = D.getTypes(species)[0];
+	type2 = D.getTypes(species)[1];
     }
 
     public Pokemon(int species, double xPos, double yPos) {
@@ -152,9 +152,9 @@ public class Pokemon {
     }
 
     static int generateRandom() {
-	int pkmn = (int) (Math.random() * 25) + 1;
+	int pkmn = (int) (Math.random() * V.NUM_POKE) + 1;
 	while (PokemonStats.getName(pkmn) == null) {
-	    pkmn = (int) (Math.random() * 25) + 1;
+	    pkmn = (int) (Math.random() * V.NUM_POKE) + 1;
 	}
 	return pkmn;
     }

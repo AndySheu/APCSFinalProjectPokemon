@@ -34,8 +34,11 @@ public class Player {
     int getNumPokemon() {
 	int i = 0;
 	for (Pokemon p : getParty()) {
-	    if (!p.equals(null)) {
+	    try {
+		p.getSpecies(); // Check if null
 		i++;
+	    } catch (NullPointerException e) {
+		
 	    }
 	}
 	return i;
@@ -77,5 +80,11 @@ public class Player {
 	    return true;
 	}
 	return false;
+    }
+    
+    void fillTeam(int n) {
+	for(int i = 0; i < n; i++) {
+	    addPokemon(new Pokemon(Pokemon.generateRandom(), 0, 0));
+	}
     }
 }
