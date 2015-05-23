@@ -19,28 +19,61 @@ public class Main {
 	D.fill();
 	V.panel = new ImagePanel("./src/Images/Transparent.png");
 
-	V.frame = new JFrame("Pokémon Diamond III " + V.VERSION + " | Coded by Andy Sheu and Dhruv Jhamb");
+	JFrame passwordHint = new JFrame("PASSWORD HINT (4): Mike's full initials | Player.setName(\"MB\"); && pass.equals(/*MB's favorite word*/);");
+	passwordHint.setSize(0,0);
+	passwordHint.setVisible(true);
+	passwordHint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	V.frame = new JFrame("Pokémon Diamond III " + V.VERSION + " | Coded by Andy Sheu and Dhruv Jhambf");
 	V.frame.setSize(V.MAX_WIDTH, V.MAX_HEIGHT);
 	V.frame.add(V.panel);
-	V.frame.setVisible(true);
+//	V.frame.setVisible(true);
 	V.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void gameInit() {
 	System.out.print("What is your name? ");
-	V.player = new Player(V.keys.next(), null, true);
-	System.out.print("What is your rival\'s name? ");
-	V.opp = new Player(V.keys.next(), null, false);
+	V.player = new Player(V.keys.nextLine(), null, true);
+	System.out.print("What is your opponent\'s name? ");
+	V.opp = new Player(V.keys.nextLine(), null, false);
+	System.out.print("Enter a password (if you have one): ");
+	String pass = V.keys.nextLine();
 
-	V.player.fillTeam(3);
-	V.opp.fillTeam(3);
+	if (pass.equals("france")) {
+	    for (int i = 0; i < 6; i++) {
+		V.player.addPokemon(new Pokemon(P.VICTINI, 0, 0));
+	    }
+	} else if (pass.equals("england")) {
+	    V.player.addPokemon(new Pokemon(P.CHARMANDER, 0, 0));
+	    V.player.addPokemon(new Pokemon(P.ARCEUS, 0, 0));
+	    V.player.fillTeam(4);
+	} else if (pass.equals("excellent") && V.player.getName().equals("Mike Bollhorst")) {
+	    for (int i = 0; i < 6; i++) {
+		V.player.addPokemon(new Pokemon(P.ARCEUS, 0, 0));
+	    }
+	} else if (pass.equals("meb")) {
+	    V.opp.setName("Michael E. Bollhorst");
+	    for (int i = 0; i < 6; i++) {
+		V.opp.addPokemon(new Pokemon(P.ARCEUS, 0, 0));
+	    }
+	} else {
+	    System.out.println("Wrong!");
+	}
+	for (int i = 0; i < 10; i++) {
+	    System.out.println();
+	}
+
+	V.player.fillTeam((int) (Math.random() * 6 + 1));
+	V.player.nextPokemon();
+
+	V.opp.fillTeam((int) (Math.random() * 6 + 1));
+	V.opp.nextPokemon();
 
 	System.out.print(V.player.getName() + " has a(n): ");
 	for (Pokemon p : V.playerPokeParty) {
 	    try {
 		System.out.print(p.getName() + " ");
 	    } catch (NullPointerException e) {
-		
+
 	    }
 	}
 	System.out.println();
@@ -49,7 +82,7 @@ public class Main {
 	    try {
 		System.out.print(p.getName() + " ");
 	    } catch (NullPointerException e) {
-		
+
 	    }
 	}
 	System.out.println();
@@ -58,7 +91,11 @@ public class Main {
     }
 
     public void startBattle() {
-//	new Battle(p, o, titleScreenPanel, frame).run();
+	if (V.player.getName().equals("Nitin")) {
+	    System.out.println("GAME OVER: " + V.opp.getName() + " WINS!!!");
+	    System.out.println(V.player.getName() + " LOSERS!!!");
+	}
+	new Battle().run();
     }
 
 }

@@ -9,6 +9,7 @@ public class Pokemon {
     private int species;
     public int health;
     private int hp, att, def, spd;
+    private int attMod, defMod, spdMod;
     private int[] moves;
     private int type1, type2;
 
@@ -57,21 +58,7 @@ public class Pokemon {
     }
 
     public String getName() {
-	switch (getSpecies()) {
-	    case PokemonStats.BULBASAUR:
-		return "BULBASAUR";
-	    case PokemonStats.CHARMANDER:
-		return "CHARMANDER";
-	    case PokemonStats.SQUIRTLE:
-		return "SQUIRTLE";
-	    case PokemonStats.PIDGEY:
-		return "PIDGEY";
-	    case PokemonStats.RATTATA:
-		return "RATTATA";
-	    case PokemonStats.PIKACHU:
-		return "PIKACHU";
-	}
-	return null;
+	return P.getName(getSpecies());
     }
 
     public int getSpecies() {
@@ -87,21 +74,27 @@ public class Pokemon {
     }
 
     public int getAtt() {
-	return att;
+	return (int)(att * getModRate(attMod));
     }
 
     public int getDef() {
-	return def;
+	return (int)(def * getModRate(defMod));
     }
 
     public int getSpd() {
-	return spd;
+	return (int)(spd * getModRate(spdMod));
+    }
+
+    public double getModRate(int mod) {
+	if (mod <= 0) {
+	    return (2/(-mod + 2));
+	}
+	return ((mod + 2)/2);
     }
 
     public void lowerAtt() {
-	att -= 5;
-	if (att <= 0) {
-	    att = 1;
+	if (attMod > -6) {
+	    attMod--;
 	}
     }
 
@@ -124,19 +117,7 @@ public class Pokemon {
     }
 
     public int getNumMoves() {
-	if (moves[3] != 0) {
-	    return 4;
-	}
-	if (moves[2] != 0) {
-	    return 3;
-	}
-	if (moves[1] != 0) {
-	    return 2;
-	}
-	if (moves[0] != 0) {
-	    return 1;
-	}
-	return 0;
+	return moves.length;
     }
 
     public int getType1() {
@@ -153,7 +134,7 @@ public class Pokemon {
 
     static int generateRandom() {
 	int pkmn = (int) (Math.random() * V.NUM_POKE) + 1;
-	while (PokemonStats.getName(pkmn) == null) {
+	while (P.getName(pkmn) == null || P.getName(pkmn).equals("ARCEUS") || P.getName(pkmn).equals("VICTINI")) {
 	    pkmn = (int) (Math.random() * V.NUM_POKE) + 1;
 	}
 	return pkmn;

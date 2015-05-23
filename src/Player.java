@@ -8,7 +8,7 @@ public class Player {
     private Image img;
     private boolean isPlayer;
     private Pokemon current;
-	
+
     public Player(String name, String trainerClass, boolean player) {
 	this.name = name;
 	img = new ImageIcon("./src/Images/Trainers/" + trainerClass + ".png").getImage();
@@ -18,6 +18,10 @@ public class Player {
 
     String getName() {
 	return name;
+    }
+    
+    void setName(String name) {
+	this.name = name;
     }
 
     Image getImage() {
@@ -38,18 +42,30 @@ public class Player {
 		p.getSpecies(); // Check if null
 		i++;
 	    } catch (NullPointerException e) {
-		
+
 	    }
 	}
 	return i;
     }
-
+    
+    boolean setCurrent(int x) {
+	for (int i = 0; i < getNumPokemon(); i++) {
+	    Pokemon p = getParty()[i];
+	    if (p.getSpecies() == x) {
+		current = p;
+		return true;
+	    }
+	}
+	return false;
+    }
+    
     Pokemon getCurrent() {
 	return current;
     }
 
     boolean nextPokemon() {
-	for (Pokemon p : getParty()) {
+	for (int i = 0; i < getNumPokemon(); i++) {
+	    Pokemon p = getParty()[i];
 	    if (!p.equals(null) && !p.checkFainted()) {
 		current = p;
 		return true;
@@ -59,18 +75,19 @@ public class Player {
     }
 
     boolean checkLoss() {
-	for (Pokemon p : getParty()) {
+	for (int i = 0; i < getNumPokemon(); i++) {
+	    Pokemon p = getParty()[i];
 	    if (!p.equals(null) && !p.checkFainted()) {
 		return false;
 	    }
 	}
 	return true;
     }
-    
+
     boolean isFullParty() {
 	return getNumPokemon() == 6;
     }
-    
+
     boolean addPokemon(Pokemon p) {
 	if (isPlayer && !isFullParty()) {
 	    V.playerPokeParty[getNumPokemon()] = p;
@@ -81,10 +98,26 @@ public class Player {
 	}
 	return false;
     }
-    
+
+    boolean has(Pokemon n) {
+	for (int i = 0; i < getNumPokemon(); i++) {
+	    Pokemon p = getParty()[i];
+	    if (n.getSpecies() == p.getSpecies()) {
+		return true;
+	    }
+	}
+	return false;
+    }
+
     void fillTeam(int n) {
-	for(int i = 0; i < n; i++) {
-	    addPokemon(new Pokemon(Pokemon.generateRandom(), 0, 0));
+
+	Pokemon p = new Pokemon(Pokemon.generateRandom(), 0, 0);
+	addPokemon(p);
+	for (int i = 0; i < n - 1; i++) {
+	    while (has(p)) {
+		p = new Pokemon(Pokemon.generateRandom(), 0, 0);
+	    }
+	    addPokemon(p);
 	}
     }
 }
