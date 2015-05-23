@@ -20,7 +20,7 @@ public class Main {
 	V.panel = new ImagePanel("./src/Images/Transparent.png");
 
 	JFrame passwordHint = new JFrame("PASSWORD HINT (4): Mike's full initials | Player.setName(\"MB\"); && pass.equals(/*MB's favorite word*/);");
-	passwordHint.setSize(0,0);
+	passwordHint.setSize(0, 0);
 	passwordHint.setVisible(true);
 	passwordHint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	V.frame = new JFrame("Pokémon Diamond III " + V.VERSION + " | Coded by Andy Sheu and Dhruv Jhambf");
@@ -35,31 +35,36 @@ public class Main {
 	V.player = new Player(V.keys.nextLine(), null, true);
 	System.out.print("What is your opponent\'s name? ");
 	V.opp = new Player(V.keys.nextLine(), null, false);
-	System.out.print("Enter a password (if you have one): ");
-	String pass = V.keys.nextLine();
 
-	if (pass.equals("france")) {
-	    for (int i = 0; i < 6; i++) {
-		V.player.addPokemon(new Pokemon(P.VICTINI, 0, 0));
-	    }
-	} else if (pass.equals("england")) {
-	    V.player.addPokemon(new Pokemon(P.CHARMANDER, 0, 0));
-	    V.player.addPokemon(new Pokemon(P.ARCEUS, 0, 0));
-	    V.player.fillTeam(4);
-	} else if (pass.equals("excellent") && V.player.getName().equals("Mike Bollhorst")) {
-	    for (int i = 0; i < 6; i++) {
+	boolean wrong = false;
+	while (!wrong) {
+	    System.out.print("Enter a password (if you have one): ");
+	    String pass = V.keys.nextLine();
+
+	    if (pass.equals("france")) {
+		for (int i = 0; i < 6; i++) {
+		    V.player.addPokemon(new Pokemon(P.VICTINI, 0, 0));
+		}
+	    } else if (pass.equals("england")) {
+		V.player.addPokemon(new Pokemon(P.CHARMANDER, 0, 0));
 		V.player.addPokemon(new Pokemon(P.ARCEUS, 0, 0));
+		V.player.fillTeam(4);
+	    } else if (pass.equals("excellent") && V.player.getName().equals("Mike Bollhorst")) {
+		for (int i = 0; i < 6; i++) {
+		    V.player.addPokemon(new Pokemon(P.ARCEUS, 0, 0));
+		}
+	    } else if (pass.equals("meb")) {
+		V.opp.setName("Michael E. Bollhorst");
+		for (int i = 0; i < 6; i++) {
+		    V.opp.addPokemon(new Pokemon(P.ARCEUS, 0, 0));
+		}
+	    } else {
+		wrong = true;
+		System.out.println("Wrong!");
 	    }
-	} else if (pass.equals("meb")) {
-	    V.opp.setName("Michael E. Bollhorst");
-	    for (int i = 0; i < 6; i++) {
-		V.opp.addPokemon(new Pokemon(P.ARCEUS, 0, 0));
+	    for (int i = 0; i < 10; i++) {
+		System.out.println();
 	    }
-	} else {
-	    System.out.println("Wrong!");
-	}
-	for (int i = 0; i < 10; i++) {
-	    System.out.println();
 	}
 
 	V.player.fillTeam((int) (Math.random() * 6 + 1));
