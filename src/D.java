@@ -9,8 +9,8 @@ public class D { // D stands for Data
     private static Object[][] moveList = new Object[101][5];
 
     private static double[][] chart = {
-	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},
-//	 0  NOR  FIG  FLY  POI  GRO  ROC  BUG  GHO  STE  FIR  WAT  GRA  ELE  PSY  ICE  DRA  DAR
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
+	//	 0  NOR  FIG  FLY  POI  GRO  ROC  BUG  GHO  STE  FIR  WAT  GRA  ELE  PSY  ICE  DRA  DAR
 	{0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 0.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0}, // NORMAL
 	{0, 2.0, 1.0, 0.5, 0.5, 1.0, 2.0, 0.5, 0.0, 2.0, 1.0, 1.0, 1.0, 1.0, 0.5, 2.0, 1.0, 2.0}, // FIGHTING
 	{0, 1.0, 2.0, 1.0, 1.0, 1.0, 0.5, 2.0, 1.0, 0.5, 1.0, 1.0, 2.0, 0.5, 1.0, 1.0, 1.0, 1.0}, // FLYING
@@ -62,6 +62,21 @@ public class D { // D stands for Data
     static final int BOLT_STRIKE = 10;
     static final int PSYCHIC_ = 11; // the move, not the type
     static final int SPLASH = 12;
+    static final int VINE_WHIP = 13;
+    static final int EMBER = 14;
+    static final int BUBBLE = 15;
+    static final int WITHDRAW = 16;
+//    static final int = 17;
+//    static final int = 18;
+//    static final int = 19;
+//    static final int = 20;
+
+    static final int ATT_UP = 1;
+    static final int ATT_DOWN = 2;
+    static final int DEF_UP = 3;
+    static final int DEF_DOWN = 4;
+    static final int SPD_UP = 5;
+    static final int SPD_DOWN = 6;
 
     static void fill() {
 	for (int i = 0; i <= V.NUM_POKE; i++) {
@@ -76,7 +91,7 @@ public class D { // D stands for Data
 	stats.set(P.PIKACHU, new int[]{35, 55, 50, 40, 50, 90});
 	stats.set(P.MAGIKARP, new int[]{20, 10, 55, 15, 20, 80});
 	stats.set(P.ARCEUS, new int[]{120, 120, 120, 120, 120, 120});
-	stats.set(P.VICTINI, new int[]{170, 170, 170, 170, 170, 170}); // VICTINI IS GOD!
+	stats.set(P.VICTINI, new int[]{170, 170, 170, 170, 170, 170}); // Raised
 
 	types[P.BULBASAUR][0] = GRASS;
 	types[P.BULBASAUR][1] = POISON;
@@ -91,9 +106,9 @@ public class D { // D stands for Data
 	types[P.VICTINI][0] = FIRE;
 	types[P.VICTINI][1] = PSYCHIC;
 
-	moves[P.BULBASAUR] = new int[]{TACKLE, GROWL};
-	moves[P.CHARMANDER] = new int[]{SCRATCH, GROWL};
-	moves[P.SQUIRTLE] = new int[]{TACKLE, TAIL_WHIP};
+	moves[P.BULBASAUR] = new int[]{TACKLE, GROWL, VINE_WHIP};
+	moves[P.CHARMANDER] = new int[]{SCRATCH, GROWL, EMBER};
+	moves[P.SQUIRTLE] = new int[]{TACKLE, TAIL_WHIP, BUBBLE, WITHDRAW};
 	moves[P.PIDGEY] = new int[]{TACKLE, FORESIGHT};
 	moves[P.RATTATA] = new int[]{TACKLE, TAIL_WHIP};
 	moves[P.PIKACHU] = new int[]{THUNDERSHOCK, GROWL};
@@ -102,17 +117,21 @@ public class D { // D stands for Data
 	moves[P.VICTINI] = new int[]{SEARING_SHOT, V_CREATE, BOLT_STRIKE, PSYCHIC_};
 
 	moveList[TACKLE] = new Object[]{"TACKLE", new Integer(50), new Integer(70), new Integer(NORMAL)};
-	moveList[GROWL] = new Object[]{"GROWL", new Integer(-1), new Integer(100), new Integer(NORMAL)};
+	moveList[GROWL] = new Object[]{"GROWL", new Integer(0), new Integer(100), new Integer(NORMAL), new Integer(ATT_DOWN)};
 	moveList[SCRATCH] = new Object[]{"SCRATCH", new Integer(40), new Integer(100), new Integer(NORMAL)};
-	moveList[TAIL_WHIP] = new Object[]{"TAIL_WHIP", new Integer(-3), new Integer(100), new Integer(NORMAL)};
-	moveList[FORESIGHT] = new Object[]{"FORESIGHT", new Integer(0), new Integer(0), new Integer(NORMAL)};
+	moveList[TAIL_WHIP] = new Object[]{"TAIL WHIP", new Integer(0), new Integer(100), new Integer(NORMAL), new Integer(DEF_DOWN)};
+	moveList[FORESIGHT] = new Object[]{"FORESIGHT", new Integer(0), new Integer(0), new Integer(NORMAL), new Integer(0)};
 	moveList[THUNDERSHOCK] = new Object[]{"THUNDERSHOCK", new Integer(40), new Integer(100), new Integer(ELECTRIC)};
 	moveList[JUDGEMENT] = new Object[]{"JUDGEMENT", new Integer(100), new Integer(100), new Integer(NORMAL)};
-	moveList[SEARING_SHOT] = new Object[]{"SEARING_SHOT", new Integer(100), new Integer(100), new Integer(FIRE)};
-	moveList[V_CREATE] = new Object[]{"V_CREATE", new Integer(180), new Integer(100), new Integer(FIRE)};
-	moveList[BOLT_STRIKE] = new Object[]{"BOLT_STRIKE", new Integer(130), new Integer(85), new Integer(ELECTRIC)};
+	moveList[SEARING_SHOT] = new Object[]{"SEARING SHOT", new Integer(100), new Integer(100), new Integer(FIRE)};
+	moveList[V_CREATE] = new Object[]{"V-CREATE", new Integer(180), new Integer(100), new Integer(FIRE)};
+	moveList[BOLT_STRIKE] = new Object[]{"BOLT STRIKE", new Integer(130), new Integer(85), new Integer(ELECTRIC)};
 	moveList[PSYCHIC_] = new Object[]{"PSYCHIC", new Integer(90), new Integer(100), new Integer(PSYCHIC)};
-	moveList[SPLASH] = new Object[]{"SPLASH", new Integer(0), new Integer(100), new Integer(NORMAL)};
+	moveList[SPLASH] = new Object[]{"SPLASH", new Integer(0), new Integer(100), new Integer(NORMAL), new Integer(0)};
+	moveList[VINE_WHIP] = new Object[]{"VINE WHIP", new Integer(35), new Integer(100), new Integer(GRASS)};
+	moveList[EMBER] = new Object[]{"EMBER", new Integer(40), new Integer(100), new Integer(FIRE)};
+	moveList[BUBBLE] = new Object[]{"BUBBLE", new Integer(20), new Integer(100), new Integer(WATER), new Integer(SPD_DOWN)};
+	moveList[WITHDRAW] = new Object[]{"WITHDRAW", new Integer(0), new Integer(100), new Integer(WATER), new Integer(DEF_UP)};
     }
 
     static double getEffectiveness(int moveType, int oppType) {
@@ -142,7 +161,7 @@ public class D { // D stands for Data
     static String getName(int base) {
 	return (String) moveList[base][0];
     }
-    
+
     static int getPower(int base) {
 	return (Integer) moveList[base][1];
     }
@@ -153,5 +172,13 @@ public class D { // D stands for Data
 
     static int getType(int base) {
 	return (Integer) moveList[base][3];
+    }
+
+    static int getEffect(int base) {
+	try {
+	    return (Integer) moveList[base][4];
+	} catch (ArrayIndexOutOfBoundsException holidayTime) {
+	    return 0;
+	}
     }
 }

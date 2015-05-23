@@ -64,7 +64,7 @@ public class Pokemon {
     public void kill() {
 	health = Integer.MIN_VALUE;
     }
-    
+
     public int getSpecies() {
 	return species;
     }
@@ -72,7 +72,7 @@ public class Pokemon {
     public int getHealth() {
 	return health;
     }
-    
+
     public void lowerHealth(int damage) {
 	health -= damage;
     }
@@ -82,22 +82,22 @@ public class Pokemon {
     }
 
     public int getAtt() {
-	return (int)(att * getModRate(attMod));
+	return (int) (att * getModRate(attMod));
     }
 
     public int getDef() {
-	return (int)(def * getModRate(defMod));
+	return (int) (def * getModRate(defMod));
     }
 
     public int getSpd() {
-	return (int)(spd * getModRate(spdMod));
+	return (int) (spd * getModRate(spdMod));
     }
 
-    public double getModRate(int mod) {
+    public double getModRate(double mod) {
 	if (mod <= 0) {
-	    return (2/(-mod + 2));
+	    return (2 / (-mod + 2));
 	}
-	return ((mod + 2)/2);
+	return ((mod + 2) / 2);
     }
 
     public void lowerAtt() {
@@ -107,17 +107,39 @@ public class Pokemon {
     }
 
     public void lowerDef() {
-	def -= 5;
-	if (def <= 0) {
-	    def = 1;
+	if (defMod > -6) {
+	    defMod--;
 	}
     }
 
     public void lowerSpd() {
-	spd -= 5;
-	if (spd <= 0) {
-	    spd = 1;
+	if (spdMod > -6) {
+	    spdMod--;
 	}
+    }
+
+    public void raiseAtt() {
+	if (attMod < 6) {
+	    attMod++;
+	}
+    }
+
+    public void raiseDef() {
+	if (defMod < 6) {
+	    defMod++;
+	}
+    }
+
+    public void raiseSpd() {
+	if (spdMod < 6) {
+	    spdMod++;
+	}
+    }
+
+    public void resetStats() {
+	attMod = 0;
+	defMod = 0;
+	spdMod = 0;
     }
 
     public int[] getMoves() {

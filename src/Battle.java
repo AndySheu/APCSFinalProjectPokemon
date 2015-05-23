@@ -101,7 +101,7 @@ public class Battle {
 		if (V.player.setCurrent(switchChoice())) {
 		    System.out.println(V.player.getName() + " sent out " + V.player.getCurrent().getName());
 		} else {
-		    System.out.println("Failed because your input is either fainted or doesn't exist.");
+		    System.out.println("Failed because your input is either fainted, is already out, or doesn't exist.");
 		}
 	    } else if (turnType == 4) { // RUN
 		System.out.println("You can't run from a trainer battle!");
@@ -214,21 +214,33 @@ public class Battle {
 
 	int attack = V.player.getCurrent().getMoves()[attackChoice];
 
-	if (D.getPower(attack) <= 0) {
-	    if (D.getPower(attack) == -1) {
+	if (D.getEffect(attack) != 0) {
+	    if (D.getEffect(attack) == D.ATT_DOWN) {
 		V.opp.getCurrent().lowerAtt();
 		System.out.println(V.opp.getName() + "'s attack fell!");
-	    }
-	    if (D.getPower(attack) == -3) {
+	    } else if (D.getEffect(attack) == D.ATT_UP) {
+		V.player.getCurrent().raiseAtt();
+		System.out.println(V.player.getName() + "'s attack rose!");
+	    } else if (D.getEffect(attack) == D.DEF_DOWN) {
 		V.opp.getCurrent().lowerDef();
 		System.out.println(V.opp.getName() + "'s defense fell!");
+	    } else if (D.getEffect(attack) == D.DEF_UP) {
+		V.player.getCurrent().raiseDef();
+		System.out.println(V.player.getName() + "'s defense rose!");
+	    } else if (D.getEffect(attack) == D.SPD_DOWN) {
+		V.opp.getCurrent().lowerSpd();
+		System.out.println(V.opp.getName() + "'s speed fell!");
+	    } else if (D.getEffect(attack) == D.SPD_UP) {
+		V.player.getCurrent().raiseSpd();
+		System.out.println(V.player.getName() + "'s speed rose!");
+	    } else if (D.getPower(attack) == 0) {
+		return 0;
 	    }
-	    return 0;
 	}
 
 	double damage = 0;
 	if (Math.random() <= D.getAcc(attack)) { // Checks accuracy
-	    damage = ((((2 * (5) / 5 + 2) * V.player.getCurrent().getAtt() * D.getPower(attack) / V.opp.getCurrent().getDef()) / 50) + 2);
+	    damage = ((((2 * (10) / 5 + 2) * V.player.getCurrent().getAtt() * D.getPower(attack) / V.opp.getCurrent().getDef()) / 50) + 2);
 	    if (D.getType(attack) == V.player.getCurrent().getType1() || D.getType(attack) == V.player.getCurrent().getType2()) {
 		damage *= 2;
 	    }
@@ -288,12 +300,12 @@ public class Battle {
 		if (D.getEffectiveness(D.getType(attack), V.player.getCurrent().getType1()) > 1) {
 		    superEff = true;
 		} else if (D.getEffectiveness(D.getType(attack), V.player.getCurrent().getType1()) < 1) {
-		    superEff = true;
+		    notEff = true;
 		}
 	    } else {
 		damage *= D.getEffectiveness(D.getType(attack), V.player.getCurrent().getType1(), V.player.getCurrent().getType2());
 		if (D.getEffectiveness(D.getType(attack), V.player.getCurrent().getType1(), V.player.getCurrent().getType2()) > 1) {
-		    notEff = true;
+		    superEff = true;
 		} else if (D.getEffectiveness(D.getType(attack), V.player.getCurrent().getType1(), V.player.getCurrent().getType2()) < 1) {
 		    notEff = true;
 		}

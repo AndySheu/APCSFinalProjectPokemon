@@ -11,6 +11,7 @@ public class Main {
 
     public Main() {
 	init();
+//	Timer.wait(3000); // Wait 3 seconds for the voices in my head to finish
 	System.out.println("Pokémon Diamond III " + V.VERSION + " | Coded by Andy Sheu and Dhruv Jhamb");
 	System.out.println("Press [ENTER] to start game!");
 	gameInit();
@@ -70,10 +71,20 @@ public class Main {
 	    }
 	}
 
-	V.player.fillTeam((int) (Math.random() * 6 + 1));
-	V.player.nextPokemon();
+	if (V.TESTING) {
+	    V.player.addPokemon(new Pokemon(1, 0, 0));
+	    V.player.addPokemon(new Pokemon(4, 0, 0));
+	    V.player.addPokemon(new Pokemon(7, 0, 0));
+	    V.player.addPokemon(new Pokemon(16, 0, 0));
+	    V.player.addPokemon(new Pokemon(19, 0, 0));
+	    V.player.addPokemon(new Pokemon(25, 0, 0));
+	    V.opp.addPokemon(new Pokemon(129, 0, 0));
+	} else {
+	    V.player.fillTeam((int) (Math.random() * 6 + 1));
+	    V.opp.fillTeam((int) (Math.random() * 6 + 1));
+	}
 
-	V.opp.fillTeam((int) (Math.random() * 6 + 1));
+	V.player.nextPokemon();
 	V.opp.nextPokemon();
 
 	System.out.print(V.player.getName() + " has a(n): ");
@@ -99,9 +110,6 @@ public class Main {
     }
 
     public void startBattle() {
-	int a = D.getType(D.V_CREATE), ab = new Pokemon(P.VICTINI, 0, 0).getType1(), abc = new Pokemon(P.VICTINI, 0, 0).getType1();;
-	System.out.println(" " + a + " " + ab + " " + abc);
-
 	if (V.player.getName().equals("Nitin")) {
 	    System.out.println("GAME OVER: " + V.opp.getName() + " WINS!!!");
 	    System.out.println(V.player.getName() + " LOSERS!!!");
