@@ -98,9 +98,9 @@ public class Battle {
 	    } else if (turnType == 2) { // BAG
 		bagChoice();
 	    } else if (turnType == 3) { // SWITCH
-		if(!V.player.setCurrent(switchChoice())) { // If this fails, stop
+		if (!V.player.setCurrent(switchChoice())) { // If this fails, stop
 		    System.out.println(new ArithmeticException("GOD DAMN YOU, NITIN! SWITCH FAILS!"));
-		    while(true);
+		    while (true);
 		}
 		System.out.println(V.player.getName() + " sent out " + V.player.getCurrent().getName());
 	    } else if (turnType == 4) { // RUN
@@ -162,7 +162,7 @@ public class Battle {
 	    }
 	}
 	System.out.println(": ");
-	
+
 	String choice = V.keys.nextLine();
 	try {
 	    int intChoice = Integer.parseInt(choice);
@@ -271,10 +271,11 @@ public class Battle {
 	if (Math.random()
 		<= D.getAcc(attack)) { // Checks accuracy
 	    damage = ((((2 * (5) / 5 + 2) * V.opp.getCurrent().getAtt() * D.getPower(attack) / V.player.getCurrent().getDef()) / 50) + 2);
+
 	    if (D.getType(attack) == V.opp.getCurrent().getType1() || D.getType(attack) == V.opp.getCurrent().getType2()) {
 		damage *= 2;
 	    }
-	    if (V.player.getCurrent().getType2() == -1) {
+	    if (V.player.getCurrent().getType2() == 0) {
 		damage *= D.getEffectiveness(D.getType(attack), V.player.getCurrent().getType1());
 		if (D.getEffectiveness(D.getType(attack), V.player.getCurrent().getType1()) > 1) {
 		    superEff = true;

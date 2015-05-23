@@ -9,7 +9,7 @@ public class D { // D stands for Data
     private static Object[][] moveList = new Object[101][5];
 
     private static double[][] chart = {
-	{},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,},
 //	 0  NOR  FIG  FLY  POI  GRO  ROC  BUG  GHO  STE  FIR  WAT  GRA  ELE  PSY  ICE  DRA  DAR
 	{0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 0.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0}, // NORMAL
 	{0, 2.0, 1.0, 0.5, 0.5, 1.0, 2.0, 0.5, 0.0, 2.0, 1.0, 1.0, 1.0, 1.0, 0.5, 2.0, 1.0, 2.0}, // FIGHTING
