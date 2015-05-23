@@ -15,12 +15,16 @@ public class Battle {
 	while (!V.player.checkLoss() && !V.opp.checkLoss()) {
 	    System.out.println();
 
+	    ImagePanel.reset();
+	    V.frame.repaint();
+
 	    // TODO Graphics
 //	    pokemonList.add(oppCurr);
 //	    pokemonList.add(playerCurr);
 //
 //	    V.panel.updateImages(pokemonList);
 //	    V.frame.add(V.panel);
+//	    ImagePanel.reset();
 //	    V.frame.repaint();
 	    int oppMove = (int) (Math.random() * V.opp.getCurrent().getNumMoves());
 	    int turnType = chooseTurnType();
@@ -43,6 +47,8 @@ public class Battle {
 		    if (V.opp.getCurrent().checkFainted()) {
 			System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + " fainted!");
 			V.opp.nextPokemon();
+			ImagePanel.reset();
+			V.frame.repaint();
 			if (!V.opp.checkLoss()) {
 			    System.out.println(V.opp.getName() + " sends out " + V.opp.getCurrent().getName() + "!");
 			}
@@ -57,6 +63,8 @@ public class Battle {
 			if (V.player.getCurrent().checkFainted()) {
 			    System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + " fainted!");
 			    V.player.nextPokemon();
+			    ImagePanel.reset();
+			    V.frame.repaint();
 			    if (!V.player.checkLoss()) {
 				System.out.println(V.player.getName() + " sends out " + V.player.getCurrent().getName() + "!");
 			    }
@@ -74,6 +82,8 @@ public class Battle {
 		    if (V.player.getCurrent().checkFainted()) {
 			System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + " fainted!");
 			V.player.nextPokemon();
+			ImagePanel.reset();
+			V.frame.repaint();
 			if (!V.player.checkLoss()) {
 			    System.out.println(V.player.getName() + " sends out " + V.player.getCurrent().getName() + "!");
 			}
@@ -89,6 +99,8 @@ public class Battle {
 			if (V.opp.getCurrent().checkFainted()) {
 			    System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + " fainted!");
 			    V.opp.nextPokemon();
+			    ImagePanel.reset();
+			    V.frame.repaint();
 			    if (!V.opp.checkLoss()) {
 				System.out.println(V.opp.getName() + " sends out " + V.opp.getCurrent().getName() + "!");
 			    }
@@ -100,6 +112,8 @@ public class Battle {
 	    } else if (turnType == 3) { // SWITCH
 		if (V.player.setCurrent(switchChoice())) {
 		    System.out.println(V.player.getName() + " sent out " + V.player.getCurrent().getName());
+		    ImagePanel.reset();
+		    V.frame.repaint();
 		} else {
 		    System.out.println("Failed because your input is either fainted, is already out, or doesn't exist.");
 		}
@@ -112,8 +126,12 @@ public class Battle {
 		}
 	    }
 	    System.out.println();
+	    ImagePanel.reset();
+	    V.frame.repaint();
 	}
 
+	ImagePanel.reset();
+	V.frame.repaint();
 	System.out.print("GAME OVER: ");
 	if (V.player.checkLoss()) {
 	    System.out.println(V.opp.getName() + " WINS!!!");

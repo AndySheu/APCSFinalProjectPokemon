@@ -110,13 +110,13 @@ public class Player {
 	return false;
     }
 
-    void fillTeam(int n) {
+    void fillTeam(int n, int x, int y) {
 
-	Pokemon p = new Pokemon(Pokemon.generateRandom(), 0, 0);
+	Pokemon p = new Pokemon(Pokemon.generateRandom(), x, y);
 	addPokemon(p);
 	for (int i = 0; i < n - 1; i++) {
 	    while (has(p)) {
-		p = new Pokemon(Pokemon.generateRandom(), 0, 0);
+		p = new Pokemon(Pokemon.generateRandom(), x, y);
 	    }
 	    addPokemon(p);
 	}

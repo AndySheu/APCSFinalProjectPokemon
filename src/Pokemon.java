@@ -2,10 +2,8 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class Pokemon {
+public class Pokemon extends Sprite {
 
-    private Image image;
-    private double x, y;
     private int species;
     private int health;
     private int hp, att, def, spd;
@@ -13,10 +11,8 @@ public class Pokemon {
     private int[] moves;
     private int type1, type2;
 
-    public Pokemon(int species, Image img, double xPos, double yPos) {
-	image = img.getScaledInstance(250, 250, 1);
-	x = xPos;
-	y = yPos;
+    public Pokemon(int species, Image img, double x, double y) {
+	super(img, x, y);
 
 	this.species = species;
 
@@ -36,25 +32,9 @@ public class Pokemon {
 	this(species, new ImageIcon("./src/Images/Pokemon/" + species + ".png").getImage(), xPos, yPos);
     }
 
-    public void setPosition(double xPos, double yPos) {
-	x = xPos;
-	y = yPos;
-    }
-
-    public void setImage(Image img) {
-	image = img;
-    }
-
-    public double getX() {
-	return x;
-    }
-
-    public double getY() {
-	return y;
-    }
-
-    public Image getImage() {
-	return image;
+    public void setPosition(double x, double y) {
+	x = x;
+	y = y;
     }
 
     public String getName() {

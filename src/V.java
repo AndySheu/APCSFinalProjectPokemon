@@ -1,10 +1,11 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFrame;
 
 public class V { // V stands for Variables
     
-    static final String VERSION = "alpha 1.3.0";
+    static final String VERSION = "alpha 2.0.0";
     static final int NUM_POKE = 649;
     static final boolean TESTING = false;
     
@@ -15,9 +16,19 @@ public class V { // V stands for Variables
     static Pokemon[] playerPokeParty = new Pokemon[6];
     static Pokemon[] oppPokeParty = new Pokemon[6];
     
+    static ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+    
     static Player player;
     static Player opp;
     
-    static final int MAX_WIDTH = 1440;
-    static final int MAX_HEIGHT = 873;
+    static final int MAX_FRAME_HEIGHT = 873;
+    static final int MAX_FRAME_WIDTH = 1440;
+    
+    static final int MAX_PANEL_HEIGHT = 851;
+    static final int MAX_PANEL_WIDTH = 1440;
+    
+    static final int PLAYER_X = 250;
+    static final int PLAYER_Y = MAX_PANEL_HEIGHT - 400;
+    static final int OPP_X = MAX_PANEL_WIDTH - 400;
+    static final int OPP_Y = 100;
 }
