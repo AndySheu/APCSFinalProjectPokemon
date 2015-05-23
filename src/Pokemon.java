@@ -7,7 +7,7 @@ public class Pokemon {
     private Image image;
     private double x, y;
     private int species;
-    public int health;
+    private int health;
     private int hp, att, def, spd;
     private int attMod, defMod, spdMod;
     private int[] moves;
@@ -61,12 +61,20 @@ public class Pokemon {
 	return P.getName(getSpecies());
     }
 
+    public void kill() {
+	health = Integer.MIN_VALUE;
+    }
+    
     public int getSpecies() {
 	return species;
     }
 
     public int getHealth() {
 	return health;
+    }
+    
+    public void lowerHealth(int damage) {
+	health -= damage;
     }
 
     public int getHP() {

@@ -36,9 +36,9 @@ public class Battle {
 		    int userAttack = (int) userAttack();
 		    System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + " used " + D.getName(V.player.getCurrent().getMoves()[attackChoice]) + "! It did " + userAttack + " damage!");
 		    printResults(V.player, V.opp);
-		    V.opp.getCurrent().health -= userAttack;
+		    V.opp.getCurrent().lowerHealth(userAttack);
 
-		    System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + ": " + V.opp.getCurrent().health + "/" + V.opp.getCurrent().getHP());
+		    System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + ": " + V.opp.getCurrent().getHealth() + "/" + V.opp.getCurrent().getHP());
 
 		    if (V.opp.getCurrent().checkFainted()) {
 			System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + " fainted!");
@@ -50,9 +50,9 @@ public class Battle {
 			int oppAttack = (int) oppAttack(oppMove);
 			System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + " used " + D.getName(V.opp.getCurrent().getMoves()[oppMove]) + "! It did " + oppAttack + " damage!");
 			printResults(V.opp, V.player);
-			V.player.getCurrent().health -= oppAttack;
+			V.player.getCurrent().lowerHealth(oppAttack);
 
-			System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + ": " + V.player.getCurrent().health + "/" + V.player.getCurrent().getHP());
+			System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + ": " + V.player.getCurrent().getHealth() + "/" + V.player.getCurrent().getHP());
 
 			if (V.player.getCurrent().checkFainted()) {
 			    System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + " fainted!");
@@ -67,9 +67,9 @@ public class Battle {
 		    int oppAttack = (int) oppAttack(oppMove);
 		    System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + " used " + D.getName(V.opp.getCurrent().getMoves()[oppMove]) + "! It did " + oppAttack + " damage!");
 		    printResults(V.opp, V.player);
-		    V.player.getCurrent().health -= oppAttack;
+		    V.player.getCurrent().lowerHealth(oppAttack);
 
-		    System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + ": " + V.player.getCurrent().health + "/" + V.player.getCurrent().getHP());
+		    System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + ": " + V.player.getCurrent().getHealth() + "/" + V.player.getCurrent().getHP());
 
 		    if (V.player.getCurrent().checkFainted()) {
 			System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + " fainted!");
@@ -82,9 +82,9 @@ public class Battle {
 			int userAttack = (int) userAttack();
 			System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + " used " + D.getName(V.player.getCurrent().getMoves()[attackChoice]) + "! It did " + userAttack + " damage!");
 			printResults(V.player, V.opp);
-			V.opp.getCurrent().health -= userAttack;
+			V.opp.getCurrent().lowerHealth(userAttack);
 
-			System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + ": " + V.opp.getCurrent().health + "/" + V.opp.getCurrent().getHP());
+			System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + ": " + V.opp.getCurrent().getHealth() + "/" + V.opp.getCurrent().getHP());
 
 			if (V.opp.getCurrent().checkFainted()) {
 			    System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + " fainted!");
@@ -98,14 +98,18 @@ public class Battle {
 	    } else if (turnType == 2) { // BAG
 		bagChoice();
 	    } else if (turnType == 3) { // SWITCH
-		if (!V.player.setCurrent(switchChoice())) { // If this fails, stop
-		    System.out.println(new ArithmeticException("GOD DAMN YOU, NITIN! SWITCH FAILS!"));
-		    while (true);
+		if (V.player.setCurrent(switchChoice())) {
+		    System.out.println(V.player.getName() + " sent out " + V.player.getCurrent().getName());
+		} else {
+		    System.out.println("Failed because your input is either fainted or doesn't exist.");
 		}
-		System.out.println(V.player.getName() + " sent out " + V.player.getCurrent().getName());
 	    } else if (turnType == 4) { // RUN
 		System.out.println("You can't run from a trainer battle!");
 		System.out.println("Don't be a coward like Nitin, " + V.player.getName() + "!");
+	    } else if (turnType == 17) { // MAGIC KILL
+		for (int i = 0; i < V.opp.getNumPokemon(); i++) {
+		    V.opp.getParty()[i].kill();
+		}
 	    }
 	    System.out.println();
 	}
@@ -142,6 +146,8 @@ public class Battle {
 		return 3;
 	    } else if (choice.equals("RUN")) {
 		return 4;
+	    } else if (choice.equals("mk")) {// Stands for Magic Kill (Testing)
+		return 17;
 	    }
 	}
 	return chooseTurnType();
@@ -156,7 +162,9 @@ public class Battle {
 	System.out.print("Please choose the pokemon to switch to:");
 	for (Pokemon p : V.playerPokeParty) {
 	    try {
-		System.out.print(" (" + p.getSpecies() + ") " + p.getName());
+		if (!p.checkFainted()) {
+		    System.out.print(" (" + p.getSpecies() + ") " + p.getName());
+		}
 	    } catch (NullPointerException e) {
 
 	    }

@@ -51,7 +51,7 @@ public class Player {
     boolean setCurrent(int x) {
 	for (int i = 0; i < getNumPokemon(); i++) {
 	    Pokemon p = getParty()[i];
-	    if (p.getSpecies() == x) {
+	    if (p.getSpecies() == x && !p.checkFainted()) {
 		current = p;
 		return true;
 	    }

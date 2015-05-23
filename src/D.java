@@ -89,7 +89,7 @@ public class D { // D stands for Data
 	types[P.MAGIKARP][0] = WATER;
 	types[P.ARCEUS][0] = NORMAL;
 	types[P.VICTINI][0] = FIRE;
-	types[P.VICTINI][0] = PSYCHIC;
+	types[P.VICTINI][1] = PSYCHIC;
 
 	moves[P.BULBASAUR] = new int[]{TACKLE, GROWL};
 	moves[P.CHARMANDER] = new int[]{SCRATCH, GROWL};
