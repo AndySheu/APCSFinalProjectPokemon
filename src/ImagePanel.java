@@ -26,9 +26,7 @@ public class ImagePanel extends JPanel {
     }
 
     static void reset() {
-	for(Sprite s : V.sprites) {
-	    V.sprites.remove(s);
-	}
+	V.sprites = new ArrayList<Sprite>();
 	V.player.getCurrent().setLoc(V.PLAYER_X, V.PLAYER_Y);
 	V.sprites.add(V.player.getCurrent());
 	V.opp.getCurrent().setLoc(V.OPP_X, V.OPP_Y);
