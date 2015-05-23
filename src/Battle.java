@@ -35,7 +35,7 @@ public class Battle {
 
 		    int userAttack = (int) userAttack();
 		    System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + " used " + D.getName(V.player.getCurrent().getMoves()[attackChoice]) + "! It did " + userAttack + " damage!");
-		    printResults(V.player);
+		    printResults(V.player, V.opp);
 		    V.opp.getCurrent().health -= userAttack;
 
 		    System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + ": " + V.opp.getCurrent().health + "/" + V.opp.getCurrent().getHP());
@@ -49,7 +49,7 @@ public class Battle {
 		    } else {
 			int oppAttack = (int) oppAttack(oppMove);
 			System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + " used " + D.getName(V.opp.getCurrent().getMoves()[oppMove]) + "! It did " + oppAttack + " damage!");
-			printResults(V.opp);
+			printResults(V.opp, V.player);
 			V.player.getCurrent().health -= oppAttack;
 
 			System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + ": " + V.player.getCurrent().health + "/" + V.player.getCurrent().getHP());
@@ -66,7 +66,7 @@ public class Battle {
 		} else {
 		    int oppAttack = (int) oppAttack(oppMove);
 		    System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + " used " + D.getName(V.opp.getCurrent().getMoves()[oppMove]) + "! It did " + oppAttack + " damage!");
-		    printResults(V.opp);
+		    printResults(V.opp, V.player);
 		    V.player.getCurrent().health -= oppAttack;
 
 		    System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + ": " + V.player.getCurrent().health + "/" + V.player.getCurrent().getHP());
@@ -81,7 +81,7 @@ public class Battle {
 
 			int userAttack = (int) userAttack();
 			System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + " used " + D.getName(V.player.getCurrent().getMoves()[attackChoice]) + "! It did " + userAttack + " damage!");
-			printResults(V.player);
+			printResults(V.player, V.opp);
 			V.opp.getCurrent().health -= userAttack;
 
 			System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + ": " + V.opp.getCurrent().health + "/" + V.opp.getCurrent().getHP());
@@ -224,17 +224,17 @@ public class Battle {
 	    if (D.getType(attack) == V.player.getCurrent().getType1() || D.getType(attack) == V.player.getCurrent().getType2()) {
 		damage *= 2;
 	    }
-	    if (V.opp.getCurrent().getType2() == -1) {
+	    if (V.opp.getCurrent().getType2() == 0) {
 		damage *= D.getEffectiveness(D.getType(attack), V.opp.getCurrent().getType1());
 		if (D.getEffectiveness(D.getType(attack), V.opp.getCurrent().getType1()) > 1) {
 		    superEff = true;
 		} else if (D.getEffectiveness(D.getType(attack), V.opp.getCurrent().getType1()) < 1) {
-		    superEff = true;
+		    notEff = true;
 		}
 	    } else {
 		damage *= D.getEffectiveness(D.getType(attack), V.opp.getCurrent().getType1(), V.opp.getCurrent().getType2());
 		if (D.getEffectiveness(D.getType(attack), V.opp.getCurrent().getType1(), V.opp.getCurrent().getType2()) > 1) {
-		    notEff = true;
+		    superEff = true;
 		} else if (D.getEffectiveness(D.getType(attack), V.opp.getCurrent().getType1(), V.opp.getCurrent().getType2()) < 1) {
 		    notEff = true;
 		}
@@ -300,7 +300,7 @@ public class Battle {
 	return damage;
     }
 
-    private void printResults(Player p) {
+    private void printResults(Player p, Player notP) {
 	if (miss) {
 	    System.out.println("The attack MISSED!");
 	}
@@ -314,10 +314,10 @@ public class Battle {
 	    System.out.println("Critical Hit!");
 	}
 	if (att) {
-	    System.out.println(p.getCurrent().getName() + "'s attack fell!");
+	    System.out.println(notP.getCurrent().getName() + "'s attack fell!");
 	}
 	if (def) {
-	    System.out.println(p.getCurrent().getName() + "'s def fell!");
+	    System.out.println(notP.getCurrent().getName() + "'s def fell!");
 	}
 	crit = false;
 	miss = false;

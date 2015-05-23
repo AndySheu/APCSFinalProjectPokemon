@@ -62,7 +62,7 @@ public class Main {
 		wrong = true;
 		System.out.println("Wrong!");
 	    }
-	    for (int i = 0; i < 10; i++) {
+	    for (int i = 0; i < 24; i++) {
 		System.out.println();
 	    }
 	}
@@ -100,7 +100,7 @@ public class Main {
 	    System.out.println("GAME OVER: " + V.opp.getName() + " WINS!!!");
 	    System.out.println(V.player.getName() + " LOSERS!!!");
 	}
-	new Battle().run();
+	Player loser = new Battle().run();
     }
 
 }
