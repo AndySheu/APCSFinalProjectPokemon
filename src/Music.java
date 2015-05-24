@@ -2,6 +2,7 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import javax.sound.sampled.Line;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 import sun.audio.AudioData;
@@ -9,7 +10,7 @@ import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import sun.audio.ContinuousAudioDataStream;
 
-public class Music implements LineListener {
+public class Music {
 
     private AudioPlayer MGP = AudioPlayer.player;
     private AudioStream BGM;
@@ -27,21 +28,6 @@ public class Music implements LineListener {
 
     private boolean isPlaying() {
 	return isPlaying;
-    }
-
-    public void update(LineEvent event) {
-	LineEvent.Type type = event.getType();
-
-	if (type == LineEvent.Type.START) {
-	    isPlaying = true;
-	} else if (type == LineEvent.Type.STOP) {
-	    isPlaying = false;
-	    System.out.println("HERE");
-	    if (!stopped) {
-		nextSong();
-	    }
-	}
-
     }
 
     private void reset() {
