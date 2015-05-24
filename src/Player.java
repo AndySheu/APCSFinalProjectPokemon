@@ -2,7 +2,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Player {
+public class Player extends Sprite {
 
     private String name;
     private Image img;
@@ -10,6 +10,7 @@ public class Player {
     private Pokemon current;
 
     public Player(String name, String trainerClass, boolean player) {
+	super(name, 0, 0);
 	this.name = name;
 	img = new ImageIcon("./src/Images/Trainers/" + trainerClass + ".png").getImage();
 	isPlayer = player;

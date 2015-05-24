@@ -18,14 +18,6 @@ public class Battle {
 	    ImagePanel.reset();
 	    V.frame.repaint();
 
-	    // TODO Graphics
-//	    pokemonList.add(oppCurr);
-//	    pokemonList.add(playerCurr);
-//
-//	    V.panel.updateImages(pokemonList);
-//	    V.frame.add(V.panel);
-//	    ImagePanel.reset();
-//	    V.frame.repaint();
 	    int oppMove = (int) (Math.random() * V.opp.getCurrent().getNumMoves());
 	    int turnType = chooseTurnType();
 

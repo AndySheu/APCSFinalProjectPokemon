@@ -1,17 +1,21 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class V { // V stands for Variables
     
-    static final String VERSION = "alpha 2.1.0";
+    static final String VERSION = "alpha 2.2.0";
     static final int NUM_POKE = 649;
-    static final boolean TESTING = false;
+    static final boolean TESTING = false; 
+    static final boolean FINAL = false;
     
     static JFrame frame;
     static ImagePanel panel;
+    static JButton startMusic, stopMusic;
     static Scanner keys = new Scanner(System.in);
+    static Music music = new Music();
     
     static Pokemon[] playerPokeParty = new Pokemon[6];
     static Pokemon[] oppPokeParty = new Pokemon[6];

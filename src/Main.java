@@ -1,7 +1,12 @@
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.util.*;
-import java.awt.event.KeyEvent;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 public class Main {
 
@@ -10,36 +15,24 @@ public class Main {
     }
 
     public Main() {
-	init();
-	Timer.wait(3000); // Wait 3 seconds for the voices in my head to finish
-	System.out.println("Pokémon Diamond III " + V.VERSION + " | Coded by Andy S. and Dhruv J.");
-	System.out.println("Press [ENTER] to start game!");
+	Init.initUI();
+	if (V.FINAL) {
+	    Timer.wait(3000); // Wait 3 seconds for the voices in my head to finish
+	    System.out.println("Pokémon Diamond III " + V.VERSION + " | Coded by Andy S. and Dhruv J.");
+	    System.out.println("Press [ENTER] to start game!");
+	}
 
-	gameInit();
-	startBattle();
-    }
+	if (!V.TESTING) {
+	    gameInit();
+	    startBattle();
+	} else {
 
-    public void init() {
-	D.fill();
-	V.panel = new ImagePanel("./src/Images/Transparent.png");
-
-	JFrame passwordHint = new JFrame("PASSWORD HINT (4): Mike's full initials | Player.setName(\"MB\"); && pass.equals(/*MB's favorite word*/);");
-	passwordHint.setSize(0, 0);
-	passwordHint.setVisible(true);
-	passwordHint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	V.frame = new JFrame("Pokémon Diamond III " + V.VERSION + " | Coded by Andy Sheu and Dhruv Jhamb");
-	V.frame.setSize(V.MAX_FRAME_WIDTH, V.MAX_FRAME_HEIGHT);
-	V.frame.add(V.panel);
-	V.frame.setVisible(true);
-	V.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-	new Listener();
+	}
     }
 
     public void gameInit() {
-	V.keys.nextLine();
 	System.out.print("What is your name? ");
-	V.player = new Player(V.keys.nextLine(), null, true);
+	V.player = new Player(V.keys.nextLine(), "N", true);
 	System.out.print("What is your opponent\'s name? ");
 	V.opp = new Player(V.keys.nextLine(), null, false);
 
@@ -120,45 +113,6 @@ public class Main {
 	V.frame.repaint();
     }
 
-    static void keyPressed(KeyEvent e) {
-
-	try {
-	    switch (e.getKeyCode()) {
-		case KeyEvent.VK_LEFT: // 37
-		    V.player.getCurrent().setLoc(V.player.getCurrent().getX() - 100, V.player.getCurrent().getY());
-		    break;
-		case KeyEvent.VK_RIGHT: // 39
-		    V.player.getCurrent().setLoc(V.player.getCurrent().getX() + 100, V.player.getCurrent().getY());
-		    break;
-		case KeyEvent.VK_UP: // 38
-		    V.player.getCurrent().setLoc(V.player.getCurrent().getX(), V.player.getCurrent().getY() - 100);
-		    break;
-		case KeyEvent.VK_DOWN: // 40
-		    V.player.getCurrent().setLoc(V.player.getCurrent().getX(), V.player.getCurrent().getY() + 100);
-		    break;
-	    }
-	    V.frame.repaint();
-	} catch (NullPointerException ex) {
-	}
-    }
-
-    static void keyReleased(KeyEvent e) {
-//	switch (e.getKeyCode()) {
-//	    case KeyEvent.VK_LEFT:
-//		System.out.println("LEFT");
-//		V.player.getCurrent().setLoc(V.player.getCurrent().getX() - 1, V.player.getCurrent().getY());
-//	    case KeyEvent.VK_RIGHT:
-//		System.out.println("RIGHT");
-//		V.player.getCurrent().setLoc(V.player.getCurrent().getX() + 1, V.player.getCurrent().getY());
-//	    case KeyEvent.VK_UP:
-//		System.out.println("UP");
-//		V.player.getCurrent().setLoc(V.player.getCurrent().getX(), V.player.getCurrent().getY() - 1);
-//	    case KeyEvent.VK_DOWN:
-//		System.out.println("DOWN");
-//		V.player.getCurrent().setLoc(V.player.getCurrent().getX(), V.player.getCurrent().getY() + 1);
-//	}
-    }
-
     public void startBattle() {
 	if (V.player.getName().equals("Nitin")) {
 	    System.out.println("GAME OVER: " + V.opp.getName() + " WINS!!!");
@@ -172,9 +126,11 @@ public class Main {
 		Timer.wait(1000);
 		V.player = null;
 		V.opp = null;
+		V.keys.nextLine();
 		gameInit();
 		startBattle();
 	    }
+	    System.exit(0);
 	} catch (Exception e) {
 
 	}

@@ -16,7 +16,7 @@ public class ImagePanel extends JPanel {
 	background = img;
 
 	setFocusable(true);
-	setBackground(Color.BLACK);
+//	setBackground(Color.BLACK);
 	setDoubleBuffered(true);
 	Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
 	setPreferredSize(size);
@@ -27,6 +27,7 @@ public class ImagePanel extends JPanel {
 
     static void reset() {
 	V.sprites = new ArrayList<Sprite>();
+	V.sprites.add(V.player);
 	V.player.getCurrent().setLoc(V.PLAYER_X, V.PLAYER_Y);
 	V.sprites.add(V.player.getCurrent());
 	V.opp.getCurrent().setLoc(V.OPP_X, V.OPP_Y);
