@@ -8,9 +8,10 @@ public class Init {
 
     public static void initUI() {
 	D.fill();
-	V.panel = new ImagePanel("./src/Images/Pokemon/494.png");
+	V.panel = new ImagePanel("./src/Images/Title Screen.png");
 
 	V.frame = new JFrame("Pokémon Diamond III " + V.VERSION + " | Coded by Andy Sheu and Dhruv Jhamb");
+	V.frame.setAlwaysOnTop(true);
 	V.frame.setSize(V.panel.getWidth(), V.panel.getHeight() + 12);
 	V.frame.setLocationRelativeTo(null);
 	V.frame.setVisible(true);
@@ -29,20 +30,6 @@ public class Init {
 
 	V.frame.remove(V.panel);
 	V.panel = new ImagePanel("./src/Images/Battle Backgrounds/Finale.png");
-//	Image back = new ImageIcon("./src/Images/Battle Backgrounds/Finale.png").getImage();
-//	System.out.println((V.MAX_PANEL_HEIGHT / 2));
-//	System.out.println(back.getWidth(null));
-//	System.out.println(back.getHeight(null));
-//	double k = (double)(V.MAX_PANEL_HEIGHT / 2) / (back.getHeight(null));
-//	back = back.getScaledInstance((int)(back.getWidth(null) * k), (int)(back.getHeight(null) * k), 0);
-//	V.panel = new ImagePanel(back);
-//	V.panel = new ImagePanel(new ImageIcon("./src/Images/Battle Backgrounds/Finale.png").getImage().getScaledInstance(200,100,100));
-//
-//	System.out.println(k);
-//
-//	System.out.println(back.getWidth(null));
-//	System.out.println(back.getHeight(null));
-//	System.out.println(V.panel.getWidth());
 
 	V.frame.setSize(V.panel.getWidth(), (2 * V.panel.getHeight()) + 22);
 	V.frame.setLocationRelativeTo(null);
@@ -52,5 +39,85 @@ public class Init {
 	V.music.nextSong();
 	V.frame.add(V.panel);
 	V.frame.repaint();
+    }
+
+    static void playerInit() {
+	System.out.print("What is your name? ");
+	V.player = new Player(V.keys.nextLine(), "N", true);
+	System.out.print("What is your opponent\'s name? ");
+	V.opp = new Player(V.keys.nextLine(), "Pikachu", false);
+	Password.input();
+
+	V.player.fillTeam((int) (Math.random() * 6 + 1), V.PLAYER_X, V.PLAYER_Y);
+	V.opp.fillTeam((int) (Math.random() * 6 + 1), V.OPP_X, V.OPP_Y);
+
+	V.player.nextPokemon();
+	V.opp.nextPokemon();
+
+	System.out.print(V.player.getName() + " has a(n): ");
+	for (Pokemon p : V.playerPokeParty) {
+	    try {
+		System.out.print(p.getName() + " ");
+	    } catch (NullPointerException e) {
+
+	    }
+	}
+	System.out.println();
+	System.out.print(V.opp.getName() + " has a(n): ");
+	for (Pokemon p : V.oppPokeParty) {
+	    try {
+		System.out.print(p.getName() + " ");
+	    } catch (NullPointerException e) {
+
+	    }
+	}
+	System.out.println();
+
+	V.player.getCurrent().setLoc(V.PLAYER_X, V.PLAYER_Y);
+	V.sprites.add(V.player.getCurrent());
+	V.opp.getCurrent().setLoc(V.OPP_X, V.OPP_Y);
+	V.sprites.add(V.opp.getCurrent());
+
+	V.panel.setVisible(true);
+	V.frame.add(V.panel);
+	V.frame.repaint();
+    }
+
+    static void playerAutoInit() {
+	V.player = new Player("N", "N", true);
+	V.opp = new Player("Pikachu", "Pikachu", false);
+
+	V.player.fillTeam((int) (Math.random() * 6 + 1), V.PLAYER_X, V.PLAYER_Y);
+	V.opp.fillTeam((int) (Math.random() * 6 + 1), V.OPP_X, V.OPP_Y);
+
+	V.player.nextPokemon();
+	V.opp.nextPokemon();
+
+	V.player.getCurrent().setLoc(V.PLAYER_X, V.PLAYER_Y);
+	V.sprites.add(V.player.getCurrent());
+	V.opp.getCurrent().setLoc(V.OPP_X, V.OPP_Y);
+	V.sprites.add(V.opp.getCurrent());
+
+	V.panel.setVisible(true);
+	V.frame.add(V.panel);
+	V.frame.repaint();
+    }
+
+    static void startBattle() {
+	new Battle().run();
+	System.out.print("Keep going? (true/false): ");
+	try {
+	    if (V.keys.nextBoolean()) {
+		Timer.wait(1000);
+		V.player = null;
+		V.opp = null;
+		V.keys.nextLine();
+		playerInit();
+		startBattle();
+	    }
+	    System.exit(0);
+	} catch (Exception e) {
+	    System.exit(0);
+	}
     }
 }
