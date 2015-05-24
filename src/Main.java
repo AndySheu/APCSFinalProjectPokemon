@@ -16,8 +16,9 @@ public class Main {
 
     public Main() {
 	Init.initUI();
+	Init.titleScreen();
 	if (V.FINAL) {
-	    Timer.wait(3000); // Wait 3 seconds for the voices in my head to finish
+//	    Timer.wait(3000); // Wait 3 seconds for the voices in my head to finish
 	    System.out.println("Pokémon Diamond III " + V.VERSION + " | Coded by Andy S. and Dhruv J.");
 	    System.out.println("Press [ENTER] to start game!");
 	}
@@ -26,7 +27,25 @@ public class Main {
 	    gameInit();
 	    startBattle();
 	} else {
+	    V.player = new Player("N", "N", true);
+	    V.opp = new Player("Pikachu", "Pikachu", false);
 
+	    V.player.fillTeam((int) (Math.random() * 6 + 1), V.PLAYER_X, V.PLAYER_Y);
+	    V.opp.fillTeam((int) (Math.random() * 6 + 1), V.OPP_X, V.OPP_Y);
+
+	    V.player.nextPokemon();
+	    V.opp.nextPokemon();
+	    
+	    V.player.getCurrent().setLoc(V.PLAYER_X, V.PLAYER_Y);
+	    V.sprites.add(V.player.getCurrent());
+	    V.opp.getCurrent().setLoc(V.OPP_X, V.OPP_Y);
+	    V.sprites.add(V.opp.getCurrent());
+
+	    V.panel.setVisible(true);
+	    V.frame.add(V.panel);
+	    V.frame.repaint();
+	    
+	    startBattle();
 	}
     }
 
@@ -34,7 +53,7 @@ public class Main {
 	System.out.print("What is your name? ");
 	V.player = new Player(V.keys.nextLine(), "N", true);
 	System.out.print("What is your opponent\'s name? ");
-	V.opp = new Player(V.keys.nextLine(), null, false);
+	V.opp = new Player(V.keys.nextLine(), "Pikachu", false);
 
 //	boolean wrong = false;
 //
@@ -67,19 +86,8 @@ public class Main {
 //		System.out.println();
 //	    }
 //	}
-
-	if (V.TESTING) {
-	    V.player.addPokemon(new Pokemon(1, V.PLAYER_X, V.PLAYER_Y));
-	    V.player.addPokemon(new Pokemon(4, V.PLAYER_X, V.PLAYER_Y));
-	    V.player.addPokemon(new Pokemon(7, V.PLAYER_X, V.PLAYER_Y));
-	    V.player.addPokemon(new Pokemon(16, V.PLAYER_X, V.PLAYER_Y));
-	    V.player.addPokemon(new Pokemon(19, V.PLAYER_X, V.PLAYER_Y));
-	    V.player.addPokemon(new Pokemon(25, V.PLAYER_X, V.PLAYER_Y));
-	    V.opp.addPokemon(new Pokemon(129, V.OPP_X, V.OPP_Y));
-	} else {
-	    V.player.fillTeam((int) (Math.random() * 6 + 1), V.PLAYER_X, V.PLAYER_Y);
-	    V.opp.fillTeam((int) (Math.random() * 6 + 1), V.OPP_X, V.OPP_Y);
-	}
+	V.player.fillTeam((int) (Math.random() * 6 + 1), V.PLAYER_X, V.PLAYER_Y);
+	V.opp.fillTeam((int) (Math.random() * 6 + 1), V.OPP_X, V.OPP_Y);
 
 	V.player.nextPokemon();
 	V.opp.nextPokemon();
