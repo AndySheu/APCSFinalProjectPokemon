@@ -111,13 +111,13 @@ public class Player extends Sprite {
 	return false;
     }
 
-    void fillTeam(int n, int x, int y) {
+    void fillTeam(int n, boolean player, int x, int y) {
 
-	Pokemon p = new Pokemon(Pokemon.generateRandom(), x, y);
+	Pokemon p = new Pokemon(Pokemon.generateRandom(), player, x, y);
 	addPokemon(p);
 	for (int i = 0; i < n - 1; i++) {
 	    while (has(p)) {
-		p = new Pokemon(Pokemon.generateRandom(), x, y);
+		p = new Pokemon(Pokemon.generateRandom(), player, x, y);
 	    }
 	    addPokemon(p);
 	}

@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 
 public class V { // V stands for Variables
 
-    static final String VERSION = "alpha 2.6.1";
+    static final String VERSION = "alpha 2.6.2";
     static final int NUM_POKE = 649;
-    static final boolean TESTING = false;
+    static final boolean TESTING = true;
 
     static JFrame frame;
     static ImagePanel panel;
@@ -23,6 +23,8 @@ public class V { // V stands for Variables
 
     static Player player;
     static Player opp;
+    
+    static final int SHINY_RATE = 2;
 
     static final int MAX_FRAME_HEIGHT = 873;
     static final int MAX_FRAME_WIDTH = 1440;
