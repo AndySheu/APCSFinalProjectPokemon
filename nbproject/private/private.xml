@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/asheu/NetBeansProjects/Pokemon/src/P.java</file>
             <file>file:/Users/asheu/NetBeansProjects/Pokemon/src/Battle.java</file>
-            <file>file:/Users/asheu/NetBeansProjects/Pokemon/src/ImagePanel.java</file>
             <file>file:/Users/asheu/NetBeansProjects/Pokemon/src/Main.java</file>
             <file>file:/Users/asheu/NetBeansProjects/Pokemon/src/V.java</file>
-            <file>file:/Users/asheu/NetBeansProjects/Pokemon/src/D.java</file>
-            <file>file:/Users/asheu/NetBeansProjects/Pokemon/src/Pokemon.java</file>
+            <file>file:/Users/asheu/NetBeansProjects/Pokemon/src/Listener.java</file>
+            <file>file:/Users/asheu/NetBeansProjects/Pokemon/src/Init.java</file>
         </group>
     </open-files>
 </project-private>

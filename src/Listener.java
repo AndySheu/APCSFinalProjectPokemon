@@ -53,6 +53,9 @@ public class Listener implements ActionListener {
 		case KeyEvent.VK_MINUS:
 		    V.music.stop();
 		    break;
+		case KeyEvent.VK_0:
+		    V.music.nextSong();
+		    break;
 	    }
 	    V.frame.repaint();
 	} catch (NullPointerException ex) {
