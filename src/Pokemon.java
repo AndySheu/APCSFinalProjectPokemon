@@ -12,8 +12,8 @@ public class Pokemon extends Sprite {
     private int type1, type2;
     private boolean shiny = false;
 
-    public Pokemon(int species, boolean player, Image img, double x, double y) {
-	super(img, x, y);
+    public Pokemon(int species, boolean player, Image img) {
+	super(img, 0, 0);
 
 	if ((int)(Math.random() * V.SHINY_RATE) == 0) {
 	    shiny = true;
@@ -26,6 +26,9 @@ public class Pokemon extends Sprite {
 	    } else {
 		setImage(new ImageIcon("./src/Images/Back/" + species + ".png").getImage());
 	    }
+	    setLoc(V.PLAYER_X, V.PLAYER_Y);
+	} else {
+	    setLoc(V.OPP_X, V.OPP_Y);
 	}
 
 	this.species = species;
@@ -42,8 +45,8 @@ public class Pokemon extends Sprite {
 	type2 = D.getTypes(species)[1];
     }
 
-    public Pokemon(int species, boolean player, double xPos, double yPos) {
-	this(species, player, new ImageIcon("./src/Images/Normal/" + species + ".png").getImage(), xPos, yPos);
+    public Pokemon(int species, boolean player) {
+	this(species, player, new ImageIcon("./src/Images/Normal/" + species + ".png").getImage());
     }
 
     public void setPosition(double x, double y) {

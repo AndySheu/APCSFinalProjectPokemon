@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 public class V { // V stands for Variables
 
-    static final String VERSION = "alpha 2.6.2";
+    static final String VERSION = "alpha 3.0.0";
     static final int NUM_POKE = 649;
     static final boolean TESTING = true;
 
@@ -14,7 +14,7 @@ public class V { // V stands for Variables
     static ImagePanel panel;
     static JButton startMusic, stopMusic;
     static Scanner keys = new Scanner(System.in);
-    static Music music = new Music(new String[]{"./src/Music/FireRed/01 Opening.wav", "./src/Music/FireRed/02 Pallet Town Theme.wav"});
+    static Music music = new Music(new String[]{"./src/Music/FireRed/01 Opening.wav", "./src/Music/FireRed/15 Battle (Vs Trainer).wav"});
 
     static Pokemon[] playerPokeParty = new Pokemon[6];
     static Pokemon[] oppPokeParty = new Pokemon[6];
@@ -31,11 +31,6 @@ public class V { // V stands for Variables
 
     static final int MAX_PANEL_HEIGHT = 851;
     static final int MAX_PANEL_WIDTH = 1440;
-
-//    static final int PLAYER_X = 250;
-//    static final int PLAYER_Y = MAX_PANEL_HEIGHT - 400;
-//    static final int OPP_X = MAX_PANEL_WIDTH - 400;
-//    static final int OPP_Y = 100;
     
     static final int PLAYER_X = 55;
     static final int PLAYER_Y = 220;

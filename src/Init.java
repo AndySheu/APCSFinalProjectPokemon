@@ -48,8 +48,8 @@ public class Init {
 	V.opp = new Player(V.keys.nextLine(), "Pikachu", false);
 	Password.input();
 
-	V.player.fillTeam((int) (Math.random() * 6 + 1), true, V.PLAYER_X, V.PLAYER_Y);
-	V.opp.fillTeam((int) (Math.random() * 6 + 1), true, V.OPP_X, V.OPP_Y);
+	V.player.fillTeam((int) (Math.random() * 6 + 1), true);
+	V.opp.fillTeam((int) (Math.random() * 6 + 1), true);
 
 	V.player.nextPokemon();
 	V.opp.nextPokemon();
@@ -87,8 +87,8 @@ public class Init {
 	V.player = new Player("N", "N", true);
 	V.opp = new Player("Pikachu", "Pikachu", false);
 
-	V.player.fillTeam((int) (Math.random() * 6 + 1), true, V.PLAYER_X, V.PLAYER_Y);
-	V.opp.fillTeam((int) (Math.random() * 6 + 1), false, V.OPP_X, V.OPP_Y);
+	V.player.fillTeam((int) (Math.random() * 6 + 1), true);
+	V.opp.fillTeam((int) (Math.random() * 6 + 1), false);
 
 	V.player.nextPokemon();
 	V.opp.nextPokemon();
