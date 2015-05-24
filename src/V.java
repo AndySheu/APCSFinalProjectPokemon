@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 public class V { // V stands for Variables
     
-    static final String VERSION = "alpha 2.4.0";
+    static final String VERSION = "alpha 2.4.1";
     static final int NUM_POKE = 649;
     static final boolean TESTING = false; 
     static final boolean FINAL = false;
