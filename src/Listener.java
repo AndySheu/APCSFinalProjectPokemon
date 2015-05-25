@@ -30,9 +30,29 @@ public class Listener implements ActionListener {
 	}
     }
 
+    static void battlePress(KeyEvent e) {
+	try {
+	    if (e.getKeyCode() > KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9) {
+		V.input = e.getKeyCode();
+	    }
+	} catch (NullPointerException ex) {
+
+	}
+    }
+
     static void keyPressed(KeyEvent e) {
+	if (V.state >= Battle.TYPE && V.state <= Battle.RUN) {
+	    battlePress(e);
+	    return;
+	}
 	Sprite whatToMove = V.player;
+	try {
+	    whatToMove = V.player;
+	} catch (NullPointerException ex) {
+
+	}
 	int moveDistance = 3;
+
 	try {
 	    switch (e.getKeyCode()) {
 		case KeyEvent.VK_LEFT: // 37
@@ -56,6 +76,9 @@ public class Listener implements ActionListener {
 		case KeyEvent.VK_0:
 		    V.music.nextSong();
 		    break;
+		case KeyEvent.VK_ENTER:
+		    V.enter = true;
+		    break;
 	    }
 	    V.frame.repaint();
 	} catch (NullPointerException ex) {
@@ -64,7 +87,13 @@ public class Listener implements ActionListener {
 
     static void keyReleased(KeyEvent e) {
 	Sprite whatToMove = V.player;
-	int moveDistance = 1;
+	try {
+	    whatToMove = V.player;
+	} catch (NullPointerException ex) {
+
+	}
+	int moveDistance = 3;
+
 	try {
 	    switch (e.getKeyCode()) {
 		case KeyEvent.VK_LEFT: // 37
@@ -85,16 +114,17 @@ public class Listener implements ActionListener {
 		case KeyEvent.VK_MINUS:
 		    V.music.stop();
 		    break;
+		case KeyEvent.VK_0:
+		    V.music.nextSong();
+		    break;
+		case KeyEvent.VK_ENTER:
+		    V.enter = true;
+		    break;
 	    }
 	    V.frame.repaint();
 	} catch (NullPointerException ex) {
 	}
     }
-
-    // TODO Remove? Probably unnecessary
-//    public void actionPerformed(ActionEvent e) {
-//	V.panel.repaint();
-//    }
 
     private class Adapter extends KeyAdapter {
 

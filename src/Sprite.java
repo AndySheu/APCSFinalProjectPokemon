@@ -35,6 +35,6 @@ public class Sprite {
     }
     
     void setImage(Image img) {
-	image = img;
+	image = img.getScaledInstance(250, 250, 1);
     }
 }

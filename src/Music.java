@@ -2,9 +2,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import javax.sound.sampled.Line;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
 import sun.audio.AudioData;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
@@ -37,6 +34,8 @@ public class Music {
 	    e.printStackTrace();
 	} catch (IOException error) {
 	    error.printStackTrace();
+	} catch (NullPointerException nullError) {
+	    
 	}
     }
 
@@ -67,7 +66,8 @@ public class Music {
 	    }
 	}
 	if (paths[0] == null) {
-	    System.out.println("FINISHED SONGS");
+	    paths = V.musicList;
+	    nextSong();
 	}
 	start();
     }
