@@ -30,7 +30,21 @@ public class Listener implements ActionListener {
 	}
     }
 
+    static void battlePress(KeyEvent e) {
+	try {
+	    if (e.getKeyCode() > KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9) {
+		V.input = e.getKeyCode();
+	    }
+	} catch (NullPointerException ex) {
+
+	}
+    }
+
     static void keyPressed(KeyEvent e) {
+	if (V.state >= Battle.TYPE && V.state <= Battle.RUN) {
+	    battlePress(e);
+	    return;
+	}
 	Sprite whatToMove = V.player;
 	try {
 	    whatToMove = V.player;

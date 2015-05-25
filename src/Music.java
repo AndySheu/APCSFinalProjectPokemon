@@ -34,6 +34,8 @@ public class Music {
 	    e.printStackTrace();
 	} catch (IOException error) {
 	    error.printStackTrace();
+	} catch (NullPointerException nullError) {
+	    
 	}
     }
 
@@ -64,7 +66,8 @@ public class Music {
 	    }
 	}
 	if (paths[0] == null) {
-	    System.out.println("FINISHED SONGS");
+	    paths = V.musicList;
+	    nextSong();
 	}
 	start();
     }

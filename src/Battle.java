@@ -1,9 +1,12 @@
 
+import javax.swing.ImageIcon;
+
 public class Battle {
 
     boolean crit = false, miss = false, notEff = false, superEff = false, att = false, def = false;
     int attackChoice;
 
+    static final int OUT = -1;
     static final int STARTED = 0;
     static final int LOADING = 1;
     static final int TYPE = 2;
@@ -33,9 +36,10 @@ public class Battle {
 	    System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + ": " + V.opp.getCurrent().getHealth() + "/" + V.opp.getCurrent().getHP());
 
 	    System.out.println();
-	    
+
 	    int oppMove = (int) (Math.random() * V.opp.getCurrent().getNumMoves());
 	    V.state = chooseType();
+	    V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
 
 	    switch (V.state) {
 		case ATTACK:
@@ -85,19 +89,24 @@ public class Battle {
 		    break;
 		case MAGIC_KILL:
 		    V.opp.getCurrent().kill();
+		    if (V.opp.getCurrent().checkFainted()) {
+			processFaint(V.opp);
+		    }
 		    break;
 	    }
 	}
 
 	ImagePanel.reset();
 	V.frame.repaint();
-	
+
+	V.state = OUT;
 	System.out.print("GAME OVER: ");
 	Player loser, winner;
 	if (V.player.checkLoss()) { // TIE GOES TO OPPONENT
 	    loser = V.player;
 	    winner = V.opp;
 	} else {
+	    V.music.nextSong();
 	    loser = V.opp;
 	    winner = V.player;
 	}
@@ -108,7 +117,9 @@ public class Battle {
     }
 
     private int chooseType() {
+	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Type.png").getImage());
 	System.out.println("(1) ATTACK, (2) BAG, (3) SWITCH OR (4) RUN");
+	
 	String choice = V.keys.nextLine();
 	try {
 	    int intChoice = Integer.parseInt(choice);
@@ -140,10 +151,12 @@ public class Battle {
 
     private int switchChoice() {
 	System.out.print("Please choose the pokemon to switch to:");
+	int j = 0;
 	for (Pokemon p : V.playerPokeParty) {
+	    j++;
 	    try {
 		if (!p.checkFainted()) {
-		    System.out.print(" (" + p.getSpecies() + ") " + p.getName());
+		    System.out.print(" (" + j + ") " + p.getName());
 		}
 	    } catch (NullPointerException e) {
 
@@ -154,8 +167,8 @@ public class Battle {
 	String choice = V.keys.nextLine();
 	try {
 	    int intChoice = Integer.parseInt(choice);
-	    if (intChoice >= 1 && intChoice <= V.NUM_POKE) {
-		return intChoice;
+	    if (intChoice >= 1 && intChoice <= V.player.getNumPokemon()) {
+		return V.player.getParty()[intChoice-1].getSpecies();
 	    }
 	} catch (NumberFormatException e) {
 	    for (int i = 0; i < V.player.getNumPokemon(); i++) {
@@ -251,7 +264,7 @@ public class Battle {
 	}
 
 	// This should only be done for attacking moves
-	System.out.println(p.getName() + "'s " + p.getCurrent().getName() + " used " + D.getName(attack) + "! It did " + (int)damage + " damage!");
+	System.out.println(p.getName() + "'s " + p.getCurrent().getName() + " used " + D.getName(attack) + "! It did " + (int) damage + " damage!");
 	printResults(p, o);
 	o.getCurrent().lowerHealth((int) damage);
 

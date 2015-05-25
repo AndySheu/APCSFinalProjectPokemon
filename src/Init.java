@@ -29,9 +29,9 @@ public class Init {
 	}
 
 	V.frame.remove(V.panel);
-	V.panel = new ImagePanel("./src/Images/Battle Backgrounds/Finale.png");
+	V.panel = new ImagePanel("./src/Images/Battle Backgrounds/Finale Loading.png");
 
-	V.frame.setSize(V.panel.getWidth(), (2 * V.panel.getHeight()) + 22);
+	V.frame.setSize(V.panel.getWidth(), (V.panel.getHeight()) + 22);
 	V.frame.setLocationRelativeTo(null);
 	V.frame.setVisible(true);
 
@@ -42,6 +42,8 @@ public class Init {
     }
 
     static void playerInit() {
+	V.player = null;
+	V.opp = null;
 	System.out.print("What is your name? ");
 	V.player = new Player(V.keys.nextLine(), "N", true);
 	System.out.print("What is your opponent\'s name? ");
@@ -109,6 +111,7 @@ public class Init {
 	try {
 	    if (V.keys.nextBoolean()) {
 		Timer.wait(1000);
+		V.music.nextSong();
 		V.player = null;
 		V.opp = null;
 		V.keys.nextLine();
