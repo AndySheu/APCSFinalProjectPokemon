@@ -5,7 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Init {
-
+    
     public static void initUI() {
 	D.fill();
 	V.panel = new ImagePanel("./src/Images/Title Screen.png");
@@ -18,6 +18,7 @@ public class Init {
 	V.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	new Listener();
+	V.musicState = Music.DEFAULT;
 	V.music.start();
 	V.frame.add(V.panel);
 	V.frame.repaint();
@@ -36,7 +37,6 @@ public class Init {
 	V.frame.setVisible(true);
 
 	new Listener();
-	V.music.nextSong();
 	V.frame.add(V.panel);
 	V.frame.repaint();
     }
@@ -106,12 +106,11 @@ public class Init {
     }
 
     static void startBattle() {
-	new Battle().run();
+	new Battle(false).run();
 	System.out.print("Keep going? (true/false): ");
 	try {
 	    if (V.keys.nextBoolean()) {
 		Timer.wait(1000);
-		V.music.nextSong();
 		V.player = null;
 		V.opp = null;
 		V.keys.nextLine();

@@ -6,6 +6,7 @@ public class Battle {
     private boolean crit = false, miss = false, notEff = false, superEff = false, att = false, def = false;
     private int attackChoice;
     private boolean run = false;
+    private boolean trainer;
 
     static final int OUT = -1;
     static final int STARTED = 0;
@@ -20,11 +21,14 @@ public class Battle {
     static final int FINISHED = 9;
     static final int MAGIC_KILL = 17;
 
-    public Battle() {
+    public Battle(boolean trainer) {
 	V.state = STARTED;
+	this.trainer = trainer;
     }
 
     public Player run() {
+	V.musicState = Music.TRAINER_BATTLE;
+	V.music.start();
 	V.state = STARTED;
 	Pokemon playerCurr, oppCurr;
 
@@ -92,8 +96,11 @@ public class Battle {
 		    }
 		    break;
 		case RUN:
-//		    System.out.println("You can't run from a trainer battle!");
-//		    System.out.println("Don't be a coward, " + V.player.getName() + "!");
+		    if(trainer) {
+		    System.out.println("You can't run from a trainer battle!");
+		    System.out.println("Don't be a coward, " + V.player.getName() + "!");
+			break;
+		    }
 		    if (Math.random() > 0.5) {
 			run = true;
 			break;
@@ -123,6 +130,8 @@ public class Battle {
 	if (run) {
 	    System.out.println(V.player.getName() + " ran away!");
 	    V.panel.clear();
+	    V.musicState = Music.DEFAULT;
+	    V.music.start();
 	    return null;
 	}
 
@@ -132,7 +141,8 @@ public class Battle {
 	    loser = V.player;
 	    winner = V.opp;
 	} else {
-	    V.music.nextSong();
+	    V.musicState = Music.TRAINER_VICTORY;
+	    V.music.start();
 	    loser = V.opp;
 	    winner = V.player;
 	}

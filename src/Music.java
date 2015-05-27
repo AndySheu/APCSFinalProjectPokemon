@@ -12,20 +12,22 @@ public class Music {
     private AudioPlayer MGP = AudioPlayer.player;
     private AudioStream BGM;
     private AudioData MD;
-    private String[] paths = new String[V.musicList.length];
 
     private ContinuousAudioDataStream loop = null;
 
     private boolean isPlaying = false, stopped = true;
     
     private int index = 0;
-
-    public Music(String[] paths) {
-	for (int i = 0; i < V.musicList.length; i++) {
-	    System.out.println(paths[i]);
-	    this.paths[i] = paths[i];
-	}
-	reset();
+    
+    static final String PALLET_TOWN = "./src/Music/FireRed/Pallet Town.wav";
+    static final String ROUTE_1 = "./src/Music/FireRed/Route 1.wav";
+    static final String TRAINER_BATTLE = "./src/Music/FireRed/Trainer Battle.wav";
+    static final String TRAINER_VICTORY = "./src/Music/FireRed/Trainer Victory.wav";
+    static final String WILD_BATTLE = "./src/Music/FireRed/Wild Battle.wav";
+    static final String WILD_VICTORY = "./src/Music/FireRed/Wild Victory.wav";
+    static final String DEFAULT = PALLET_TOWN;
+    
+    public Music() {
     }
 
     private boolean isPlaying() {
@@ -34,7 +36,7 @@ public class Music {
 
     private void reset() {
 	try {
-	    BGM = new AudioStream(new FileInputStream(paths[index]));
+	    BGM = new AudioStream(new FileInputStream(V.musicState));
 	} catch (FileNotFoundException e) {
 	    e.printStackTrace();
 	} catch (IOException error) {
@@ -58,17 +60,5 @@ public class Music {
 	isPlaying = false;
 	stopped = true;
 	AudioPlayer.player.stop(BGM);
-    }
-
-    public void nextSong() {
-	if (index++ >= paths.length) {
-	    index = 0;
-	}
-	start();
-    }
-
-    public void set(String[] paths) {
-	this.paths = paths;
-	reset();
     }
 }

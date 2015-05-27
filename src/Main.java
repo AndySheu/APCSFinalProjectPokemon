@@ -2,7 +2,7 @@
 TODO:
 Thread Animations
 MouseListener
-GUI
+GUI         --- YES
 Status Effects
 Back button --- YES
 Music reset --- YES

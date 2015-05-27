@@ -89,9 +89,6 @@ public class Listener implements ActionListener {
 		case KeyEvent.VK_MINUS:
 		    V.music.stop();
 		    break;
-		case KeyEvent.VK_0:
-		    V.music.nextSong();
-		    break;
 		case KeyEvent.VK_ENTER:
 		    V.enter = true;
 		    break;
@@ -129,9 +126,6 @@ public class Listener implements ActionListener {
 		    break;
 		case KeyEvent.VK_MINUS:
 		    V.music.stop();
-		    break;
-		case KeyEvent.VK_0:
-		    // DO NOTHING, IDIOT!
 		    break;
 		case KeyEvent.VK_ENTER:
 		    V.enter = true;
