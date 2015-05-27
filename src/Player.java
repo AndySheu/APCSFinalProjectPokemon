@@ -20,7 +20,7 @@ public class Player extends Sprite {
     String getName() {
 	return name;
     }
-    
+
     void setName(String name) {
 	this.name = name;
     }
@@ -48,7 +48,7 @@ public class Player extends Sprite {
 	}
 	return i;
     }
-    
+
     boolean setCurrent(int x) {
 	for (int i = 0; i < getNumPokemon(); i++) {
 	    Pokemon p = getParty()[i];
@@ -60,7 +60,7 @@ public class Player extends Sprite {
 	}
 	return false;
     }
-    
+
     Pokemon getCurrent() {
 	return current;
     }
@@ -113,13 +113,17 @@ public class Player extends Sprite {
 
     void fillTeam(int n, boolean player) {
 
-	Pokemon p = new Pokemon(Pokemon.generateRandom(), player);
-	addPokemon(p);
-	for (int i = 0; i < n - 1; i++) {
-	    while (has(p)) {
-		p = new Pokemon(Pokemon.generateRandom(), player);
-	    }
+	if (getNumPokemon() < 6) {
+	    Pokemon p = new Pokemon(Pokemon.generateRandom(), player);
 	    addPokemon(p);
+	    for (int i = 0; i < n - 1; i++) {
+		if (getNumPokemon() < 6) {
+		    while (has(p)) {
+			p = new Pokemon(Pokemon.generateRandom(), player);
+		    }
+		    addPokemon(p);
+		}
+	    }
 	}
     }
 }

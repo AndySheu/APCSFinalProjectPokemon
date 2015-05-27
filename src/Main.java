@@ -1,3 +1,12 @@
+/*
+TODO:
+Thread Animations
+MouseListener
+GUI
+Status Effects
+Back button --- YES
+*/
+
 
 public class Main {
 

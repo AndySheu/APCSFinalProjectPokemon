@@ -116,7 +116,7 @@ public class D { // D stands for Data
 	moves[P.ARCEUS] = new int[]{JUDGEMENT, SPLASH};
 	moves[P.VICTINI] = new int[]{SEARING_SHOT, V_CREATE, BOLT_STRIKE, PSYCHIC_};
 
-	moveList[TACKLE] = new Object[]{"TACKLE", new Integer(50), new Integer(70), new Integer(NORMAL)};
+	moveList[TACKLE] = new Object[]{"TACKLE", new Integer(50), new Integer(95), new Integer(NORMAL)};
 	moveList[GROWL] = new Object[]{"GROWL", new Integer(0), new Integer(100), new Integer(NORMAL), new Integer(ATT_DOWN)};
 	moveList[SCRATCH] = new Object[]{"SCRATCH", new Integer(40), new Integer(100), new Integer(NORMAL)};
 	moveList[TAIL_WHIP] = new Object[]{"TAIL WHIP", new Integer(0), new Integer(100), new Integer(NORMAL), new Integer(DEF_DOWN)};
@@ -177,7 +177,7 @@ public class D { // D stands for Data
     static int getEffect(int base) {
 	try {
 	    return (Integer) moveList[base][4];
-	} catch (ArrayIndexOutOfBoundsException holidayTime) {
+	} catch (ArrayIndexOutOfBoundsException e) {
 	    return 0;
 	}
     }

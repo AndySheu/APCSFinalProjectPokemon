@@ -51,11 +51,11 @@ public class Init {
 	Password.input();
 
 	V.player.fillTeam((int) (Math.random() * 6 + 1), true);
-	V.opp.fillTeam((int) (Math.random() * 6 + 1), true);
+	V.opp.fillTeam((int) (Math.random() * 6 + 1), false);
 
 	V.player.nextPokemon();
 	V.opp.nextPokemon();
-
+	
 	System.out.print(V.player.getName() + " has a(n): ");
 	for (Pokemon p : V.playerPokeParty) {
 	    try {

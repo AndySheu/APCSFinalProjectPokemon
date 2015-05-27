@@ -23,27 +23,40 @@ public class ImagePanel extends JPanel {
 	setMaximumSize(size);
 	setSize(size);
     }
-    
+
     void setImage(Image img) {
 	background = img;
 	repaint();
+    }
+    
+    void clear() {
+	V.sprites = new ArrayList<Sprite>();
     }
 
     static void reset() {
 	V.sprites = new ArrayList<Sprite>();
 //	V.sprites.add(V.player);
 //	V.sprites.add(V.opp);
-	
+
 	V.player.getCurrent().setLoc(V.PLAYER_X, V.PLAYER_Y);
 	V.sprites.add(V.player.getCurrent());
 	V.opp.getCurrent().setLoc(V.OPP_X, V.OPP_Y);
 	V.sprites.add(V.opp.getCurrent());
     }
+    
+    static void flash(Sprite s) {
+	ArrayList<Sprite> temp = new ArrayList<Sprite>();
+	for (Sprite sp : V.sprites) {
+	    if (!(sp == s)) {
+		temp.add(sp);
+	    }
+	}
+	V.sprites.remove(s);
+    }
 
     public void paint(Graphics g) {
 	super.paint(g);
 
-//	System.out.print("PAINTED");
 	for (Sprite s : V.sprites) {
 	    g.drawImage(s.getImage(), (int) s.getX(), (int) s.getY(), this);
 	}

@@ -1,6 +1,9 @@
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -30,10 +33,23 @@ public class Listener implements ActionListener {
 	}
     }
 
-    static void battlePress(KeyEvent e) {
+    // TODO -- double if scanner vs keyinput (var ctrld)
+    static void battlePress(KeyEvent ke) {
 	try {
-	    if (e.getKeyCode() > KeyEvent.VK_0 && e.getKeyCode() <= KeyEvent.VK_9) {
-		V.input = e.getKeyCode();
+	    if (ke.getKeyCode() > KeyEvent.VK_0 && ke.getKeyCode() <= KeyEvent.VK_9) {
+		V.input = ke.getKeyCode();
+		try {
+		    Robot robot = new Robot();
+
+		    robot.mousePress(InputEvent.BUTTON1_MASK);
+		    robot.mouseRelease(InputEvent.BUTTON1_MASK);
+
+		    robot.keyPress(KeyEvent.VK_A);
+		    robot.keyRelease(KeyEvent.VK_A);
+
+		} catch (AWTException e) {
+		    e.printStackTrace();
+		}
 	    }
 	} catch (NullPointerException ex) {
 
