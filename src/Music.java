@@ -12,14 +12,19 @@ public class Music {
     private AudioPlayer MGP = AudioPlayer.player;
     private AudioStream BGM;
     private AudioData MD;
-    private String[] paths;
+    private String[] paths = new String[V.musicList.length];
 
     private ContinuousAudioDataStream loop = null;
 
     private boolean isPlaying = false, stopped = true;
+    
+    private int index = 0;
 
     public Music(String[] paths) {
-	this.paths = paths;
+	for (int i = 0; i < V.musicList.length; i++) {
+	    System.out.println(paths[i]);
+	    this.paths[i] = paths[i];
+	}
 	reset();
     }
 
@@ -29,13 +34,13 @@ public class Music {
 
     private void reset() {
 	try {
-	    BGM = new AudioStream(new FileInputStream(paths[0]));
+	    BGM = new AudioStream(new FileInputStream(paths[index]));
 	} catch (FileNotFoundException e) {
 	    e.printStackTrace();
 	} catch (IOException error) {
 	    error.printStackTrace();
 	} catch (NullPointerException nullError) {
-	    
+	    nullError.printStackTrace();
 	}
     }
 
@@ -56,18 +61,8 @@ public class Music {
     }
 
     public void nextSong() {
-	String temp = null;
-	for (int i = 0; i < paths.length - 1; i++) {
-	    try {
-		paths[i] = paths[i + 1];
-		paths[i + 1] = null;
-	    } catch (NullPointerException e) {
-
-	    }
-	}
-	if (paths[0] == null) {
-	    paths = V.musicList;
-	    nextSong();
+	if (index++ >= paths.length) {
+	    index = 0;
 	}
 	start();
     }

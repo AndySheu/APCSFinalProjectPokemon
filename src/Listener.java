@@ -131,7 +131,7 @@ public class Listener implements ActionListener {
 		    V.music.stop();
 		    break;
 		case KeyEvent.VK_0:
-		    V.music.nextSong();
+		    // DO NOTHING, IDIOT!
 		    break;
 		case KeyEvent.VK_ENTER:
 		    V.enter = true;
