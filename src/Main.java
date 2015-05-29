@@ -1,13 +1,17 @@
-/*
-TODO:
-Thread Animations
-MouseListener
-GUI         --- YES
-Status Effects
-Back button --- YES
-Music reset --- YES
-*/
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
+/*
+ TODO:
+ Thread Animations -- NAH
+ MouseListener -- DONE
+ Attack GUI
+ Status Effects -- NAH
+ */
 
 public class Main {
 
@@ -27,5 +31,4 @@ public class Main {
 
 	Init.startBattle();
     }
-
 }

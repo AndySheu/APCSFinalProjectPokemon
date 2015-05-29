@@ -6,17 +6,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Listener implements ActionListener {
 
     private String action;
 
-    public Listener(String action) {
-	this.action = action;
-    }
-
     public Listener() {
-	V.frame.addKeyListener(new Adapter());
+	V.frame.addKeyListener(new KAdapter());
+	V.frame.addMouseListener(new MAdapter());
 	V.frame.setFocusable(true);
     }
 
@@ -33,32 +32,8 @@ public class Listener implements ActionListener {
 	}
     }
 
-    // TODO -- double if scanner vs keyinput (var ctrld)
-    static void battlePress(KeyEvent ke) {
-	try {
-	    if (ke.getKeyCode() > KeyEvent.VK_0 && ke.getKeyCode() <= KeyEvent.VK_9) {
-		V.input = ke.getKeyCode();
-		try {
-		    Robot robot = new Robot();
-
-		    robot.mousePress(InputEvent.BUTTON1_MASK);
-		    robot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-		    robot.keyPress(KeyEvent.VK_A);
-		    robot.keyRelease(KeyEvent.VK_A);
-
-		} catch (AWTException e) {
-		    e.printStackTrace();
-		}
-	    }
-	} catch (NullPointerException ex) {
-
-	}
-    }
-
     static void keyPressed(KeyEvent e) {
 	if (V.state >= Battle.TYPE && V.state <= Battle.RUN) {
-	    battlePress(e);
 	    return;
 	}
 	Sprite whatToMove = V.player;
@@ -121,12 +96,6 @@ public class Listener implements ActionListener {
 		case KeyEvent.VK_DOWN: // 40
 		    whatToMove.setLoc(whatToMove.getX(), whatToMove.getY() + moveDistance);
 		    break;
-		case KeyEvent.VK_EQUALS:
-		    V.music.start();
-		    break;
-		case KeyEvent.VK_MINUS:
-		    V.music.stop();
-		    break;
 		case KeyEvent.VK_ENTER:
 		    V.enter = true;
 		    break;
@@ -135,8 +104,40 @@ public class Listener implements ActionListener {
 	} catch (NullPointerException ex) {
 	}
     }
+    
+    static void mouseClicked(MouseEvent e) {
+//	System.out.println(e.getX() + "," + e.getY());
+	if (V.state == Battle.TYPE) {
+	    if (e.getX() >= 103 && e.getX() <= 436 && e.getY() >= 534 && e.getY() <= 663) {
+		V.state = Battle.ATTACK;
+	    } else if (e.getX() >= 0 && e.getX() <= 162 && e.getY() >= 704 && e.getY() <= 851) {
+		V.state = Battle.ITEM;
+	    } else if (e.getX() >= 187 && e.getX() <= 350 && e.getY() >= 744 && e.getY() <= 851) {
+		V.state = Battle.RUN;
+	    } else if (e.getX() >= 375 && e.getX() <= 538 && e.getY() >= 704 && e.getY() <= 851) {
+		V.state = Battle.POKEMON;
+	    }
+	} else if (V.state == Battle.ATTACK) {
+	    if (e.getX() >= 0 && e.getX() < 269 && e.getY() >= 512 && e.getY() < 614) {
+		Battle.attackChoice = 0;
+	    } else if (e.getX() > 269 && e.getX() <= 538 && e.getY() >= 512 && e.getY() < 614) {
+		Battle.attackChoice = 1;
+	    } else if (e.getX() >= 0 && e.getX() < 269 && e.getY() > 614 && e.getY() <= 716) {
+		Battle.attackChoice = 2;
+	    } else if (e.getX() > 269 && e.getX() <= 538 && e.getY() >= 614 && e.getY() <= 716) {
+		Battle.attackChoice = 3;
+	    } else if (e.getX() >= 374 && e.getX() <= 538 && e.getY() >= 722 && e.getY() <= 851) {
+		Battle.attackChoice = Integer.MAX_VALUE;
+	    }
+	    if (Battle.attackChoice >= V.player.getCurrent().getNumMoves() && Battle.attackChoice != Integer.MAX_VALUE) {
+		Battle.attackChoice = -1;
+	    }
+	} else {
+	    V.click = true;
+	}
+    }
 
-    private class Adapter extends KeyAdapter {
+    private class KAdapter extends KeyAdapter {
 
 	public void keyReleased(KeyEvent e) {
 	    Listener.keyReleased(e);
@@ -147,4 +148,10 @@ public class Listener implements ActionListener {
 	}
     }
 
+    private class MAdapter extends MouseAdapter {
+
+	public void mouseClicked(MouseEvent e) {
+	    Listener.mouseClicked(e);
+	}
+    }
 }

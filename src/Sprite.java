@@ -7,8 +7,8 @@ public class Sprite {
     private double x,y;
     private Image image;
     
-   public Sprite(Image img, double x, double u) {
-	image = img.getScaledInstance(250, 250, 1);
+   public Sprite(Image img, double x, double y) {
+	image = img.getScaledInstance(175, 175, 1);
 	this.x = x;
 	this.y = y;
     }

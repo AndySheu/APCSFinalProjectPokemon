@@ -36,7 +36,6 @@ public class Init {
 	V.frame.setLocationRelativeTo(null);
 	V.frame.setVisible(true);
 
-	new Listener();
 	V.frame.add(V.panel);
 	V.frame.repaint();
     }
@@ -44,6 +43,8 @@ public class Init {
     static void playerInit() {
 	V.player = null;
 	V.opp = null;
+	Player.emptyTeam();
+	
 	System.out.print("What is your name? ");
 	V.player = new Player(V.keys.nextLine(), "N", true);
 	System.out.print("What is your opponent\'s name? ");

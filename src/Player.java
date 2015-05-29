@@ -126,4 +126,9 @@ public class Player extends Sprite {
 	    }
 	}
     }
+
+    static void emptyTeam() {
+	V.playerPokeParty = new Pokemon[6];
+	V.oppPokeParty = new Pokemon[6];
+    }
 }

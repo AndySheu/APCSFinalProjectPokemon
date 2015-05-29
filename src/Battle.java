@@ -1,24 +1,28 @@
 
+import java.awt.Color;
+import java.awt.Font;
+import javafx.scene.layout.Border;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Battle {
 
     private boolean crit = false, miss = false, notEff = false, superEff = false, att = false, def = false;
-    private int attackChoice;
+    static int attackChoice;
     private boolean run = false;
     private boolean trainer;
 
-    static final int OUT = -1;
-    static final int STARTED = 0;
-    static final int LOADING = 1;
-    static final int TYPE = 2;
-    static final int ATTACK = 3;
-    static final int ITEM = 4;
-    static final int POKEMON = 5;
-    static final int RUN = 6;
-    static final int BACK = 7;
-    static final int PRINTING = 8;
-    static final int FINISHED = 9;
+    static final int OVERWORLD = 0;
+    static final int STARTED = 1;
+    static final int LOADING = 2;
+    static final int TYPE = 3;
+    static final int ATTACK = 4;
+    static final int ITEM = 5;
+    static final int POKEMON = 6;
+    static final int RUN = 7;
+    static final int BACK = 8;
+    static final int PRINTING = 9;
+    static final int FINISHED = 10;
     static final int MAGIC_KILL = 17;
 
     public Battle(boolean trainer) {
@@ -44,18 +48,19 @@ public class Battle {
 	    System.out.println();
 
 	    int oppMove = (int) (Math.random() * V.opp.getCurrent().getNumMoves());
-	    V.state = chooseType();
+
+	    chooseType();
+	    attackChoice = -1;
 
 	    switch (V.state) {
 		case ATTACK:
 		    int playerSpd = V.player.getCurrent().getSpd(),
 		     oppSpd = V.opp.getCurrent().getSpd();
 		    double rand = Math.random();
-		    int choice = moveChoice();
-		    if (choice == -1) {
+		    moveChoice();
+		    if (attackChoice == Integer.MAX_VALUE) {
 			break;
 		    }
-		    attackChoice = choice;
 
 		    if (playerSpd > oppSpd || ((playerSpd == oppSpd) && rand <= 0.5)) {
 			int userAttack = (int) attack(V.player, V.opp, attackChoice);
@@ -81,7 +86,12 @@ public class Battle {
 		    }
 		    break;
 		case ITEM:
+		    V.click = false;
 		    bagChoice();
+		    while (!V.click) {
+			Timer.wait(100);
+		    }
+		    break;
 		case POKEMON:
 		    if (V.player.setCurrent(switchChoice())) {
 			System.out.println(V.player.getName() + " sent out " + V.player.getCurrent().getName());
@@ -96,9 +106,9 @@ public class Battle {
 		    }
 		    break;
 		case RUN:
-		    if(trainer) {
-		    System.out.println("You can't run from a trainer battle!");
-		    System.out.println("Don't be a coward, " + V.player.getName() + "!");
+		    if (trainer) {
+			System.out.println("You can't run from a trainer battle!");
+			System.out.println("Don't be a coward, " + V.player.getName() + "!");
 			break;
 		    }
 		    if (Math.random() > 0.5) {
@@ -125,7 +135,7 @@ public class Battle {
 	ImagePanel.reset();
 	V.frame.repaint();
 
-	V.state = OUT;
+	V.state = OVERWORLD;
 
 	if (run) {
 	    System.out.println(V.player.getName() + " ran away!");
@@ -152,41 +162,24 @@ public class Battle {
 	return winner;
     }
 
-    private int chooseType() {
+    private void chooseType() {
 	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Type.png").getImage());
-	System.out.println("(1) ATTACK, (2) BAG, (3) SWITCH OR (4) RUN");
+	System.out.println("Please select a turn type.");
 
-	String choice = V.keys.nextLine();
-	try {
-	    int intChoice = Integer.parseInt(choice);
-	    if (intChoice >= 1 && intChoice <= 4) {
-		return intChoice + 2; // To match states above
-	    }
-	} catch (NumberFormatException e) {
-	    if (choice.equals("ATTACK")) {
-		return 3;
-	    } else if (choice.equals("BAG")) {
-		return 4;
-	    } else if (choice.equals("SWITCH")) {
-		return 5;
-	    } else if (choice.equals("RUN")) {
-		return 6;
-	    } else if (choice.equals("mk")) { // Stands for Magic Kill (Testing Only)
-		if (V.TESTING) {
-		    return 17;
-		}
-	    }
+	V.state = TYPE;
+	while (V.state == TYPE) {
+	    Timer.wait(100);
 	}
-	return chooseType();
     }
 
-    private int bagChoice() {
+    private void bagChoice() {
+	V.state = ITEM;
 	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
 	System.out.println("Oh. You don't have any items!");
-	return -1;
     }
 
     private int switchChoice() {
+	V.state = POKEMON;
 	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
 	System.out.print("Please choose the pokemon to switch to:");
 	int j = 0;
@@ -218,31 +211,61 @@ public class Battle {
 	return -1;
     }
 
-    private int moveChoice() {
+    private void moveChoice() {
 	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Attack.png").getImage());
-	System.out.print("Please choose your move (");
-	int i;
-	for (i = 0; i < V.player.getCurrent().getNumMoves() - 1; i++) {
-	    System.out.print("(" + (i + 1) + ") " + D.getNameFromIndex(V.player.getCurrent().getMoves()[i]) + ", ");
+	System.out.println("Please select a move.");
+
+	V.state = ATTACK;
+
+//	JLabel move0 = new JLabel(), move1 = new JLabel(), move2 = new JLabel(), move3 = new JLabel();
+//	move0.setText(D.getNameFromIndex(V.player.getCurrent().getMoves()[0]));
+//	move0.setVisible(true);
+//	move0.setLocation(134, 512);
+//	V.frame.add(move0);
+//	if (V.player.getCurrent().getNumMoves() > 1) {
+//	    move1.setText(D.getNameFromIndex(V.player.getCurrent().getMoves()[1]));
+//	    move1.setLocation(403, 512);
+//	    V.frame.add(move1);
+//	    if (V.player.getCurrent().getNumMoves() > 2) {
+//		move2.setText(D.getNameFromIndex(V.player.getCurrent().getMoves()[2]));
+//		move2.setLocation(134, 614);
+//		V.frame.add(move2);
+//		if (V.player.getCurrent().getNumMoves() > 3) {
+//		    move3.setText(D.getNameFromIndex(V.player.getCurrent().getMoves()[3]));
+//		    move3.setLocation(403, 614);
+//		    V.frame.add(move3);
+//		}
+//	    }
+//	}
+//	V.panel.reset();
+
+	while (attackChoice == -1) {
+	    Timer.wait(100);
 	}
-	System.out.print("(" + (i + 1) + ") " + D.getNameFromIndex(V.player.getCurrent().getMoves()[i++]) + ") or 0 (back): ");
-	String choice = V.keys.nextLine();
-	try {
-	    int intChoice = Integer.parseInt(choice) - 1;
-	    if (intChoice >= -1 && intChoice <= V.player.getCurrent().getNumMoves()) {
-		V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
-		return intChoice;
-	    }
-	} catch (NumberFormatException e) {
-	    for (i = 0; i < V.player.getCurrent().getNumMoves(); i++) {
-		if (choice.equals(D.getNameFromIndex(V.player.getCurrent().getMoves()[i]))) {
-		    V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
-		    return i;
-		}
-	    }
-	}
-	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
-	return moveChoice();
+
+//	System.out.print("Please choose your move (");
+//	int i;
+//	for (i = 0; i < V.player.getCurrent().getNumMoves() - 1; i++) {
+//	    System.out.print("(" + (i + 1) + ") " + D.getNameFromIndex(V.player.getCurrent().getMoves()[i]) + ", ");
+//	}
+//	System.out.print("(" + (i + 1) + ") " + D.getNameFromIndex(V.player.getCurrent().getMoves()[i++]) + ") or 0 (back): ");
+//	String choice = V.keys.nextLine();
+//	try {
+//	    int intChoice = Integer.parseInt(choice) - 1;
+//	    if (intChoice >= -1 && intChoice <= V.player.getCurrent().getNumMoves()) {
+//		V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
+//		return intChoice;
+//	    }
+//	} catch (NumberFormatException e) {
+//	    for (i = 0; i < V.player.getCurrent().getNumMoves(); i++) {
+//		if (choice.equals(D.getNameFromIndex(V.player.getCurrent().getMoves()[i]))) {
+//		    V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
+//		    return i;
+//		}
+//	    }
+//	}
+//	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
+//	return moveChoice();
     }
 
     private double attack(Player p, Player o, int attackIndex) {
@@ -376,5 +399,9 @@ public class Battle {
 	Timer.wait(500);
 	V.panel.reset();
 	V.panel.repaint();
+    }
+    
+    private void hpBars() {
+	
     }
 }

@@ -3,6 +3,15 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 public class ImagePanel extends JPanel {
 
     private Image background;
@@ -28,7 +37,7 @@ public class ImagePanel extends JPanel {
 	background = img;
 	repaint();
     }
-    
+
     void clear() {
 	V.sprites = new ArrayList<Sprite>();
     }
@@ -38,12 +47,14 @@ public class ImagePanel extends JPanel {
 //	V.sprites.add(V.player);
 //	V.sprites.add(V.opp);
 
-	V.player.getCurrent().setLoc(V.PLAYER_X, V.PLAYER_Y);
-	V.sprites.add(V.player.getCurrent());
-	V.opp.getCurrent().setLoc(V.OPP_X, V.OPP_Y);
-	V.sprites.add(V.opp.getCurrent());
+	if (V.state >= Battle.STARTED && V.state <= Battle.FINISHED) {
+	    V.player.getCurrent().setLoc(V.PLAYER_X, V.PLAYER_Y);
+	    V.sprites.add(V.player.getCurrent());
+	    V.opp.getCurrent().setLoc(V.OPP_X, V.OPP_Y);
+	    V.sprites.add(V.opp.getCurrent());
+	}
     }
-    
+
     static void flash(Sprite s) {
 	ArrayList<Sprite> temp = new ArrayList<Sprite>();
 	for (Sprite sp : V.sprites) {
@@ -57,8 +68,17 @@ public class ImagePanel extends JPanel {
     public void paint(Graphics g) {
 	super.paint(g);
 
-	for (Sprite s : V.sprites) {
-	    g.drawImage(s.getImage(), (int) s.getX(), (int) s.getY(), this);
+	try {
+	    for (Sprite s : V.sprites) {
+		g.drawImage(s.getImage(), (int) s.getX(), (int) s.getY(), this);
+	    }
+	    if (V.state >= Battle.STARTED && V.state <= Battle.FINISHED) {
+		g.setColor(Color.black);
+		g.setFont(new Font("Courier New", 1, 24));
+		g.drawString("DUCK!", 70, 420);
+	    }
+	} catch (ConcurrentModificationException e) {
+	    paint(g);
 	}
 
 	Toolkit.getDefaultToolkit().sync();

@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 public class V { // V stands for Variables
 
-    static final String VERSION = "alpha 4.2.0";
+    static final String VERSION = "alpha 5.0.0";
     static final int NUM_POKE = 649;
     static final boolean TESTING = true;
 
@@ -28,7 +28,7 @@ public class V { // V stands for Variables
     static Player player;
     static Player opp;
     
-    static final int SHINY_RATE = 50;
+    static final int SHINY_RATE = 20;
 
     static final int MAX_FRAME_HEIGHT = 873;
     static final int MAX_FRAME_WIDTH = 1440;
@@ -36,12 +36,13 @@ public class V { // V stands for Variables
     static final int MAX_PANEL_HEIGHT = 851;
     static final int MAX_PANEL_WIDTH = 1440;
     
-    static final int PLAYER_X = 55;
-    static final int PLAYER_Y = 220;
-    static final int OPP_X = 275;
-    static final int OPP_Y = 43;
+    static final int PLAYER_X = 70;
+    static final int PLAYER_Y = 200;
+    static final int OPP_X = 325;
+    static final int OPP_Y = 75;
 
     static boolean enter = false;
-    static int state = Battle.OUT;
+    static int state = Battle.OVERWORLD;
     static int input = 0;
+    static boolean click = false;
 }
