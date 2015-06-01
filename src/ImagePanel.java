@@ -42,7 +42,7 @@ public class ImagePanel extends JPanel {
 	V.sprites = new ArrayList<Sprite>();
     }
 
-    static void reset() {
+    public void reset() {
 	V.sprites = new ArrayList<Sprite>();
 //	V.sprites.add(V.player);
 //	V.sprites.add(V.opp);
@@ -52,6 +52,8 @@ public class ImagePanel extends JPanel {
 	    V.sprites.add(V.player.getCurrent());
 	    V.opp.getCurrent().setLoc(V.OPP_X, V.OPP_Y);
 	    V.sprites.add(V.opp.getCurrent());
+	    V.sprites.add(V.playerHealth);
+	    V.sprites.add(V.oppHealth);
 	}
     }
 
@@ -72,10 +74,31 @@ public class ImagePanel extends JPanel {
 	    for (Sprite s : V.sprites) {
 		g.drawImage(s.getImage(), (int) s.getX(), (int) s.getY(), this);
 	    }
-	    if (V.state >= Battle.STARTED && V.state <= Battle.FINISHED) {
-		g.setColor(Color.black);
-		g.setFont(new Font("Courier New", 1, 24));
-		g.drawString("DUCK!", 70, 420);
+	    if (V.state >= Battle.ATTACK) {
+		for (int i = 0; i < V.player.getCurrent().getNumMoves(); i++) {
+		    Point center = new Point(135, 563);
+		    g.setColor(Color.black);
+//		    Font f = new Font("Courier New", 1, 0);
+//		    FontMetrics fm = g.getFontMetrics(f);
+		    String moveText = "duckz";
+		    g.setFont(new Font(g.getFont().getName(), g.getFont().getStyle(), 50));
+		    java.awt.geom.Rectangle2D rect = g.getFontMetrics().getStringBounds(moveText, g);
+//		    java.awt.geom.Rectangle2D rect = fm.getStringBounds(moveText, g);
+
+		    int textHeight = (int) (rect.getHeight());
+		    int textWidth = (int) (rect.getWidth());
+		    System.out.println("Text height: " + textHeight + " " + "Text width: " + textWidth);
+
+		    double centerX = center.getX();
+		    double centerY = center.getY();
+		    System.out.println("centerX: " + centerX + " " + "centerY: " + centerY);
+
+		    int x = (int) (centerX - (textWidth / 2.0));
+		    int y = (int) ((centerY - (textHeight / 2.0)));
+		    System.out.println("X: " + x + " "+ "Y: " + y);
+
+		    g.drawString(moveText, x, y);
+		}
 	    }
 	} catch (ConcurrentModificationException e) {
 	    paint(g);

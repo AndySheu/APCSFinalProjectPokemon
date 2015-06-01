@@ -25,7 +25,11 @@ public class Init {
     }
 
     public static void titleScreen() {
+	
+	V.panel.reset();
+//	V.sprites.add(V.playerHealth);
 	while (!V.enter) {
+	    V.panel.repaint();
 	    Timer.wait(1000);
 	}
 

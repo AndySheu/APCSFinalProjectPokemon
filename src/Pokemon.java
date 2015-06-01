@@ -13,7 +13,7 @@ public class Pokemon extends Sprite {
     private boolean shiny = false;
 
     public Pokemon(int species, boolean player, Image img) {
-	super(img, 0, 0);
+	super(img, true, 0, 0);
 
 	if ((int)(Math.random() * V.SHINY_RATE) == 0) {
 	    shiny = true;
@@ -22,9 +22,9 @@ public class Pokemon extends Sprite {
 
 	if (player) {
 	    if (shiny) {
-		setImage(new ImageIcon("./src/Images/Shiny Back/" + species + ".png").getImage());
+		setLargeImage(new ImageIcon("./src/Images/Shiny Back/" + species + ".png").getImage());
 	    } else {
-		setImage(new ImageIcon("./src/Images/Back/" + species + ".png").getImage());
+		setLargeImage(new ImageIcon("./src/Images/Back/" + species + ".png").getImage());
 	    }
 	    setLoc(V.PLAYER_X, V.PLAYER_Y);
 	} else {

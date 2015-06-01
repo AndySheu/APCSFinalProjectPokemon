@@ -9,8 +9,9 @@ import java.awt.image.BufferedImage;
  TODO:
  Thread Animations -- NAH
  MouseListener -- DONE
- Attack GUI
+ Attack GUI -- POSSIBLY
  Status Effects -- NAH
+Commenting
  */
 
 public class Main {
@@ -20,9 +21,12 @@ public class Main {
     }
 
     public Main() {
+	V.playerHealth.setLoc(310, 270);
+	V.oppHealth.setLoc(0, 120);
 	Init.initUI();
 	Init.titleScreen();
 
+	// Testing mode allows for skipping the initial sequence
 	if (!V.TESTING) {
 	    Init.playerInit();
 	} else {

@@ -1,9 +1,6 @@
 
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -14,35 +11,38 @@ public class Listener implements ActionListener {
     private String action;
 
     public Listener() {
+	// Adds both listeners to the frame
 	V.frame.addKeyListener(new KAdapter());
 	V.frame.addMouseListener(new MAdapter());
 	V.frame.setFocusable(true);
     }
 
+    // @override - Does nothing
     public final void actionPerformed(ActionEvent e) {
-	switch (action) {
-	    case "start":
-		System.out.println("START");
-		V.music.start();
-		break;
-	    case "stop":
-		System.out.println("STOP");
-		V.music.stop();
-		break;
-	}
+//	switch (action) {
+//	    case "start":
+//		System.out.println("START");
+//		V.music.start();
+//		break;
+//	    case "stop":
+//		System.out.println("STOP");
+//		V.music.stop();
+//		break;
+//	}
     }
 
     static void keyPressed(KeyEvent e) {
 	if (V.state >= Battle.TYPE && V.state <= Battle.RUN) {
 	    return;
 	}
-	Sprite whatToMove = V.player;
+	
+	Sprite whatToMove;
 	try {
-	    whatToMove = V.player;
+	    whatToMove = new Sprite("./src/Images/Transparent.png", false, 0, 0);
 	} catch (NullPointerException ex) {
-
+	    whatToMove = new Sprite("./src/Images/Transparent.png", false, 0, 0);
 	}
-	int moveDistance = 3;
+	int moveDistance = 1;
 
 	try {
 	    switch (e.getKeyCode()) {
@@ -74,37 +74,40 @@ public class Listener implements ActionListener {
     }
 
     static void keyReleased(KeyEvent e) {
-	Sprite whatToMove = V.player;
-	try {
-	    whatToMove = V.player;
-	} catch (NullPointerException ex) {
-
-	}
-	int moveDistance = 3;
-
-	try {
-	    switch (e.getKeyCode()) {
-		case KeyEvent.VK_LEFT: // 37
-		    whatToMove.setLoc(whatToMove.getX() - moveDistance, whatToMove.getY());
-		    break;
-		case KeyEvent.VK_RIGHT: // 39
-		    whatToMove.setLoc(whatToMove.getX() + moveDistance, whatToMove.getY());
-		    break;
-		case KeyEvent.VK_UP: // 38
-		    whatToMove.setLoc(whatToMove.getX(), whatToMove.getY() - moveDistance);
-		    break;
-		case KeyEvent.VK_DOWN: // 40
-		    whatToMove.setLoc(whatToMove.getX(), whatToMove.getY() + moveDistance);
-		    break;
-		case KeyEvent.VK_ENTER:
-		    V.enter = true;
-		    break;
-	    }
-	    V.frame.repaint();
-	} catch (NullPointerException ex) {
-	}
+//	Sprite whatToMove = V.player;
+//	try {
+//	    whatToMove = V.player;
+//	} catch (NullPointerException ex) {
+//
+//	}
+//	int moveDistance = 3;
+//
+//	try {
+//	    // Directional release causes a bit of movement, too
+//	    // This creates a more realistic movement
+//	    switch (e.getKeyCode()) {
+//		case KeyEvent.VK_LEFT: // 37
+//		    whatToMove.setLoc(whatToMove.getX() - moveDistance, whatToMove.getY());
+//		    break;
+//		case KeyEvent.VK_RIGHT: // 39
+//		    whatToMove.setLoc(whatToMove.getX() + moveDistance, whatToMove.getY());
+//		    break;
+//		case KeyEvent.VK_UP: // 38
+//		    whatToMove.setLoc(whatToMove.getX(), whatToMove.getY() - moveDistance);
+//		    break;
+//		case KeyEvent.VK_DOWN: // 40
+//		    whatToMove.setLoc(whatToMove.getX(), whatToMove.getY() + moveDistance);
+//		    break;
+//		case KeyEvent.VK_ENTER:
+//		    V.enter = true;
+//		    break;
+//	    }
+//	    V.frame.repaint();
+//	} catch (NullPointerException ex) {
+//	}
     }
     
+    // These are just buttons
     static void mouseClicked(MouseEvent e) {
 //	System.out.println(e.getX() + "," + e.getY());
 	if (V.state == Battle.TYPE) {
@@ -137,14 +140,13 @@ public class Listener implements ActionListener {
 	}
     }
 
+    // These two classes call the proper methods, allowing me to keep just one main class
     private class KAdapter extends KeyAdapter {
-
-	public void keyReleased(KeyEvent e) {
-	    Listener.keyReleased(e);
-	}
-
 	public void keyPressed(KeyEvent e) {
 	    Listener.keyPressed(e);
+	}
+	public void keyReleased(KeyEvent e) {
+	    Listener.keyReleased(e);
 	}
     }
 

@@ -1,17 +1,16 @@
 
-import java.awt.Color;
-import java.awt.Font;
-import javafx.scene.layout.Border;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public class Battle {
 
+    // These booleans are used in printing results
     private boolean crit = false, miss = false, notEff = false, superEff = false, att = false, def = false;
-    static int attackChoice;
+
+    static int attackChoice; // public because it is changed by Listener
     private boolean run = false;
     private boolean trainer;
 
+    // State values
     static final int OVERWORLD = 0;
     static final int STARTED = 1;
     static final int LOADING = 2;
@@ -31,49 +30,54 @@ public class Battle {
     }
 
     public Player run() {
+	// Initiate battle
 	V.musicState = Music.TRAINER_BATTLE;
 	V.music.start();
 	V.state = STARTED;
 	Pokemon playerCurr, oppCurr;
 
+	// Check if someone has lost of if the player has ran away
 	while (!V.player.checkLoss() && !V.opp.checkLoss() && !run) {
 	    System.out.println();
 
-	    ImagePanel.reset();
+	    V.panel.reset();
 	    V.frame.repaint();
 
+	    // Print health
 	    System.out.println(V.player.getName() + "'s " + V.player.getCurrent().getName() + ": " + V.player.getCurrent().getHealth() + "/" + V.player.getCurrent().getHP());
 	    System.out.println(V.opp.getName() + "'s " + V.opp.getCurrent().getName() + ": " + V.opp.getCurrent().getHealth() + "/" + V.opp.getCurrent().getHP());
 
 	    System.out.println();
 
+	    // Opponent's move is completely randomized and can be considered harder than the real game's intentionally terrible AI
 	    int oppMove = (int) (Math.random() * V.opp.getCurrent().getNumMoves());
 
-	    chooseType();
+	    chooseType(); // This methods sets the value of V.state
 	    attackChoice = -1;
 
 	    switch (V.state) {
 		case ATTACK:
-		    int playerSpd = V.player.getCurrent().getSpd(),
-		     oppSpd = V.opp.getCurrent().getSpd();
+		    int playerSpd = V.player.getCurrent().getSpd(), oppSpd = V.opp.getCurrent().getSpd();
 		    double rand = Math.random();
 		    moveChoice();
-		    if (attackChoice == Integer.MAX_VALUE) {
+		    
+		    if (attackChoice == Integer.MAX_VALUE) { // Check if back button
 			break;
 		    }
 
-		    if (playerSpd > oppSpd || ((playerSpd == oppSpd) && rand <= 0.5)) {
+		    // Player goes first
+		    if (playerSpd > oppSpd || ((playerSpd == oppSpd) && Math.random() <= 0.5)) {
 			int userAttack = (int) attack(V.player, V.opp, attackChoice);
 			if (V.opp.getCurrent().checkFainted()) {
 			    processFaint(V.opp);
-			} else {
+			} else { // Only gets to move if not fainted
 			    int oppAttack = (int) attack(V.opp, V.player, oppMove);
 			    if (V.player.getCurrent().checkFainted()) {
 				processFaint(V.player);
 			    }
 
 			}
-		    } else {
+		    } else { // Opponent goes first
 			int oppAttack = (int) attack(V.opp, V.player, oppMove);
 			if (V.player.getCurrent().checkFainted()) {
 			    processFaint(V.player);
@@ -95,7 +99,7 @@ public class Battle {
 		case POKEMON:
 		    if (V.player.setCurrent(switchChoice())) {
 			System.out.println(V.player.getName() + " sent out " + V.player.getCurrent().getName());
-			ImagePanel.reset();
+			V.panel.reset();
 			V.frame.repaint();
 			int oppAttack = (int) attack(V.opp, V.player, oppMove);
 			if (V.player.getCurrent().checkFainted()) {
@@ -132,7 +136,7 @@ public class Battle {
 	    }
 	}
 
-	ImagePanel.reset();
+	V.panel.reset();
 	V.frame.repaint();
 
 	V.state = OVERWORLD;
@@ -238,7 +242,6 @@ public class Battle {
 //	    }
 //	}
 //	V.panel.reset();
-
 	while (attackChoice == -1) {
 	    Timer.wait(100);
 	}
@@ -352,7 +355,7 @@ public class Battle {
 
 	System.out.println(p.getName() + "'s " + p.getCurrent().getName() + " fainted!");
 	p.nextPokemon();
-	ImagePanel.reset();
+	V.panel.reset();
 	V.frame.repaint();
 	if (!p.checkLoss()) {
 	    System.out.println(p.getName() + " sends out " + p.getCurrent().getName() + "!");
@@ -400,8 +403,8 @@ public class Battle {
 	V.panel.reset();
 	V.panel.repaint();
     }
-    
+
     private void hpBars() {
-	
+
     }
 }

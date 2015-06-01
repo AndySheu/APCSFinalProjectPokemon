@@ -2,14 +2,16 @@
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class V { // V stands for Variables
+    // This class is comprised of a series of random variables that are considered important enough / commmonly used enough to warrant a space here
 
-    static final String VERSION = "alpha 5.0.0";
+    static final String VERSION = "alpha 6.0.0";
     static final int NUM_POKE = 649;
-    static final boolean TESTING = true;
+    static final boolean TESTING = false;
 
     static JFrame frame;
     static ImagePanel panel;
@@ -27,6 +29,8 @@ public class V { // V stands for Variables
     
     static Player player;
     static Player opp;
+    static Sprite playerHealth = new Sprite("./src/Images/Battle Parts/User HP Bar White.png", false, 0, 0);
+    static Sprite oppHealth = new Sprite("./src/Images/Battle Parts/Opp HP Bar White.png", false, 0, 0);
     
     static final int SHINY_RATE = 20;
 
@@ -37,9 +41,9 @@ public class V { // V stands for Variables
     static final int MAX_PANEL_WIDTH = 1440;
     
     static final int PLAYER_X = 70;
-    static final int PLAYER_Y = 200;
+    static final int PLAYER_Y = 205;
     static final int OPP_X = 325;
-    static final int OPP_Y = 75;
+    static final int OPP_Y = 85;
 
     static boolean enter = false;
     static int state = Battle.OVERWORLD;

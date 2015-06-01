@@ -10,7 +10,7 @@ public class Player extends Sprite {
     private Pokemon current;
 
     public Player(String name, String trainerClass, boolean player) {
-	super(name, 0, 0);
+	super(name, false, 0, 0);
 	this.name = name;
 	img = new ImageIcon("./src/Images/Trainers/" + trainerClass + ".png").getImage();
 	isPlayer = player;
