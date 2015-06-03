@@ -24,11 +24,15 @@ public class Battle {
     static final int FINISHED = 10;
     static final int MAGIC_KILL = 17;
 
+    // Pre: boolean trainer
+    // Post: Constructs a Battle object
     public Battle(boolean trainer) {
 	V.state = STARTED;
 	this.trainer = trainer;
     }
 
+    // Pre: None
+    // Post: Starts the music, repaints the panel, and runs the battle between two players. It returns the winning player
     public Player run() {
 	// Initiate battle
 	V.musicState = Music.TRAINER_BATTLE;
@@ -166,6 +170,8 @@ public class Battle {
 	return winner;
     }
 
+    // Pre: None
+    // Post: Changes the image displayed on the panel and allows the user to choose to attack, switch Pokemon, or access bag
     private void chooseType() {
 	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Type.png").getImage());
 	System.out.println("Please select a turn type.");
@@ -176,12 +182,16 @@ public class Battle {
 	}
     }
 
+    // Pre: None
+    // Post: Changes the image displayed on the panel and prints out that the bag does not contain any items
     private void bagChoice() {
 	V.state = ITEM;
 	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
 	System.out.println("Oh. You don't have any items!");
     }
 
+    // Pre: None
+    // Post: Changes the image displayed on the panel and lets the user switch its player's current Pokemon to a different Pokemon in the player's party
     private int switchChoice() {
 	V.state = POKEMON;
 	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
@@ -215,6 +225,8 @@ public class Battle {
 	return -1;
     }
 
+    // Pre: None
+    // Post: Changes the image displayed on the panel and allows the user to choose which move its player's Pokemon performs
     private void moveChoice() {
 	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Attack.png").getImage());
 	System.out.println("Please select a move.");
@@ -271,6 +283,8 @@ public class Battle {
 //	return moveChoice();
     }
 
+    // Pre: Player p, Player o, int attackIndex
+    // Post: Changes the image displayed on the panel and calculates and returns a double that represents the damage a move does to a Pokemon
     private double attack(Player p, Player o, int attackIndex) {
 	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
 	V.state = LOADING;
@@ -350,6 +364,8 @@ public class Battle {
 	return damage;
     }
 
+    // Pre: Player p
+    // Post: Makes the next Pokemon in player's party the current Pokemon and resets the panel and repaints the frame
     private void processFaint(Player p) {
 	V.state = LOADING;
 
@@ -362,6 +378,8 @@ public class Battle {
 	}
     }
 
+    // Pre: Player p, Player notP
+    // Post: Prints out descriptions about what is occurring
     private void printResults(Player p, Player notP) {
 	V.state = PRINTING;
 	if (miss) {
@@ -390,6 +408,8 @@ public class Battle {
 	def = false;
     }
 
+    // Pre: Pokemon p
+    // Post: Resets and repaints the panel causing the Pokemon image to "flash"
     private void flashAnimation(Pokemon p) {
 	V.panel.flash(p);
 	V.panel.repaint();
