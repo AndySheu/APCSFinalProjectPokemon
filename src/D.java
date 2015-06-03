@@ -78,6 +78,8 @@ public class D { // D stands for Data
     static final int SPD_UP = 5;
     static final int SPD_DOWN = 6;
 
+    // Pre: None
+    // Post: Creates all the moves and fills the stats, types, and moves for each Pokemon
     static void fill() {
 	for (int i = 0; i <= V.NUM_POKE; i++) {
 	    stats.add(new int[6]);
@@ -134,46 +136,68 @@ public class D { // D stands for Data
 	moveList[WITHDRAW] = new Object[]{"WITHDRAW", new Integer(0), new Integer(100), new Integer(WATER), new Integer(DEF_UP)};
     }
 
+    // Pre: int moveType, int oppType
+    // Post: Returns a double that is the effectiveness of the player's current Pokemon's attacks on the opponent's current Pokemon
     static double getEffectiveness(int moveType, int oppType) {
 	return chart[moveType][oppType];
     }
 
+    // Pre: int moveType, int oppType1, int oppType2
+    // Post: Returns a double that is the effectiveness of the player's current Pokemon's attacks on the opponent's current Pokemon
     static double getEffectiveness(int moveType, int oppType1, int oppType2) {
 	return getEffectiveness(moveType, oppType1) * getEffectiveness(moveType, oppType2);
     }
 
+    // Pre: int pokemon
+    // Post: Returns an array of ints that contains the stats for the Pokemon given by index pokemon
     static int[] getStats(int pokemon) {
 	return stats.get(pokemon);
     }
-
+    
+    // Pre: int pokemon
+    // Post: Returns an array of ints that contains the indexes of Moves for the Pokemon given by index pokemon
     static int[] getMoves(int pokemon) {
 	return moves[pokemon];
     }
 
+    // Pre: int pokemon
+    // Post: Returns an array of ints that contains the indexes of Types for the Pokemon given by index pokemon
     static int[] getTypes(int pokemon) {
 	return types[pokemon];
     }
 
+    // Pre: int x
+    // Post: Returns a String that is the name of a Move given by int x, which is the index of the Move
     static String getNameFromIndex(int x) {
 	return (String) moveList[x][0];
     }
 
+    // Pre: int base
+    // Post: Returns a String that is the name of a Move given by int base, which is the index of the Move
     static String getName(int base) {
 	return (String) moveList[base][0];
     }
 
+    // Pre: int base
+    // Post: Returns an Integer that is the power of a Move given int base, which is the index of the Move
     static int getPower(int base) {
 	return (Integer) moveList[base][1];
     }
 
+    // Pre: int base
+    // Post: Returns an int that is the accuracy of a Move given int base, which is the index of the Move
     static int getAcc(int base) {
 	return (Integer) moveList[base][2];
     }
 
+    // Pre: int base
+    // Post: Returns an int that is the index of the Type of a Move given by int base, which is the index of the Move
     static int getType(int base) {
 	return (Integer) moveList[base][3];
     }
 
+    // Pre: int base
+    // Post: Returns an int that is the index of the effect of a Move given by int base, which is the index of the Move
     static int getEffect(int base) {
 	try {
 	    return (Integer) moveList[base][4];
