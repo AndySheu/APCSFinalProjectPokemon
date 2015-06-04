@@ -21,8 +21,8 @@ public class Main {
     }
 
     public Main() {
-	V.playerHealth.setLoc(310, 270);
-	V.oppHealth.setLoc(0, 120);
+	V.playerHealthBar.setLoc(310, 270);
+	V.oppHealthBar.setLoc(0, 120);
 	Init.initUI();
 	Init.titleScreen();
 

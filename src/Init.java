@@ -53,7 +53,7 @@ public class Init {
 	V.player = new Player(V.keys.nextLine(), "N", true);
 	System.out.print("What is your opponent\'s name? ");
 	V.opp = new Player(V.keys.nextLine(), "Pikachu", false);
-	Password.input();
+//	Password.input(); REMOVED
 
 	V.player.fillTeam((int) (Math.random() * 6 + 1), true);
 	V.opp.fillTeam((int) (Math.random() * 6 + 1), false);
@@ -91,8 +91,8 @@ public class Init {
     }
 
     static void playerAutoInit() {
-	V.player = new Player("N", "N", true);
-	V.opp = new Player("Pikachu", "Pikachu", false);
+	V.player = new Player("Player", "N", true);
+	V.opp = new Player("Opponent", "Pikachu", false);
 
 	V.player.fillTeam((int) (Math.random() * 6 + 1), true);
 	V.opp.fillTeam((int) (Math.random() * 6 + 1), false);

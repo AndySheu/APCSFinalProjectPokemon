@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 public class V { // V stands for Variables
     // This class is comprised of a series of random variables that are considered important enough / commmonly used enough to warrant a space here
 
-    static final String VERSION = "alpha 6.0.0";
+    static final String VERSION = "alpha 7";
     static final int NUM_POKE = 649;
     static final boolean TESTING = false;
 
@@ -29,8 +29,9 @@ public class V { // V stands for Variables
     
     static Player player;
     static Player opp;
-    static Sprite playerHealth = new Sprite("./src/Images/Battle Parts/User HP Bar White.png", false, 0, 0);
-    static Sprite oppHealth = new Sprite("./src/Images/Battle Parts/Opp HP Bar White.png", false, 0, 0);
+    static Sprite playerHealthBar = new Sprite("./src/Images/Battle Parts/User HP Bar White.png", false, 0, 0);
+    static Sprite oppHealthBar = new Sprite("./src/Images/Battle Parts/Opp HP Bar White.png", false, 0, 0);
+    static Sprite green = new Sprite("./src/Images/Battle Parts/Green Bar.png", false, 0, 0);
     
     static final int SHINY_RATE = 20;
 

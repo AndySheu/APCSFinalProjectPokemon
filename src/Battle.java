@@ -16,12 +16,13 @@ public class Battle {
     static final int LOADING = 2;
     static final int TYPE = 3;
     static final int ATTACK = 4;
-    static final int ITEM = 5;
-    static final int POKEMON = 6;
-    static final int RUN = 7;
-    static final int BACK = 8;
-    static final int PRINTING = 9;
-    static final int FINISHED = 10;
+    static final int BATTLE_LOADING = 5;
+    static final int ITEM = 6;
+    static final int POKEMON = 7;
+    static final int RUN = 8;
+    static final int BACK = 9;
+    static final int PRINTING = 10;
+    static final int FINISHED = 11;
     static final int MAGIC_KILL = 17;
 
     public Battle(boolean trainer) {
@@ -172,7 +173,7 @@ public class Battle {
 
 	V.state = TYPE;
 	while (V.state == TYPE) {
-	    Timer.wait(100);
+	    Timer.wait(10);
 	}
     }
 
@@ -243,7 +244,7 @@ public class Battle {
 //	}
 //	V.panel.reset();
 	while (attackChoice == -1) {
-	    Timer.wait(100);
+	    Timer.wait(10);
 	}
 
 //	System.out.print("Please choose your move (");
@@ -273,7 +274,7 @@ public class Battle {
 
     private double attack(Player p, Player o, int attackIndex) {
 	V.panel.setImage(new ImageIcon("./src/Images/Battle Backgrounds/Finale Loading.png").getImage());
-	V.state = LOADING;
+	V.state = BATTLE_LOADING;
 
 	int attack = p.getCurrent().getMoves()[attackIndex];
 
@@ -351,7 +352,7 @@ public class Battle {
     }
 
     private void processFaint(Player p) {
-	V.state = LOADING;
+	V.state = BATTLE_LOADING;
 
 	System.out.println(p.getName() + "'s " + p.getCurrent().getName() + " fainted!");
 	p.nextPokemon();
@@ -402,9 +403,6 @@ public class Battle {
 	Timer.wait(500);
 	V.panel.reset();
 	V.panel.repaint();
-    }
-
-    private void hpBars() {
-
+	Timer.wait(500);
     }
 }

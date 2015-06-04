@@ -1,5 +1,6 @@
 
 import java.awt.Image;
+import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
 
 public class Sprite {
@@ -28,7 +29,15 @@ public class Sprite {
     double getY() {
 	return y;
     }
+    
+    double getHeight() {
+	return image.getHeight(null);
+    }
 
+    double getWidth() {
+	return image.getWidth(null);
+    }
+    
     void setLoc(double x, double y) {
 	this.x = x;
 	this.y = y;
@@ -44,5 +53,9 @@ public class Sprite {
     
     void setLargeImage(Image img) {
 	image = img.getScaledInstance(250, 250, 1);
+    }
+    
+    Image getScaledInstance(int width, int height) {
+	return image.getScaledInstance(width, height, 1);
     }
 }

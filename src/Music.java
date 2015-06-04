@@ -21,7 +21,8 @@ public class Music {
     
     static final String PALLET_TOWN = "./src/Music/FireRed/Pallet Town.wav";
     static final String ROUTE_1 = "./src/Music/FireRed/Route 1.wav";
-    static final String TRAINER_BATTLE = "./src/Music/FireRed/Trainer Battle.wav";
+//    static final String TRAINER_BATTLE = "./src/Music/FireRed/Trainer Battle.wav";
+    static final String TRAINER_BATTLE = "./src/Music/Black/Wild Pokemon Battle.wav"; // Haha. I like this music more.
     static final String TRAINER_VICTORY = "./src/Music/FireRed/Trainer Victory.wav";
     static final String WILD_BATTLE = "./src/Music/FireRed/Wild Battle.wav";
     static final String WILD_VICTORY = "./src/Music/FireRed/Wild Victory.wav";
