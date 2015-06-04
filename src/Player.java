@@ -9,6 +9,8 @@ public class Player extends Sprite {
     private boolean isPlayer;
     private Pokemon current;
 
+    // Pre: String name, String trainerClass, boolean player
+    // Post: Creates a Player Object and initializes the private variables
     public Player(String name, String trainerClass, boolean player) {
 	super(name, false, 0, 0);
 	this.name = name;
@@ -17,18 +19,26 @@ public class Player extends Sprite {
 	current = V.oppPokeParty[0];
     }
 
+    // Pre: None
+    // Post: Returns String name
     String getName() {
 	return name;
     }
 
+    // Pre: String name
+    // Post: Sets this.name to String name
     void setName(String name) {
 	this.name = name;
     }
-
+    
+    // Pre: None
+    // Post: Returns Image img
     Image getImage() {
 	return img;
     }
 
+    // Pre: None
+    // Post: Returns an array of Pokemon that belongs to the Player
     Pokemon[] getParty() {
 	if (isPlayer) {
 	    return V.playerPokeParty;
@@ -36,6 +46,8 @@ public class Player extends Sprite {
 	return V.oppPokeParty;
     }
 
+    // Pre: None
+    // Post: Returns an int that is the number of Pokemon in the Player's party
     int getNumPokemon() {
 	int i = 0;
 	for (Pokemon p : getParty()) {
@@ -49,6 +61,8 @@ public class Player extends Sprite {
 	return i;
     }
 
+    // Pre: int x
+    // Post: Returns a boolean true if the Pokemon in the Player's party given by int x is set as the current Pokemon, false if otherwise
     boolean setCurrent(int x) {
 	for (int i = 0; i < getNumPokemon(); i++) {
 	    Pokemon p = getParty()[i];
@@ -61,10 +75,14 @@ public class Player extends Sprite {
 	return false;
     }
 
+    // Pre: None
+    // Post: Returns Pokemon current
     Pokemon getCurrent() {
 	return current;
     }
 
+    // Pre: None
+    // Post: Returns a boolean true if the next Pokemon in the Player's party is set as the current Pokemon, false if otherwise
     boolean nextPokemon() {
 	for (int i = 0; i < getNumPokemon(); i++) {
 	    Pokemon p = getParty()[i];
@@ -76,6 +94,8 @@ public class Player extends Sprite {
 	return false;
     }
 
+    // Pre: None
+    // Post: Returns a boolean true if all the Pokemon in the Player's party have fainted, false if otherwise
     boolean checkLoss() {
 	for (int i = 0; i < getNumPokemon(); i++) {
 	    Pokemon p = getParty()[i];
@@ -86,10 +106,14 @@ public class Player extends Sprite {
 	return true;
     }
 
+    // Pre: None
+    // Post: Returns a boolean true if the number of Pokemon in the Player's party equals 6, false if otherwise
     boolean isFullParty() {
 	return getNumPokemon() == 6;
     }
 
+    // Pre: Pokemon p
+    // Post: Returns a boolean true if Pokemon p is added to either Player's party, false if otherwise
     boolean addPokemon(Pokemon p) {
 	if (isPlayer && !isFullParty()) {
 	    V.playerPokeParty[getNumPokemon()] = p;
@@ -101,6 +125,8 @@ public class Player extends Sprite {
 	return false;
     }
 
+    // Pre: Pokemon n
+    // Post: Returns a boolean true if the Player has Pokemon n in his or her party, false if otherwise
     boolean has(Pokemon n) {
 	for (int i = 0; i < getNumPokemon(); i++) {
 	    Pokemon p = getParty()[i];
@@ -111,6 +137,8 @@ public class Player extends Sprite {
 	return false;
     }
 
+    // Pre: int n, boolean player
+    // Post: Fills the Player's party with Pokemon
     void fillTeam(int n, boolean player) {
 
 	if (getNumPokemon() < 6) {
@@ -127,6 +155,8 @@ public class Player extends Sprite {
 	}
     }
 
+    // Pre: None
+    // Post: Empties both Player's parties
     static void emptyTeam() {
 	V.playerPokeParty = new Pokemon[6];
 	V.oppPokeParty = new Pokemon[6];
