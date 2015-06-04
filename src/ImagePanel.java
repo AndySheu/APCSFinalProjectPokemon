@@ -16,11 +16,15 @@ public class ImagePanel extends JPanel {
 
     private Image background;
 
+    // Pre: String img
+    // Post: Constructs an ImagePanel object using String img
     //Constructs a new ImagePanel with the background image specified by the file path given
     public ImagePanel(String img) {
 	this(new ImageIcon(img).getImage());	//The easiest way to make images from file paths in Swing
     }
 
+    // Pre: Image img
+    // Post: Constructs an ImagePanel object using Image img
     public ImagePanel(Image img) {
 	background = img;
 
@@ -33,15 +37,21 @@ public class ImagePanel extends JPanel {
 	setSize(size);
     }
 
+    // Pre: Image img
+    // Post: Sets the background image to Image img and calls repaint()
     void setImage(Image img) {
 	background = img;
 	repaint();
     }
 
+    // Pre: None
+    // Post: Clears the ArrayList of Sprites in class V
     void clear() {
 	V.sprites = new ArrayList<Sprite>();
     }
 
+    // Pre: None
+    // Post: Clears the ArrayList of Sprites in class V and then fills it
     public void reset() {
 	V.sprites = new ArrayList<Sprite>();
 //	V.sprites.add(V.player);
@@ -57,6 +67,8 @@ public class ImagePanel extends JPanel {
 	}
     }
 
+    // Pre: Sprite s
+    // Post: Removes Sprite s from the ArrayList of Sprites in class V
     static void flash(Sprite s) {
 	ArrayList<Sprite> temp = new ArrayList<Sprite>();
 	for (Sprite sp : V.sprites) {
@@ -67,6 +79,8 @@ public class ImagePanel extends JPanel {
 	V.sprites.remove(s);
     }
 
+    // Pre: Graphics g
+    // Post: Calls super.paint(g) and draws Images
     public void paint(Graphics g) {
 	super.paint(g);
 
@@ -108,6 +122,8 @@ public class ImagePanel extends JPanel {
 	g.dispose();
     }
 
+    // Pre: Graphics g
+    // Post: Draws the background and the Sprites in the ArrayList of Sprites in class V
     public void paintComponent(Graphics g) {
 	g.drawImage(background, 0, 0, null);
 	for (Sprite spr : V.sprites) {
