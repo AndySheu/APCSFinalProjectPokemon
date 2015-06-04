@@ -11,6 +11,8 @@ public class P { // Pokemon
     static final int ARCEUS = 493;
     static final int VICTINI = 494;
 
+    // Pre: int x
+    // Post: Returns a String that contains the name of the Pokemon which int x refers to
     static String getName(int x) {
 	switch (x) {
 	    case BULBASAUR:
