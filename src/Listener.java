@@ -10,6 +10,8 @@ public class Listener implements ActionListener {
 
     private String action;
 
+    // Pre: None
+    // Post: Creates a Listener object
     public Listener() {
 	// Adds both listeners to the frame
 	V.frame.addKeyListener(new KAdapter());
@@ -31,6 +33,8 @@ public class Listener implements ActionListener {
 //	}
     }
 
+    // Pre: KeyEvent e
+    // Post: Receives keyboard input from the user
     static void keyPressed(KeyEvent e) {
 	if (V.state >= Battle.TYPE && V.state <= Battle.RUN) {
 	    return;
@@ -107,6 +111,8 @@ public class Listener implements ActionListener {
 //	}
     }
     
+    // Pre: MouseEvent e
+    // Post: Receives mouse input from the user
     // These are just buttons
     static void mouseClicked(MouseEvent e) {
 //	System.out.println(e.getX() + "," + e.getY());
@@ -140,18 +146,23 @@ public class Listener implements ActionListener {
 	}
     }
 
-    // These two classes call the proper methods, allowing me to keep just one main class
+    // These two classes call the proper methods, allowing us to keep just one main class
     private class KAdapter extends KeyAdapter {
+	// Pre: KeyEvent e
+	// Post: Calls keyPressed(e) in class Listener
 	public void keyPressed(KeyEvent e) {
 	    Listener.keyPressed(e);
 	}
+	// Pre: KeyEvent e
+	// Post: Calls keyReleased(e) in class Listener
 	public void keyReleased(KeyEvent e) {
 	    Listener.keyReleased(e);
 	}
     }
 
     private class MAdapter extends MouseAdapter {
-
+        // Pre: MouseEvent e
+        // Post: Calls mouseClicked(e) in class Listener
 	public void mouseClicked(MouseEvent e) {
 	    Listener.mouseClicked(e);
 	}
