@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 
 public class Init {
     
+    // Pre: None
+    // Post: Creates the panel, frame, and starts the music
     public static void initUI() {
 	D.fill();
 	V.panel = new ImagePanel("./src/Images/Title Screen.png");
@@ -24,6 +26,8 @@ public class Init {
 	V.frame.repaint();
     }
 
+    // Pre: None
+    // Post: After the user enters the "enter" key, the frame is created 
     public static void titleScreen() {
 	
 	V.panel.reset();
@@ -44,6 +48,8 @@ public class Init {
 	V.frame.repaint();
     }
 
+    // Pre: None
+    // Post: Receives user input and fills both player's party
     static void playerInit() {
 	V.player = null;
 	V.opp = null;
@@ -90,6 +96,8 @@ public class Init {
 	V.frame.repaint();
     }
 
+    // Pre: None
+    // Post: Creates two Players and fills both player's party
     static void playerAutoInit() {
 	V.player = new Player("N", "N", true);
 	V.opp = new Player("Pikachu", "Pikachu", false);
@@ -110,6 +118,8 @@ public class Init {
 	V.frame.repaint();
     }
 
+    // Pre: None
+    // Post: Calls run() in Battle and receives input from the user about whether or not the user wants to continue battling
     static void startBattle() {
 	new Battle(false).run();
 	System.out.print("Keep going? (true/false): ");
