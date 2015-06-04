@@ -20,6 +20,8 @@ public class Main {
 	new Main();
     }
 
+    // Pre: None
+    // Post: Constructs a Main object and calls methods from the class Init
     public Main() {
 	V.playerHealth.setLoc(310, 270);
 	V.oppHealth.setLoc(0, 120);
