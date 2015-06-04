@@ -27,13 +27,19 @@ public class Music {
     static final String WILD_VICTORY = "./src/Music/FireRed/Wild Victory.wav";
     static final String DEFAULT = PALLET_TOWN;
     
+    // Pre: None
+    // Post: Create a Music object
     public Music() {
     }
 
+    // Pre: None
+    // Post: Returns a boolean true if music is playing, false if otherwise
     private boolean isPlaying() {
 	return isPlaying;
     }
 
+    // Pre: None
+    // Post: Resets AudioStream BGM
     private void reset() {
 	try {
 	    BGM = new AudioStream(new FileInputStream(V.musicState));
@@ -46,6 +52,8 @@ public class Music {
 	}
     }
 
+    // Pre: None
+    // Post: Calls stop(), reset(), and then starts the audio
     public void start() {
 	stop();
 	reset();
@@ -56,6 +64,8 @@ public class Music {
 
     }
 
+    // Pre: None
+    // Post: Stops the audio
     public void stop() {
 	isPlaying = false;
 	stopped = true;
